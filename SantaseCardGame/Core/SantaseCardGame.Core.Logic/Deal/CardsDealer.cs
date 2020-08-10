@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.Core.Logic.Dealing
+﻿namespace SantaseCardGame.Core.Logic.Deal
 {
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;

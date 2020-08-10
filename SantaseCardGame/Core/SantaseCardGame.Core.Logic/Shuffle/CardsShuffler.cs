@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.Core.Logic.Shuffling
+﻿namespace SantaseCardGame.Core.Logic.Shuffle
 {
     using System;
     using System.Collections.Generic;

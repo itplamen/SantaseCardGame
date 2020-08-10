@@ -8,4 +8,8 @@
     <ProjectReference Include="..\..\Data\SantaseCardGame.Data.Models\SantaseCardGame.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Play\" />
+  </ItemGroup>
+
 </Project>
