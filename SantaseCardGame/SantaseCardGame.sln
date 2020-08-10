@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{ED23447B-C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Core.Logic", "Core\SantaseCardGame.Core.Logic\SantaseCardGame.Core.Logic.csproj", "{FACF429B-0EA5-4F1B-B5E2-5BA45BFCCCA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Data", "Data\SantaseCardGame.Data\SantaseCardGame.Data.csproj", "{16E446BF-796A-44F6-AA74-EAE2026A0DFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{FACF429B-0EA5-4F1B-B5E2-5BA45BFCCCA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FACF429B-0EA5-4F1B-B5E2-5BA45BFCCCA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FACF429B-0EA5-4F1B-B5E2-5BA45BFCCCA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16E446BF-796A-44F6-AA74-EAE2026A0DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16E446BF-796A-44F6-AA74-EAE2026A0DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16E446BF-796A-44F6-AA74-EAE2026A0DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16E446BF-796A-44F6-AA74-EAE2026A0DFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EBB3C32F-A496-41B3-BE57-33A0475E5128} = {B0182F38-0046-4996-8B17-2B281C437DD6}
 		{FACF429B-0EA5-4F1B-B5E2-5BA45BFCCCA7} = {ED23447B-C47B-4A89-8ABD-22C8761E4C19}
+		{16E446BF-796A-44F6-AA74-EAE2026A0DFE} = {B0182F38-0046-4996-8B17-2B281C437DD6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {718F9977-F97A-4D25-B236-CCAAD373E0EA}
