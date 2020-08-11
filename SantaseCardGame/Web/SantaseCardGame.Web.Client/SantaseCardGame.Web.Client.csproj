@@ -12,4 +12,10 @@
     <PackageReference Include="System.Net.Http.Json" Version="3.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\SantaseCardGame.Core.Logic\SantaseCardGame.Core.Logic.csproj" />
+    <ProjectReference Include="..\..\Data\SantaseCardGame.Data.Models\SantaseCardGame.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\SantaseCardGame.Data\SantaseCardGame.Data.csproj" />
+  </ItemGroup>
+
 </Project>
