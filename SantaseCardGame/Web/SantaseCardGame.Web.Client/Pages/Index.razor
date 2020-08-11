@@ -1,7 +1,19 @@
 ﻿@page "/"
+@inject IGameManager gameManager;
 
-<h1>Hello, world!</h1>
+@if (Game != null)
+{
+    <PlayerComponent Player="Game.FirstPlayer"></PlayerComponent>
+    <DeckComponent Deck="Game.Deck"></DeckComponent>
+    <PlayerComponent Player="Game.SecondPlayer"></PlayerComponent>
+}
 
-Welcome to your new app.
+@code {
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    public Game Game { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Game = gameManager.StartGame("Plamen");
+    }
+}

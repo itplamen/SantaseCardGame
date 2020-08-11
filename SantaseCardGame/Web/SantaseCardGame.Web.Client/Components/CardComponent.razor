@@ -1,0 +1,16 @@
+﻿<img src="/images/cards/@string.Concat(Card.Name,".png")" 
+     alt="@Card.Name" @onclick="Play" 
+     class="card-component @(IsTrumpCard ? "trump-card" : string.Empty)" />
+
+@code {
+    [Parameter]
+    public Card Card { get; set; }
+    
+    [Parameter]
+    public bool IsTrumpCard { get; set; }
+
+    private void Play()
+    {
+
+    }
+}

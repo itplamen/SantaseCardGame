@@ -1,0 +1,11 @@
+﻿<h3>@Player.Username</h3>
+
+@foreach (var card in Player.Cards)
+{
+    <CardComponent Card="card"></CardComponent>
+}
+
+@code {
+    [Parameter]
+    public Player Player { get; set; }
+}
