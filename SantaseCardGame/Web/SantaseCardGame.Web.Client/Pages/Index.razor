@@ -1,10 +1,15 @@
 ﻿@page "/"
-@inject IGameManager gameManager;
+
+@inject IJSRuntime JsRuntime;
+@inject TrickState TrickState;
+@inject ITrickWinner TrickWinner;
+@inject IGameManager GameManager;
 
 @if (Game != null)
 {
     <PlayerComponent Player="Game.FirstPlayer"></PlayerComponent>
     <DeckComponent Deck="Game.Deck"></DeckComponent>
+    <div id="TrickCards"></div>
     <PlayerComponent Player="Game.SecondPlayer"></PlayerComponent>
 }
 
@@ -14,6 +19,30 @@
 
     protected override void OnInitialized()
     {
-        Game = gameManager.StartGame("Plamen");
+        TrickState.OnPlayTrick += () => PlayTrick();
+
+        Game = GameManager.StartGame("Plamen");
+    }
+
+    private async void PlayTrick()
+    {
+        IEnumerable<Card> trickCards = TrickState.Cards;
+        Hand hand = new Hand() { Cards = trickCards.ToList() };
+        PlayerPosition winnerPosition = TrickWinner.GetWinner(trickCards, Game.Deck.TrumpCard.Suit);
+
+        if (winnerPosition == PlayerPosition.First)
+        {
+            Game.FirstPlayer.Hands.Add(hand);
+        }
+        else
+        {
+            Game.SecondPlayer.Hands.Add(hand);
+        }
+
+        await Task.Delay(1500);
+
+        await JsRuntime.InvokeVoidAsync("clearTrick");
+
+        TrickState.Clear();
     }
 }

@@ -15,3 +15,43 @@
 .deck-component {
     position: relative;
 }
+
+.card-component, .trump-card, .deck-component {
+    width: 110px;
+}
+
+.player-cards {
+    text-align: center;
+    position: relative;
+}
+
+.player-cards:first-of-type {
+    top: -50px;
+}
+
+.player-cards:not(:first-of-type) {
+    top: 50px;
+}
+
+.player-cards:not(:first-of-type) .card-component:hover {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+}
+
+.play-first-card {
+    width: 110px;
+    height: 150px;
+    position: absolute;
+    top: 230px;
+    left: 840px;
+    text-align: center;
+}
+
+.play-second-card {
+    width: 110px;
+    height: 150px;
+    position: absolute;
+    top: 380px;
+    left: 840px;
+    text-align: center;
+}
