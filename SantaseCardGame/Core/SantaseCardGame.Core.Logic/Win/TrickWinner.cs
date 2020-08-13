@@ -1,12 +1,18 @@
 ﻿namespace SantaseCardGame.Core.Logic.Win
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
 
     public class TrickWinner : ITrickWinner
     {
-        public PlayerPosition GetWinner(Card firstPlayerCard, Card secondPlayerCard, CardSuit trumpSuit)
+        public PlayerPosition GetWinner(IEnumerable<Card> trickCards, CardSuit trumpSuit)
         {
+            Card firstPlayerCard = trickCards.First();
+            Card secondPlayerCard = trickCards.Skip(1).First();
+
             if (firstPlayerCard.Suit == secondPlayerCard.Suit)
             {
                 return firstPlayerCard.Type > secondPlayerCard.Type ? PlayerPosition.First : PlayerPosition.Second;

@@ -11,8 +11,10 @@ namespace SantaseCardGame.Web.Client
     using SantaseCardGame.Core.Logic.Deal;
     using SantaseCardGame.Core.Logic.Play;
     using SantaseCardGame.Core.Logic.Shuffle;
+    using SantaseCardGame.Core.Logic.Win;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Providers;
+    using SantaseCardGame.Web.Client.Infrastructure;
 
     public class Program
     {
@@ -23,6 +25,8 @@ namespace SantaseCardGame.Web.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSingleton<ICardsProvider, CardsProvider>();
+            builder.Services.AddSingleton<TrickState>();
+            builder.Services.AddTransient<ITrickWinner, TrickWinner>();
             builder.Services.AddTransient<ICardsShuffler, CardsShuffler>();
             builder.Services.AddTransient<ICardsDealer, CardsDealer>();
             builder.Services.AddTransient<IGameManager, GameManager>();

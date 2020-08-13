@@ -1,9 +1,11 @@
 ﻿namespace SantaseCardGame.Core.Logic.Contracts
 {
+    using System.Collections.Generic;
+
     using SantaseCardGame.Data.Models;
 
     public interface ITrickWinner
     {
-        PlayerPosition GetWinner(Card firstPlayerCard, Card secondPlayerCard, CardSuit trumpSuit);
+        PlayerPosition GetWinner(IEnumerable<Card> trickCards, CardSuit trumpSuit);
     }
 }
