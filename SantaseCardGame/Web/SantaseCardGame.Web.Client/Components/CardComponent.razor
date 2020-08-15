@@ -1,10 +1,7 @@
-﻿@inject IJSRuntime JsRuntime;
-@inject TrickState TrickState;
-
-<img src="/images/cards/@string.Concat(Card.Name,".png")"
+﻿<img src="/images/cards/@string.Concat(Card.Name,".png")"
      id="@Card.Name"
      alt="@Card.Name" 
-     @onclick="Play"
+     @onclick="@(() => OnClick.InvokeAsync(Card))"
      class="card-component @(IsTrumpCard ? "trump-card" : string.Empty)" />
 
 @code {
@@ -12,12 +9,8 @@
     public Card Card { get; set; }
 
     [Parameter]
-    public bool IsTrumpCard { get; set; }
+    public bool IsTrumpCard { get; set; }    
 
-    private async Task Play()
-    {
-        TrickState.AddCard(Card);
-
-        await JsRuntime.InvokeVoidAsync("playCard", Card.Name);
-    }
+    [Parameter]
+    public EventCallback<Card> OnClick { get; set; }
 }

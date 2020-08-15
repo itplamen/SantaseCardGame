@@ -1,13 +1,16 @@
-﻿<h3>@Player.Username</h3>
+﻿@inject IJSRuntime JsRuntime;
+@inject TrickState TrickState;
+
+<h3>@Player.Username</h3>
 
 <div class="player-cards"
-     id="@(Player.Position == PlayerPosition.First ? 
-           "FirstPlayerCards" : 
+     id="@(Player.Position == PlayerPosition.First ?
+           "FirstPlayerCards" :
            "SecondPlayerCards")">
 
     @foreach (var card in Player.Cards)
     {
-        <CardComponent Card="card"></CardComponent>
+        <CardComponent Card="card" OnClick="PlayCard"></CardComponent>
     }
 
 </div>
@@ -15,4 +18,11 @@
 @code {
     [Parameter]
     public Player Player { get; set; }
+
+    private async Task PlayCard(Card card)
+    {
+        TrickState.AddCard(card);
+
+        await JsRuntime.InvokeVoidAsync("playCard", card.Name);
+    }
 }
