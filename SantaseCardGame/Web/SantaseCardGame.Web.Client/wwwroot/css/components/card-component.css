@@ -12,46 +12,44 @@
     left: 370px;
 }
 
-.deck-component {
+.deck-card {
     position: relative;
 }
 
-.card-component, .trump-card, .deck-component {
+.card-component, .trump-card, .deck-card {
     width: 110px;
 }
 
-.player-cards {
+#FirstPlayerCards, #SecondPlayerCards {
     text-align: center;
     position: relative;
 }
 
-.player-cards:first-of-type {
+#FirstPlayerCards {
     top: -50px;
 }
 
-.player-cards:not(:first-of-type) {
+#SecondPlayerCards {
     top: 50px;
 }
 
-.player-cards:not(:first-of-type) .card-component:hover {
+#SecondPlayerCards .card-component:hover {
     -webkit-transform: translateY(-10px);
     transform: translateY(-10px);
 }
 
-.play-first-card {
+.first-player-trick-card, .second-player-trick-card {
     width: 110px;
     height: 150px;
-    position: absolute;
-    top: 230px;
     left: 840px;
+    position: absolute;
     text-align: center;
 }
 
-.play-second-card {
-    width: 110px;
-    height: 150px;
-    position: absolute;
+.first-player-trick-card {
+    top: 230px;
+}
+
+.second-player-trick-card {
     top: 380px;
-    left: 840px;
-    text-align: center;
 }

@@ -3,10 +3,7 @@
 
 <h3>@Player.Username</h3>
 
-<div class="player-cards"
-     id="@(Player.Position == PlayerPosition.First ?
-           "FirstPlayerCards" :
-           "SecondPlayerCards")">
+<div id="@(Player.Position == PlayerPosition.First ? "FirstPlayerCards" : "SecondPlayerCards")">
 
     @foreach (var card in Player.Cards)
     {

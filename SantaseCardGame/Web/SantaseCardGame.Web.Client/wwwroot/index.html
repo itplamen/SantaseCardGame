@@ -30,10 +30,10 @@
             let parentId = card.parent().attr('id');
 
             if (parentId === 'FirstPlayerCards') {
-                card.addClass('play-first-card');
+                card.addClass('first-player-trick-card');
             }
             else {
-                card.addClass('play-second-card');
+                card.addClass('second-player-trick-card');
             }
 
             card.removeClass('card-component');
