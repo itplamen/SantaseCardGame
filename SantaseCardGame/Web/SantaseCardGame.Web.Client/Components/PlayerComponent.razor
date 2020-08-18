@@ -1,5 +1,4 @@
-﻿@inject IJSRuntime JsRuntime;
-@inject TrickState TrickState;
+﻿@inject TrickState TrickState;
 
 <h3>@Player.Username</h3>
 
@@ -16,10 +15,14 @@
     [Parameter]
     public Player Player { get; set; }
 
-    private async Task PlayCard(Card card)
+    private void PlayCard(Card card)
     {
-        TrickState.AddCard(card);
+        if ((Player.Position == TrickState.FirstToPlay && TrickState.FirstPlayedCard == null) || 
+            (Player.Position != TrickState.FirstToPlay && TrickState.SecondPlayedCard == null))
+        {
+            Player.Cards.Remove(card);
 
-        await JsRuntime.InvokeVoidAsync("playCard", card.Name);
+            TrickState.AddCard(card, Player.Position);
+        }
     }
 }

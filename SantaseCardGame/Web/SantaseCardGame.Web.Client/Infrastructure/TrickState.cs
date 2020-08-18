@@ -1,34 +1,48 @@
 ﻿namespace SantaseCardGame.Web.Client.Infrastructure
 {
     using System;
-    using System.Collections.Generic;
 
     using SantaseCardGame.Data.Models;
 
     public class TrickState
     {
-        private const int CARDS_COUNT = 2;
-
         public event Action OnPlayTrick;
 
-        public ICollection<Card> Cards { get; private set; } = new List<Card>();
+        public event Action OnClearTrick;
 
-        public void AddCard(Card card)
+        public event Action OnDisplayTrick;
+
+        public Card FirstPlayedCard { get; set; }
+
+        public Card SecondPlayedCard { get; set; }
+
+        public PlayerPosition FirstToPlay { get; set; }
+
+        public void AddCard(Card card, PlayerPosition playerPosition)
         {
-            if (Cards.Count <= CARDS_COUNT)
+            if (FirstToPlay == playerPosition)
             {
-                Cards.Add(card);
+                FirstPlayedCard = card;
+            }
+            else
+            {
+                SecondPlayedCard = card;
+            }
 
-                if (Cards.Count == CARDS_COUNT)
-                {
-                    OnPlayTrick?.Invoke();
-                }
+            OnDisplayTrick?.Invoke();
+
+            if (FirstPlayedCard != null && SecondPlayedCard != null)
+            {
+                OnPlayTrick?.Invoke();
             }
         }
 
         public void Clear()
         {
-            Cards.Clear();
+            FirstPlayedCard = null;
+            SecondPlayedCard = null;
+
+            OnClearTrick?.Invoke();
         }
     }
 }
