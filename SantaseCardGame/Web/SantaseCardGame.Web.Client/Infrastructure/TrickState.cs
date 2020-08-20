@@ -12,26 +12,26 @@
 
         public event Action OnDisplayTrick;
 
-        public Card FirstPlayedCard { get; set; }
+        public Card FirstPlayerCard { get; private set; }
 
-        public Card SecondPlayedCard { get; set; }
+        public Card SecondPlayerCard { get; private set; }
 
         public PlayerPosition FirstToPlay { get; set; }
 
         public void AddCard(Card card, PlayerPosition playerPosition)
         {
-            if (FirstToPlay == playerPosition)
+            if (playerPosition == PlayerPosition.First)
             {
-                FirstPlayedCard = card;
+                FirstPlayerCard = card;
             }
             else
             {
-                SecondPlayedCard = card;
+                SecondPlayerCard = card;
             }
 
             OnDisplayTrick?.Invoke();
 
-            if (FirstPlayedCard != null && SecondPlayedCard != null)
+            if (FirstPlayerCard != null && SecondPlayerCard != null)
             {
                 OnPlayTrick?.Invoke();
             }
@@ -39,8 +39,8 @@
 
         public void Clear()
         {
-            FirstPlayedCard = null;
-            SecondPlayedCard = null;
+            FirstPlayerCard = null;
+            SecondPlayerCard = null;
 
             OnClearTrick?.Invoke();
         }

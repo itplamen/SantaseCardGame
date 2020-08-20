@@ -11,7 +11,7 @@
         public PlayerPosition GetWinner(IEnumerable<Card> trickCards, CardSuit trumpSuit)
         {
             Card firstPlayerCard = trickCards.First();
-            Card secondPlayerCard = trickCards.Skip(1).First();
+            Card secondPlayerCard = trickCards.Last();
 
             if (firstPlayerCard.Suit == secondPlayerCard.Suit)
             {

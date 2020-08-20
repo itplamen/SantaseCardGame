@@ -17,12 +17,23 @@
 
     private void PlayCard(Card card)
     {
-        if ((Player.Position == TrickState.FirstToPlay && TrickState.FirstPlayedCard == null) || 
-            (Player.Position != TrickState.FirstToPlay && TrickState.SecondPlayedCard == null))
+        var trickCard = GetTrickCard();
+
+        if (Player.Position == TrickState.FirstToPlay || trickCard != null)
         {
             Player.Cards.Remove(card);
 
             TrickState.AddCard(card, Player.Position);
         }
+    }
+
+    private Card GetTrickCard()
+    {
+        if (Player.Position == PlayerPosition.First)
+        {
+            return TrickState.SecondPlayerCard;
+        }
+
+        return TrickState.FirstPlayerCard;
     }
 }

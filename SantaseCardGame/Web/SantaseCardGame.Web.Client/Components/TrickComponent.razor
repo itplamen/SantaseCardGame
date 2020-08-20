@@ -22,16 +22,8 @@
 
     private void Display()
     {
-        if (TrickState.FirstToPlay == PlayerPosition.First)
-        {
-            firstPlayerCard = TrickState.FirstPlayedCard;
-            secondPlayerCard = TrickState.SecondPlayedCard;
-        }
-        else
-        {
-            secondPlayerCard = TrickState.FirstPlayedCard;
-            firstPlayerCard = TrickState.SecondPlayedCard;
-        }
+        firstPlayerCard = TrickState.FirstPlayerCard;
+        secondPlayerCard = TrickState.SecondPlayerCard;
 
         StateHasChanged();
     }

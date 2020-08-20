@@ -28,14 +28,14 @@
     {
         List<Card> trickCards = new List<Card>()
         {
-            TrickState.FirstPlayedCard,
-            TrickState.SecondPlayedCard
+            TrickState.FirstPlayerCard,
+            TrickState.SecondPlayerCard
         };
 
         Hand hand = new Hand() { Cards = trickCards };
         PlayerPosition winnerPosition = TrickWinner.GetWinner(trickCards, Game.Deck.TrumpCard.Suit);
 
-        if (winnerPosition == PlayerPosition.First)
+        if (winnerPosition == Game.FirstPlayer.Position)
         {
             Game.FirstPlayer.Hands.Add(hand);
         }
