@@ -49,7 +49,24 @@
         TrickState.Clear();
         TrickState.FirstToPlay = winnerPosition;
 
+        DrawCards();
+        StateHasChanged();
+    }
 
+    private void DrawCards()
+    {
+        Card firstCard = Game.Deck.GetNextCard();
+        Card secondCard = Game.Deck.GetNextCard();
 
+        if (Game.FirstPlayer.Position == TrickState.FirstToPlay)
+        {
+            Game.FirstPlayer.Cards.Add(firstCard);
+            Game.SecondPlayer.Cards.Add(secondCard);
+        }
+        else
+        {
+            Game.SecondPlayer.Cards.Add(firstCard);
+            Game.FirstPlayer.Cards.Add(secondCard);
+        }
     }
 }

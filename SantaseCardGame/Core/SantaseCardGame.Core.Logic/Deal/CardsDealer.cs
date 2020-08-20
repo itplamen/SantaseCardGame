@@ -12,7 +12,7 @@
             DealCards(deck, firstPlayer);
             DealCards(deck, secondPlayer);
 
-            Card trumpCard = GetNextCard(deck);
+            Card trumpCard = deck.GetNextCard();
             deck.TrumpCard = trumpCard;
         }
 
@@ -20,17 +20,9 @@
         {
             for (int i = 1; i <= NUMBER_OF_CARDS; i++)
             {
-                Card card = GetNextCard(deck);
+                Card card = deck.GetNextCard();
                 player.Cards.Add(card);
             }
-        }
-
-        private Card GetNextCard(Deck deck)
-        {
-            Card card = deck.Cards[deck.Cards.Count - 1];
-            deck.Cards.RemoveAt(deck.Cards.Count - 1);
-
-            return card;
         }
     }
 }
