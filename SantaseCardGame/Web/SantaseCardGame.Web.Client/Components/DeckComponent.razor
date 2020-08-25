@@ -1,7 +1,8 @@
-﻿<h3>Deck</h3>
-
-<CardComponent Card="Deck.TrumpCard" IsTrumpCard="true"></CardComponent>
-<img src="/images/cards/Back.png" id="Back" alt="Back" class="card-component deck-card" />
+﻿<CardComponent Card="Deck.TrumpCard" IsTrumpCard="true"></CardComponent>
+<div id="DeckCards" class="card-component">
+    <div id="DeckCardsCount">@(Deck.Cards.Count + 1)</div>
+    <img src="/images/cards/Back.png" id="BackCard" alt="Back" class="card-component" />
+</div>
 
 @code {
     [Parameter]

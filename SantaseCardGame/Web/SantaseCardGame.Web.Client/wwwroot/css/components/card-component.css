@@ -12,11 +12,24 @@
     left: 370px;
 }
 
-.deck-card {
-    position: relative;
+#BackCard {
+    position: absolute;
 }
 
-.card-component, .trump-card, .deck-card {
+
+#DeckCardsCount {
+    font-size: 20px;
+    width: 55px;
+    position: absolute;
+    top: 260px;
+    left: 310px;
+    text-align: center;
+    z-index: 99 !important;
+    color: #ffffff;
+    background-color: #f4a624;
+}
+
+.card-component, .trump-card, #BackCard {
     width: 110px;
 }
 
@@ -30,7 +43,7 @@
 }
 
 #SecondPlayerCards {
-    top: 50px;
+    top: 250px;
 }
 
 #SecondPlayerCards .card-component:hover {

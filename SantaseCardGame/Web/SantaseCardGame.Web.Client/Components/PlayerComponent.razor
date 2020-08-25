@@ -1,8 +1,7 @@
 ﻿@inject TrickState TrickState;
 
-<h3>@Player.Username</h3>
-
 <div id="@(Player.Position == PlayerPosition.First ? "FirstPlayerCards" : "SecondPlayerCards")">
+    <h3>@Player.Username</h3>
 
     @foreach (var card in Player.Cards)
     {
