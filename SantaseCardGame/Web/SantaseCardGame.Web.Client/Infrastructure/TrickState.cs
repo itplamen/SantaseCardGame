@@ -18,6 +18,8 @@
 
         public PlayerPosition FirstToPlay { get; set; }
 
+        public CardSuit TrumpCardSuit { get; set; }
+
         public void AddCard(Card card, PlayerPosition playerPosition)
         {
             if (playerPosition == PlayerPosition.First)

@@ -21,10 +21,47 @@
 
         if (Player.Position == TrickState.FirstToPlay || trickCard != null)
         {
+            Announce announce = GetAnnounce(card);
+            Console.WriteLine("Announce: " + announce.ToString());
+
             Player.Cards.Remove(card);
 
             TrickState.AddCard(card, Player.Position);
         }
+    }
+
+    private Announce GetAnnounce(Card card)
+    {
+        if (Player.Hands.Count > 0)
+        {
+            CardType searchCardType;
+
+            switch (card.Type)
+            {
+                case CardType.Queen:
+                    searchCardType = CardType.King;
+                    break;
+                case CardType.King:
+                    searchCardType = CardType.Queen;
+                    break;
+                default:
+                    return Announce.None;
+            }
+
+            Card searchCard = Player.Cards.FirstOrDefault(x => x.Suit == card.Suit && x.Type == searchCardType);
+
+            if (searchCard != null)
+            {
+                if (searchCard.Suit == TrickState.TrumpCardSuit)
+                {
+                    return Announce.Forty;
+                }
+
+                return Announce.Twenty;
+            }
+        }
+
+        return Announce.None;
     }
 
     private Card GetTrickCard()
