@@ -2,6 +2,7 @@
 {
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
+    using System.Linq;
 
     public class CardsDealer : ICardsDealer
     {
@@ -12,7 +13,7 @@
             DealCards(deck, firstPlayer);
             DealCards(deck, secondPlayer);
 
-            Card trumpCard = deck.GetNextCard();
+            Card trumpCard = deck.Cards.Last();
             deck.TrumpCard = trumpCard;
         }
 

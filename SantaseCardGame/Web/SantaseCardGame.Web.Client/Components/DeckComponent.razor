@@ -1,8 +1,11 @@
-﻿<CardComponent Card="Deck.TrumpCard" IsTrumpCard="true"></CardComponent>
-<div id="DeckCards" class="card-component">
-    <div id="DeckCardsCount">@(Deck.Cards.Count + 1)</div>
-    <img src="/images/cards/Back.png" id="BackCard" alt="Back" class="card-component" />
-</div>
+﻿@if (Deck.Cards.Any())
+{
+    <CardComponent Card="Deck.TrumpCard" IsTrumpCard="true"></CardComponent>
+    <div id="DeckCards" class="card-component">
+        <div id="DeckCardsCount">@(Deck.Cards.Count)</div>
+        <img src="/images/cards/Back.png" id="BackCard" alt="Back" class="card-component" />
+    </div>
+}
 
 @code {
     [Parameter]
