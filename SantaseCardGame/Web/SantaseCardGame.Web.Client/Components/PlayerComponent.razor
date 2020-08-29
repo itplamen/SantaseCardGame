@@ -36,7 +36,7 @@
 
     private Announce GetAnnounce(Card card)
     {
-        if (Player.Hands.Count > 0)
+        if (Player.Hands.Count > 0 && TrickState.FirstToPlay == Player.Position)
         {
             CardType searchCardType;
 
