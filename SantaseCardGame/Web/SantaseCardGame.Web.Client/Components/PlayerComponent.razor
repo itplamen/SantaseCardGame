@@ -2,18 +2,31 @@
 @inject IJSRuntime JSRuntime;
 
 <div id="@(Player.Position == PlayerPosition.First ? "FirstPlayerCards" : "SecondPlayerCards")">
-    <h3>@Player.Username</h3>
+    @if (Player.Position == PlayerPosition.Second)
+    {
+        <div id="PlayerInfo">
+            <img src="/images/common/player.png" alt="PlayerImage" id="PlayerImage" />
+            <div id="Username">@Player.Username</div>
+            <div id="Points">@points</div>
+        </div>
+    }
 
     @foreach (var card in Player.Cards)
     {
         <CardComponent Card="card" OnClick="PlayCard"></CardComponent>
     }
-
 </div>
 
 @code {
     [Parameter]
     public Player Player { get; set; }
+
+    private int points;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        points = Player.Hands.SelectMany(x => x.Cards).Sum(x => (int)x.Type);
+    }
 
     private void PlayCard(Card card)
     {
@@ -25,6 +38,7 @@
 
             if (trickCard == null && announce != Announce.None)
             {
+                points += (int)announce;
                 JSRuntime.InvokeVoidAsync("announce", announce);
             }
 
