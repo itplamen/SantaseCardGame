@@ -10,26 +10,31 @@
     transform: rotate(90deg);
     position: absolute;
     left: 370px;
+    top: 320px;
 }
 
-#BackCard {
+#DeckBackCard {
     position: absolute;
+    top: 320px;
 }
-
 
 #DeckCardsCount {
+    position: absolute;
+    top: 310px;
+    left: 310px;
+}
+
+#DeckCardsCount, #Points {
     font-size: 20px;
     width: 55px;
-    position: absolute;
-    top: 260px;
-    left: 310px;
     text-align: center;
     z-index: 99 !important;
     color: #ffffff;
     background-color: #f4a624;
+    border-radius: 10px;
 }
 
-.card-component, .trump-card, #BackCard {
+.card-component, .trump-card {
     width: 110px;
 }
 
@@ -39,11 +44,11 @@
 }
 
 #FirstPlayerCards {
-    top: -50px;
+    top: -15px;
 }
 
 #SecondPlayerCards {
-    top: 250px;
+    top: 350px;
 }
 
 #SecondPlayerCards .card-component:hover {
