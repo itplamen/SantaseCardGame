@@ -1,4 +1,5 @@
 ﻿@inject TrickState TrickState;
+@inject IJSRuntime JSRuntime;
 
 <div id="@(Player.Position == PlayerPosition.First ? "FirstPlayerCards" : "SecondPlayerCards")">
     <h3>@Player.Username</h3>
@@ -21,7 +22,11 @@
         if (Player.Position == TrickState.FirstToPlay || trickCard != null)
         {
             Announce announce = GetAnnounce(card);
-            Console.WriteLine("Announce: " + announce.ToString());
+
+            if (trickCard == null && announce != Announce.None)
+            {
+                JSRuntime.InvokeVoidAsync("announce", announce);
+            }
 
             Player.Cards.Remove(card);
 

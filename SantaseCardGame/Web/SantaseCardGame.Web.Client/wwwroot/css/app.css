@@ -188,3 +188,16 @@ app {
         display: block;
     }
 }
+
+#Announce {
+    width: 200px;
+    height: 100px;
+    background-color: #f4a624;
+    color: #fff;
+    font-size: 60px;
+    text-align: center;
+    position: relative;
+    bottom: 20%;
+    left: 40%;
+    display: none;
+}
