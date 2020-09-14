@@ -26,6 +26,7 @@ namespace SantaseCardGame.Web.Client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSingleton<ICardsProvider, CardsProvider>();
             builder.Services.AddSingleton<TrickState>();
+            builder.Services.AddSingleton<GameState>();
             builder.Services.AddTransient<ITrickWinner, TrickWinner>();
             builder.Services.AddTransient<ICardsShuffler, CardsShuffler>();
             builder.Services.AddTransient<ICardsDealer, CardsDealer>();
