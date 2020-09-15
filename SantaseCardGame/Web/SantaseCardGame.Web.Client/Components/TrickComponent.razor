@@ -16,8 +16,8 @@
 
     protected override void OnInitialized()
     {
-        TrickState.OnDisplayTrick += () => Display();
-        TrickState.OnClearTrick += () => Clear();
+        TrickState.OnDisplayTrick += Display;
+        TrickState.OnClearTrick += Clear;
     }
 
     private void Display()

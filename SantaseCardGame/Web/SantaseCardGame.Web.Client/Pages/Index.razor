@@ -21,7 +21,7 @@
     {
         Game = GameManager.StartGame("Plamen");
 
-        TrickState.OnPlayTrick += () => PlayTrick();
+        TrickState.OnPlayTrick += PlayTrick;
         TrickState.FirstToPlay = PlayerPosition.First;
         TrickState.TrumpCardSuit = Game.Deck.TrumpCard.Suit;
     }
