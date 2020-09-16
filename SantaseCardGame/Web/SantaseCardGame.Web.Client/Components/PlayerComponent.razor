@@ -68,6 +68,16 @@
 
         if (Player.Position == TrickState.FirstToPlay || trickCard != null)
         {
+            if (Player.Position != TrickState.FirstToPlay && GameState.ShouldFollowSuit)
+            {
+                bool hasSameSuit = Player.Cards.Any(x => x.Suit == trickCard.Suit);
+
+                if (hasSameSuit && card.Suit != trickCard.Suit)
+                {
+                    return;
+                }
+            }
+
             Announce announce = GetAnnounce(card);
 
             if (trickCard == null && announce != Announce.None)
@@ -84,7 +94,7 @@
 
     private Announce GetAnnounce(Card card)
     {
-        if (Player.Hands.Count > 0 && TrickState.FirstToPlay == Player.Position)
+        if (Player.Hands.Count > 0 && TrickState.FirstToPlay == Player.Position && !GameState.ShouldFollowSuit)
         {
             CardType searchCardType;
 

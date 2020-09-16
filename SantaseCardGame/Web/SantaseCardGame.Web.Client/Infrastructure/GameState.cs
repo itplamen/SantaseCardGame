@@ -8,6 +8,8 @@
     {
         public bool IsClosed { get; set; }
 
+        public bool ShouldFollowSuit { get; set; }
+
         public event Action OnCloseDeck;
 
         public event Action<Card> OnChangeTrumpCard;
@@ -19,6 +21,8 @@
             if (!IsClosed)
             {
                 OnCloseDeck?.Invoke();
+
+                ShouldFollowSuit = true;
             }
         }
 
