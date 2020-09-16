@@ -1,9 +1,8 @@
 ﻿@inject GameState GameState;
-@inject TrickState TrickState;
 
 @if (Deck.Cards.Any())
 {
-    <CardComponent Card="Deck.TrumpCard" IsTrumpCard="true"></CardComponent>
+    <CardComponent Card="Deck.TrumpCard" IsTrumpCard="true" OnClick="GameState.ChangeTrumpCard"></CardComponent>
     <div id="DeckCards" class="card-component" @onclick="GameState.CloseDeck">
         <div id="DeckCardsCount">@(Deck.Cards.Count)</div>
         <img src="/images/cards/Back.png" id="DeckBackCard" alt="DeckBackCard" class="card-component" />
@@ -13,4 +12,16 @@
 @code {
     [Parameter]
     public Deck Deck { get; set; }
+
+    protected override void OnInitialized()
+    {
+        GameState.OnExchangeTrumpCardForNineOfTrumps += ExchangeTrumpCardForNineOfTrumps;
+    }
+
+    private void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard)
+    {
+        Deck.TrumpCard = nineOfTrumpsCard;
+
+        StateHasChanged();
+    }
 }

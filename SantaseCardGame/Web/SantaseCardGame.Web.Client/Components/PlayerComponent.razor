@@ -26,7 +26,8 @@
 
     protected override void OnInitialized()
     {
-        GameState.OnCloseDeck += () => CloseDeck();
+        GameState.OnCloseDeck += CloseDeck;
+        GameState.OnChangeTrumpCard += ChangeTrumpCard;
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -39,6 +40,25 @@
         if (TrickState.FirstToPlay == Player.Position && Player.Hands.Any())
         {
             GameState.IsClosed = true;
+        }
+    }
+
+    private void ChangeTrumpCard(Card trumpCard)
+    {
+        if (TrickState.FirstToPlay == Player.Position && Player.Hands.Any())
+        {
+            Card nineOfTrumpsCard = Player.Cards.FirstOrDefault(x => x.Type == CardType.Nine && x.Suit == trumpCard.Suit);
+
+            if (nineOfTrumpsCard != null)
+            {
+                JSRuntime.InvokeVoidAsync("announce", "Change");
+
+                int nineOfTrumpsIndex = Player.Cards.FindIndex(x => x.Name == nineOfTrumpsCard.Name);
+                Player.Cards[nineOfTrumpsIndex] = trumpCard;
+                StateHasChanged();
+
+                GameState.ExchangeTrumpCardForNineOfTrumps(nineOfTrumpsCard);
+            }
         }
     }
 
