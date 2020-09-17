@@ -40,6 +40,8 @@
         if (TrickState.FirstToPlay == Player.Position && Player.Hands.Any())
         {
             GameState.IsClosed = true;
+
+            JSRuntime.InvokeVoidAsync("announce", "Close");
         }
     }
 

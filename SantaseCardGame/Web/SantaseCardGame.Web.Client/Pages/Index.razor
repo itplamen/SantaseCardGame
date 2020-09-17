@@ -58,6 +58,11 @@
 
     private void DrawCards()
     {
+        if (GameState.IsClosed || !Game.Deck.Cards.Any())
+        {
+            return;
+        }
+
         Card firstCard = Game.Deck.GetNextCard();
         Card secondCard = Game.Deck.GetNextCard();
 
