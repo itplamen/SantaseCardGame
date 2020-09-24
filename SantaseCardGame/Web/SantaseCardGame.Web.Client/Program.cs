@@ -7,6 +7,8 @@ namespace SantaseCardGame.Web.Client
     using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
     using Microsoft.Extensions.DependencyInjection;
 
+    using SantaseCardGame.Core.Infrastructure.Contracts;
+    using SantaseCardGame.Core.Infrastructure.States;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Deal;
     using SantaseCardGame.Core.Logic.Play;
@@ -14,7 +16,6 @@ namespace SantaseCardGame.Web.Client
     using SantaseCardGame.Core.Logic.Win;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Providers;
-    using SantaseCardGame.Web.Client.Infrastructure;
 
     public class Program
     {
@@ -25,8 +26,8 @@ namespace SantaseCardGame.Web.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddSingleton<ICardsProvider, CardsProvider>();
-            builder.Services.AddSingleton<TrickState>();
-            builder.Services.AddSingleton<GameState>();
+            builder.Services.AddSingleton<ITrickState, TrickState>();
+            builder.Services.AddSingleton<IDeckState, DeckState>();
             builder.Services.AddTransient<ITrickWinner, TrickWinner>();
             builder.Services.AddTransient<ICardsShuffler, CardsShuffler>();
             builder.Services.AddTransient<ICardsDealer, CardsDealer>();

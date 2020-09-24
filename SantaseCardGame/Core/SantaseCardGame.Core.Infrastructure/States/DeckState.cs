@@ -1,26 +1,27 @@
-﻿namespace SantaseCardGame.Web.Client.Infrastructure
+﻿namespace SantaseCardGame.Core.Infrastructure.States
 {
     using System;
 
+    using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class GameState
+    public class DeckState : IDeckState
     {
-        public bool IsClosed { get; set; }
-
-        public bool ShouldFollowSuit { get; set; }
-
-        public event Action OnCloseDeck;
+        public event Action OnClose;
 
         public event Action<Card> OnChangeTrumpCard;
 
         public event Action<Card> OnExchangeTrumpCardForNineOfTrumps;
 
-        public void CloseDeck()
+        public bool IsClosed { get; set; }
+
+        public bool ShouldFollowSuit { get; set; }
+
+        public void Close()
         {
             if (!IsClosed)
             {
-                OnCloseDeck?.Invoke();
+                OnClose?.Invoke();
 
                 ShouldFollowSuit = true;
             }

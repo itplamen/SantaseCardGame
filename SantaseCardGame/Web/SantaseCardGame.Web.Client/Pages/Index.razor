@@ -1,7 +1,7 @@
 ﻿@page "/"
 
-@inject GameState GameState;
-@inject TrickState TrickState;
+@inject IDeckState DeckState;
+@inject ITrickState TrickState;
 @inject ITrickWinner TrickWinner;
 @inject IGameManager GameManager;
 
@@ -22,21 +22,15 @@
     {
         Game = GameManager.StartGame("Plamen");
 
-        TrickState.OnPlayTrick += PlayTrick;
+        TrickState.OnPlay += PlayTrick;
         TrickState.FirstToPlay = PlayerPosition.First;
         TrickState.TrumpCardSuit = Game.Deck.TrumpCard.Suit;
     }
 
     private async void PlayTrick()
     {
-        List<Card> trickCards = new List<Card>()
-    {
-            TrickState.FirstPlayerCard,
-            TrickState.SecondPlayerCard
-        };
-
-        Hand hand = new Hand() { Cards = trickCards };
-        PlayerPosition winnerPosition = TrickWinner.GetWinner(trickCards, Game.Deck.TrumpCard.Suit);
+        Hand hand = new Hand() { Cards = TrickState.Cards };
+        PlayerPosition winnerPosition = TrickWinner.GetWinner(TrickState.Cards, Game.Deck.TrumpCard.Suit);
 
         if (winnerPosition == Game.FirstPlayer.Position)
         {
@@ -58,7 +52,7 @@
 
     private void DrawCards()
     {
-        if (GameState.IsClosed || !Game.Deck.Cards.Any())
+        if (DeckState.IsClosed || !Game.Deck.Cards.Any())
         {
             return;
         }
@@ -79,7 +73,7 @@
 
         if (!Game.Deck.Cards.Any())
         {
-            GameState.ShouldFollowSuit = true;
+            DeckState.ShouldFollowSuit = true;
         }
     }
 }

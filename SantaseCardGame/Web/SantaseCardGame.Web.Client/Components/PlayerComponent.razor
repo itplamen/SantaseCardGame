@@ -1,5 +1,5 @@
-﻿@inject GameState GameState;
-@inject TrickState TrickState;
+﻿@inject IDeckState DeckState;
+@inject ITrickState TrickState;
 @inject IJSRuntime JSRuntime;
 
 <div id="@(Player.Position == PlayerPosition.First ? "FirstPlayerCards" : "SecondPlayerCards")">
@@ -26,8 +26,8 @@
 
     protected override void OnInitialized()
     {
-        GameState.OnCloseDeck += CloseDeck;
-        GameState.OnChangeTrumpCard += ChangeTrumpCard;
+        DeckState.OnClose += CloseDeck;
+        DeckState.OnChangeTrumpCard += ChangeTrumpCard;
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -39,7 +39,7 @@
     {
         if (TrickState.FirstToPlay == Player.Position && Player.Hands.Any())
         {
-            GameState.IsClosed = true;
+            DeckState.IsClosed = true;
 
             JSRuntime.InvokeVoidAsync("announce", "Close");
         }
@@ -59,7 +59,7 @@
                 Player.Cards[nineOfTrumpsIndex] = trumpCard;
                 StateHasChanged();
 
-                GameState.ExchangeTrumpCardForNineOfTrumps(nineOfTrumpsCard);
+                DeckState.ExchangeTrumpCardForNineOfTrumps(nineOfTrumpsCard);
             }
         }
     }
@@ -70,7 +70,7 @@
 
         if (Player.Position == TrickState.FirstToPlay || trickCard != null)
         {
-            if (Player.Position != TrickState.FirstToPlay && GameState.ShouldFollowSuit)
+            if (Player.Position != TrickState.FirstToPlay && DeckState.ShouldFollowSuit)
             {
                 bool hasSameSuit = Player.Cards.Any(x => x.Suit == trickCard.Suit);
 
@@ -96,7 +96,7 @@
 
     private Announce GetAnnounce(Card card)
     {
-        if (Player.Hands.Count > 0 && TrickState.FirstToPlay == Player.Position && !GameState.ShouldFollowSuit)
+        if (Player.Hands.Count > 0 && TrickState.FirstToPlay == Player.Position && !DeckState.ShouldFollowSuit)
         {
             CardType searchCardType;
 
@@ -132,9 +132,9 @@
     {
         if (Player.Position == PlayerPosition.First)
         {
-            return TrickState.SecondPlayerCard;
+            return TrickState.Cards[1];
         }
 
-        return TrickState.FirstPlayerCard;
+        return TrickState.Cards[0];
     }
 }

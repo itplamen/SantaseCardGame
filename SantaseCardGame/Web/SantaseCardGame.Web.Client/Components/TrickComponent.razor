@@ -1,37 +1,37 @@
-﻿@inject TrickState TrickState;
+﻿@inject ITrickState TrickState;
 
-@if (firstPlayerCard != null)
+@if (cards != null)
 {
-    <img src="/images/cards/@string.Concat(firstPlayerCard.Name,".png")" class="first-player-trick-card" />
-}
+    @if (cards[0] != null)
+    {
+        <img src="/images/cards/@string.Concat(cards[0].Name,".png")" class="first-player-trick-card" />
+    }
 
-@if (secondPlayerCard != null)
-{
-    <img src="/images/cards/@string.Concat(secondPlayerCard.Name,".png")" class="second-player-trick-card" />
+    @if (cards[1] != null)
+    {
+        <img src="/images/cards/@string.Concat(cards[1].Name,".png")" class="second-player-trick-card" />
+    }
 }
 
 @code {
-    private Card firstPlayerCard;
-    private Card secondPlayerCard;
+    private Card[] cards;
 
     protected override void OnInitialized()
     {
-        TrickState.OnDisplayTrick += Display;
-        TrickState.OnClearTrick += Clear;
+        TrickState.OnDisplay += Display;
+        TrickState.OnClear += Clear;
     }
 
     private void Display()
     {
-        firstPlayerCard = TrickState.FirstPlayerCard;
-        secondPlayerCard = TrickState.SecondPlayerCard;
+        cards = TrickState.Cards;
 
         StateHasChanged();
     }
 
     private void Clear()
     {
-        firstPlayerCard = null;
-        secondPlayerCard = null;
+        cards = null;
 
         StateHasChanged();
     }
