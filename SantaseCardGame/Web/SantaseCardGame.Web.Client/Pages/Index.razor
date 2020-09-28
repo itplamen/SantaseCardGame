@@ -23,7 +23,7 @@
         Game = GameManager.StartGame("Plamen");
 
         TrickState.OnPlay += PlayTrick;
-        TrickState.FirstToPlay = PlayerPosition.First;
+        TrickState.PlayerTurn = PlayerPosition.First;
         TrickState.TrumpCardSuit = Game.Deck.TrumpCard.Suit;
     }
 
@@ -44,13 +44,13 @@
         await Task.Delay(1500);
 
         TrickState.Clear();
-        TrickState.FirstToPlay = winnerPosition;
+        TrickState.PlayerTurn = winnerPosition;
 
-        DrawCards();
+        DrawCards(winnerPosition);
         StateHasChanged();
     }
 
-    private void DrawCards()
+    private void DrawCards(PlayerPosition winnerPosition)
     {
         if (DeckState.IsClosed || !Game.Deck.Cards.Any())
         {
@@ -60,7 +60,7 @@
         Card firstCard = Game.Deck.GetNextCard();
         Card secondCard = Game.Deck.GetNextCard();
 
-        if (Game.FirstPlayer.Position == TrickState.FirstToPlay)
+        if (Game.FirstPlayer.Position == winnerPosition)
         {
             Game.FirstPlayer.Cards.Add(firstCard);
             Game.SecondPlayer.Cards.Add(secondCard);

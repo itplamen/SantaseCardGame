@@ -18,7 +18,7 @@
 
         public Card[] Cards { get; private set; } = new Card[TRICK_CARDS];
 
-        public PlayerPosition FirstToPlay { get; set; }
+        public PlayerPosition PlayerTurn { get; set; }
 
         public CardSuit TrumpCardSuit { get; set; }
 
@@ -27,10 +27,12 @@
             if (playerPosition == PlayerPosition.First)
             {
                 Cards[0] = card;
+                PlayerTurn = PlayerPosition.Second;
             }
             else
             {
                 Cards[1] = card;
+                PlayerTurn = PlayerPosition.First;
             }
 
             OnDisplay?.Invoke();

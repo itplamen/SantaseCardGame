@@ -14,7 +14,7 @@
 
         Card[] Cards { get; }
 
-        PlayerPosition FirstToPlay { get; set; }
+        PlayerPosition PlayerTurn { get; set; }
 
         CardSuit TrumpCardSuit { get; set; }
 

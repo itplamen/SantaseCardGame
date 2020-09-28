@@ -1,4 +1,5 @@
 ﻿@inject IDeckState DeckState;
+@inject ITrickState TrickState;
 
 @if (Deck.Cards.Any())
 {
@@ -22,6 +23,7 @@
     {
         Deck.Cards[Deck.Cards.Count - 1] = nineOfTrumpsCard;
         Deck.TrumpCard = nineOfTrumpsCard;
+        TrickState.TrumpCardSuit = nineOfTrumpsCard.Suit;
 
         StateHasChanged();
     }

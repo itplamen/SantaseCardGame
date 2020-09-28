@@ -37,7 +37,7 @@
 
     private void CloseDeck()
     {
-        if (TrickState.FirstToPlay == Player.Position && Player.Hands.Any())
+        if (CanPerformAction())
         {
             DeckState.IsClosed = true;
 
@@ -47,7 +47,7 @@
 
     private void ChangeTrumpCard(Card trumpCard)
     {
-        if (TrickState.FirstToPlay == Player.Position && Player.Hands.Any())
+        if (CanPerformAction())
         {
             Card nineOfTrumpsCard = Player.Cards.FirstOrDefault(x => x.Type == CardType.Nine && x.Suit == trumpCard.Suit);
 
@@ -66,11 +66,11 @@
 
     private void PlayCard(Card card)
     {
-        var trickCard = GetTrickCard();
+        Card trickCard = GetTrickCard();
 
-        if (Player.Position == TrickState.FirstToPlay || trickCard != null)
+        if (Player.Position == TrickState.PlayerTurn)
         {
-            if (Player.Position != TrickState.FirstToPlay && DeckState.ShouldFollowSuit)
+            if (trickCard != null && DeckState.ShouldFollowSuit)
             {
                 bool hasSameSuit = Player.Cards.Any(x => x.Suit == trickCard.Suit);
 
@@ -96,7 +96,7 @@
 
     private Announce GetAnnounce(Card card)
     {
-        if (Player.Hands.Count > 0 && TrickState.FirstToPlay == Player.Position && !DeckState.ShouldFollowSuit)
+        if (Player.Hands.Count > 0 && !DeckState.ShouldFollowSuit)
         {
             CardType searchCardType;
 
@@ -136,5 +136,12 @@
         }
 
         return TrickState.Cards[0];
+    }
+
+    private bool CanPerformAction()
+    {
+        return Player.Position == TrickState.PlayerTurn &&
+            !TrickState.Cards.Any() &&
+            Player.Hands.Any();
     }
 }
