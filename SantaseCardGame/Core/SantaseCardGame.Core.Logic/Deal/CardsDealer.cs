@@ -1,8 +1,9 @@
 ﻿namespace SantaseCardGame.Core.Logic.Deal
 {
+    using System.Linq;
+
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
-    using System.Linq;
 
     public class CardsDealer : ICardsDealer
     {
@@ -13,8 +14,7 @@
             DealCards(deck, firstPlayer);
             DealCards(deck, secondPlayer);
 
-            Card trumpCard = deck.Cards.Last();
-            deck.TrumpCard = trumpCard;
+            deck.TrumpCard = deck.Cards.Last();
         }
 
         private void DealCards(Deck deck, Player player)

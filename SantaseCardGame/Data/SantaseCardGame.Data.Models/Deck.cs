@@ -1,6 +1,7 @@
 ﻿namespace SantaseCardGame.Data.Models
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     public class Deck
     {
@@ -10,8 +11,8 @@
 
         public Card GetNextCard()
         {
-            Card card = Cards[Cards.Count - 1];
-            Cards.RemoveAt(Cards.Count - 1);
+            Card card = Cards.First();
+            Cards.RemoveAt(0);
 
             return card;
         }

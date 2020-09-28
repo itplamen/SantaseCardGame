@@ -20,6 +20,7 @@
 
     private void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard)
     {
+        Deck.Cards[Deck.Cards.Count - 1] = nineOfTrumpsCard;
         Deck.TrumpCard = nineOfTrumpsCard;
 
         StateHasChanged();
