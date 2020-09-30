@@ -30,7 +30,7 @@
         DeckState.OnChangeTrumpCard += ChangeTrumpCard;
     }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override void OnParametersSet()
     {
         points = Player.Hands.SelectMany(x => x.Cards).Sum(x => (int)x.Type);
     }
