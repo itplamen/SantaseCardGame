@@ -1,6 +1,7 @@
 ﻿namespace SantaseCardGame.Core.Infrastructure.Contracts
 {
     using System;
+    using System.Collections.Generic;
 
     using SantaseCardGame.Data.Models;
 
@@ -12,11 +13,11 @@
 
         event Action OnDisplay;
 
-        Card[] Cards { get; }
-
         PlayerPosition PlayerTurn { get; set; }
 
         CardSuit TrumpCardSuit { get; set; }
+
+        IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards { get; }
 
         void AddCard(Card card, PlayerPosition playerPosition);
 

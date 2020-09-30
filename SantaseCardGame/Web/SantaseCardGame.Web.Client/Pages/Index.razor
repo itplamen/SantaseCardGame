@@ -29,7 +29,11 @@
 
     private async void PlayTrick()
     {
-        Hand hand = new Hand() { Cards = TrickState.Cards };
+        Hand hand = new Hand() 
+        { 
+            Cards = TrickState.Cards.Select(x => x.Value) 
+        };
+
         PlayerPosition winnerPosition = TrickWinner.GetWinner(TrickState.Cards, Game.Deck.TrumpCard.Suit);
 
         if (winnerPosition == Game.FirstPlayer.Position)

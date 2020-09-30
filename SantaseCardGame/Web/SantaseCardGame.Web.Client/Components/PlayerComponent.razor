@@ -66,15 +66,15 @@
 
     private void PlayCard(Card card)
     {
-        Card trickCard = GetTrickCard();
+        Card opponentTrickCard = TrickState.Cards.FirstOrDefault(x => x.Key != Player.Position).Value;
 
         if (Player.Position == TrickState.PlayerTurn)
         {
-            if (trickCard != null && DeckState.ShouldFollowSuit)
+            if (opponentTrickCard != null && DeckState.ShouldFollowSuit)
             {
-                bool hasSameSuit = Player.Cards.Any(x => x.Suit == trickCard.Suit);
+                bool hasSameSuit = Player.Cards.Any(x => x.Suit == opponentTrickCard.Suit);
 
-                if (hasSameSuit && card.Suit != trickCard.Suit)
+                if (hasSameSuit && card.Suit != opponentTrickCard.Suit)
                 {
                     return;
                 }
@@ -82,7 +82,7 @@
 
             Announce announce = GetAnnounce(card);
 
-            if (trickCard == null && announce != Announce.None)
+            if (opponentTrickCard == null && announce != Announce.None)
             {
                 points += (int)announce;
                 JSRuntime.InvokeVoidAsync("announce", announce);
@@ -126,16 +126,6 @@
         }
 
         return Announce.None;
-    }
-
-    private Card GetTrickCard()
-    {
-        if (Player.Position == PlayerPosition.First)
-        {
-            return TrickState.Cards[1];
-        }
-
-        return TrickState.Cards[0];
     }
 
     private bool CanPerformAction()

@@ -8,22 +8,27 @@
 
     public class TrickWinner : ITrickWinner
     {
-        public PlayerPosition GetWinner(IEnumerable<Card> trickCards, CardSuit trumpSuit)
+        public PlayerPosition GetWinner(IEnumerable<KeyValuePair<PlayerPosition, Card>> cards, CardSuit trumpSuit)
         {
-            Card firstPlayerCard = trickCards.First();
-            Card secondPlayerCard = trickCards.Last();
+            Card firstPlayed = cards.First().Value;
+            Card secondPlayed = cards.Last().Value;
 
-            if (firstPlayerCard.Suit == secondPlayerCard.Suit)
+            if (firstPlayed.Suit == secondPlayed.Suit)
             {
-                return firstPlayerCard.Type > secondPlayerCard.Type ? PlayerPosition.First : PlayerPosition.Second;
+                if (firstPlayed.Type > secondPlayed.Type)
+                {
+                    return cards.First().Key;
+                }
+
+                return cards.Last().Key;
             }
 
-            if (secondPlayerCard.Suit == trumpSuit)
+            if (secondPlayed.Suit == trumpSuit)
             {
-                return PlayerPosition.Second;
+                return cards.Last().Key;
             }
 
-            return PlayerPosition.First;
+            return cards.First().Key;
         }
     }
 }
