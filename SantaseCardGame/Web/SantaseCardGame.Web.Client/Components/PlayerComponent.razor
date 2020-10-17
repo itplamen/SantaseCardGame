@@ -1,6 +1,7 @@
 ﻿@inject IDeckState DeckState;
 @inject ITrickState TrickState;
 @inject IJSRuntime JSRuntime;
+@inject IPlayerManager PlayerManager;
 
 <div id="@(Player.Position == PlayerPosition.First ? "FirstPlayerCards" : "SecondPlayerCards")">
     @if (Player.Position == PlayerPosition.Second)
@@ -37,101 +38,33 @@
 
     private void CloseDeck()
     {
-        if (CanPerformAction())
-        {
-            DeckState.IsClosed = true;
+        bool isClosed = PlayerManager.CloseDeck(Player);
 
+        if (isClosed)
+        {
             JSRuntime.InvokeVoidAsync("announce", "Close");
         }
     }
 
     private void ChangeTrumpCard(Card trumpCard)
     {
-        if (CanPerformAction())
+        bool isChanged = PlayerManager.ChangeTrumpCard(Player, trumpCard);
+
+        if (isChanged)
         {
-            Card nineOfTrumpsCard = Player.Cards.FirstOrDefault(x => x.Type == CardType.Nine && x.Suit == trumpCard.Suit);
-
-            if (nineOfTrumpsCard != null)
-            {
-                JSRuntime.InvokeVoidAsync("announce", "Change");
-
-                int nineOfTrumpsIndex = Player.Cards.FindIndex(x => x.Name == nineOfTrumpsCard.Name);
-                Player.Cards[nineOfTrumpsIndex] = trumpCard;
-                StateHasChanged();
-
-                DeckState.ExchangeTrumpCardForNineOfTrumps(nineOfTrumpsCard);
-            }
+            JSRuntime.InvokeVoidAsync("announce", "Change");
+            StateHasChanged();
         }
     }
 
     private void PlayCard(Card card)
     {
-        Card opponentTrickCard = TrickState.Cards.FirstOrDefault(x => x.Key != Player.Position).Value;
+        Announce announce = PlayerManager.PlayCard(Player, card);
 
-        if (Player.Position == TrickState.PlayerTurn)
+        if (announce != Announce.None)
         {
-            if (opponentTrickCard != null && DeckState.ShouldFollowSuit)
-            {
-                bool hasSameSuit = Player.Cards.Any(x => x.Suit == opponentTrickCard.Suit);
-
-                if (hasSameSuit && card.Suit != opponentTrickCard.Suit)
-                {
-                    return;
-                }
-            }
-
-            Announce announce = GetAnnounce(card);
-
-            if (opponentTrickCard == null && announce != Announce.None)
-            {
-                points += (int)announce;
-                JSRuntime.InvokeVoidAsync("announce", announce);
-            }
-
-            Player.Cards.Remove(card);
-
-            TrickState.AddCard(card, Player.Position);
+            points += (int)announce;
+            JSRuntime.InvokeVoidAsync("announce", announce);
         }
-    }
-
-    private Announce GetAnnounce(Card card)
-    {
-        if (Player.Hands.Count > 0 && !DeckState.ShouldFollowSuit)
-        {
-            CardType searchCardType;
-
-            switch (card.Type)
-            {
-                case CardType.Queen:
-                    searchCardType = CardType.King;
-                    break;
-                case CardType.King:
-                    searchCardType = CardType.Queen;
-                    break;
-                default:
-                    return Announce.None;
-            }
-
-            Card searchCard = Player.Cards.FirstOrDefault(x => x.Suit == card.Suit && x.Type == searchCardType);
-
-            if (searchCard != null)
-            {
-                if (searchCard.Suit == TrickState.TrumpCardSuit)
-                {
-                    return Announce.Forty;
-                }
-
-                return Announce.Twenty;
-            }
-        }
-
-        return Announce.None;
-    }
-
-    private bool CanPerformAction()
-    {
-        return Player.Position == TrickState.PlayerTurn &&
-            !TrickState.Cards.Any() &&
-            Player.Hands.Any();
     }
 }

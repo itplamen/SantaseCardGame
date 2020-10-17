@@ -2,6 +2,7 @@
 {
     public enum CardType
     {
+        None = -1,
         Nine = 0,
         Jack = 2,
         Queen = 3,

@@ -42,8 +42,10 @@
         private IEnumerable<string> GenerateNames()
         {
             var names = new List<string>();
+            var cardTypes = ((CardType[])Enum.GetValues(typeof(CardType)))
+                .Where(x => x != CardType.None);
 
-            foreach (var cardType in (CardType[])Enum.GetValues(typeof(CardType)))
+            foreach (var cardType in cardTypes)
             {
                 foreach (var cardSuit in (CardSuit[])Enum.GetValues(typeof(CardSuit)))
                 {
