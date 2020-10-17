@@ -64,6 +64,8 @@
         Card firstCard = Game.Deck.GetNextCard();
         Card secondCard = Game.Deck.GetNextCard();
 
+        DeckState.CardsLeft = Game.Deck.Cards.Count;
+
         if (Game.FirstPlayer.Position == winnerPosition)
         {
             Game.FirstPlayer.Cards.Add(firstCard);

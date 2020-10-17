@@ -14,6 +14,8 @@
 
         bool IsClosed { get; set; }
 
+        int CardsLeft { get; set; }
+
         bool ShouldFollowSuit { get; set; }
 
         void Close();

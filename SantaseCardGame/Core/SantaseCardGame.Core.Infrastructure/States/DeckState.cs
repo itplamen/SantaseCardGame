@@ -15,6 +15,8 @@
 
         public bool IsClosed { get; set; }
 
+        public int CardsLeft { get; set; }
+
         public bool ShouldFollowSuit { get; set; }
 
         public void Close()

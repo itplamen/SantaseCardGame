@@ -8,6 +8,8 @@
 
     public class PlayerManager : IPlayerManager
     {
+        private const int DECK_CARDS_REQUIRED = 4;
+
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
 
@@ -122,6 +124,7 @@
         private bool CanPerformAction(Player player)
         {
             return player.Position == trickState.PlayerTurn &&
+                deckState.CardsLeft >= DECK_CARDS_REQUIRED &&
                 !deckState.ShouldFollowSuit &&
                 !trickState.Cards.Any() &&
                 !deckState.IsClosed &&
