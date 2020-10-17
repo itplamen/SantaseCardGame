@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.Core.Logic.Play
+﻿namespace SantaseCardGame.Core.Logic.Managers
 {
     using System.Collections.Generic;
 

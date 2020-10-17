@@ -11,7 +11,7 @@ namespace SantaseCardGame.Web.Client
     using SantaseCardGame.Core.Infrastructure.States;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Deal;
-    using SantaseCardGame.Core.Logic.Play;
+    using SantaseCardGame.Core.Logic.Managers;
     using SantaseCardGame.Core.Logic.Shuffle;
     using SantaseCardGame.Core.Logic.Win;
     using SantaseCardGame.Data.Contracts;
