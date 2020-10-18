@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Core.Logic.Managers
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using SantaseCardGame.Core.Infrastructure.Contracts;
@@ -56,9 +57,19 @@
             {
                 if (opponentTrickCard != null && deckState.ShouldFollowSuit)
                 {
-                    bool hasSameSuit = player.Cards.Any(x => x.Suit == opponentTrickCard.Suit);
+                    IEnumerable<Card> sameSuitCards = player.Cards.Where(x => x.Suit == opponentTrickCard.Suit);
 
-                    if (hasSameSuit && card.Suit != opponentTrickCard.Suit)
+                    if (sameSuitCards.Any(x => x.Type > opponentTrickCard.Type) && card.Type < opponentTrickCard.Type)
+                    {
+                        return Announce.None;
+                    }
+
+                    if (sameSuitCards.Any() && card.Suit != opponentTrickCard.Suit)
+                    {
+                        return Announce.None;
+                    }
+
+                    if (!sameSuitCards.Any() && player.Cards.Any(x => x.Suit == trickState.TrumpCardSuit) && card.Suit != trickState.TrumpCardSuit)
                     {
                         return Announce.None;
                     }
