@@ -88,7 +88,7 @@
 
         private Announce GetAnnounce(Player player, Card card)
         {
-            if (CanPerformAction(player))
+            if (CanAnnounce(player))
             {
                 Card marriageCard = GetMarriageCard(player, card);
 
@@ -134,11 +134,16 @@
 
         private bool CanPerformAction(Player player)
         {
-            return player.Position == trickState.PlayerTurn &&
-                deckState.CardsLeft >= DECK_CARDS_REQUIRED &&
+            return deckState.CardsLeft >= DECK_CARDS_REQUIRED &&
                 !deckState.ShouldFollowSuit &&
-                !trickState.Cards.Any() &&
                 !deckState.IsClosed &&
+                CanAnnounce(player);
+        }
+
+        private bool CanAnnounce(Player player)
+        {
+            return player.Position == trickState.PlayerTurn &&
+                !trickState.Cards.Any() &&
                 player.Hands.Any();
         }
     }
