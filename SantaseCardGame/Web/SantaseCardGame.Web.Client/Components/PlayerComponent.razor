@@ -9,7 +9,7 @@
         <div id="PlayerInfo">
             <img src="/images/common/player.png" alt="PlayerImage" id="PlayerImage" />
             <div id="Username">@Player.Username</div>
-            <div id="Points">@points</div>
+            <div id="Points">@Player.Points</div>
         </div>
     }
 
@@ -23,17 +23,10 @@
     [Parameter]
     public Player Player { get; set; }
 
-    private int points;
-
     protected override void OnInitialized()
     {
         DeckState.OnClose += CloseDeck;
         DeckState.OnChangeTrumpCard += ChangeTrumpCard;
-    }
-
-    protected override void OnParametersSet()
-    {
-        points = Player.Hands.SelectMany(x => x.Cards).Sum(x => (int)x.Type);
     }
 
     private void CloseDeck()
@@ -63,7 +56,6 @@
 
         if (announce != Announce.None)
         {
-            points += (int)announce;
             JSRuntime.InvokeVoidAsync("announce", announce);
         }
     }

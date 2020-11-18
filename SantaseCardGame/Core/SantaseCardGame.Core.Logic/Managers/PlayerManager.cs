@@ -77,6 +77,11 @@
 
                 Announce announce = GetAnnounce(player, card);
 
+                if (announce != Announce.None)
+                {
+                    player.Announcements.Add(card.Suit, announce);
+                }
+
                 player.Cards.Remove(card);
                 trickState.AddCard(card, player.Position);
 
