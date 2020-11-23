@@ -13,11 +13,13 @@
 
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
+        private readonly IAnnounceCardProvider announceCardProvider;
 
-        public PlayerManager(IDeckState deckState, ITrickState trickState)
+        public PlayerManager(IDeckState deckState, ITrickState trickState, IAnnounceCardProvider announceCardProvider)
         {
             this.deckState = deckState;
             this.trickState = trickState;
+            this.announceCardProvider = announceCardProvider;
         }
 
         public bool ChangeTrumpCard(Player player, Card trumpCard)
@@ -75,7 +77,7 @@
                     }
                 }
 
-                Announce announce = GetAnnounce(player, card);
+                Announce announce = announceCardProvider.GetAnnounce(player, card).Announce;
 
                 if (announce != Announce.None)
                 {
@@ -91,63 +93,12 @@
             return Announce.None;
         }
 
-        private Announce GetAnnounce(Player player, Card card)
-        {
-            if (CanAnnounce(player))
-            {
-                Card marriageCard = GetMarriageCard(player, card);
-
-                if (marriageCard != null)
-                {
-                    if (marriageCard.Suit == trickState.TrumpCardSuit)
-                    {
-                        return Announce.Forty;
-                    }
-
-                    return Announce.Twenty;
-                }
-            }
-
-            return Announce.None;
-        }
-
-        private Card GetMarriageCard(Player player, Card card)
-        {
-            Card marriageCard = null;
-            CardType cardType = GetMarriageCardType(card);
-
-            if (cardType != CardType.None)
-            {
-                marriageCard = player.Cards.FirstOrDefault(x => x.Suit == card.Suit && x.Type == cardType);
-            }
-
-            return marriageCard;
-        }
-        
-        private CardType GetMarriageCardType(Card card)
-        {
-            switch (card.Type)
-            {
-                case CardType.Queen:
-                    return CardType.King;
-                case CardType.King:
-                    return CardType.Queen;
-                default:
-                    return CardType.None;
-            }
-        }
-
         private bool CanPerformAction(Player player)
         {
             return deckState.CardsLeft >= DECK_CARDS_REQUIRED &&
                 !deckState.ShouldFollowSuit &&
                 !deckState.IsClosed &&
-                CanAnnounce(player);
-        }
-
-        private bool CanAnnounce(Player player)
-        {
-            return player.Position == trickState.PlayerTurn &&
+                player.Position == trickState.PlayerTurn &&
                 !trickState.Cards.Any() &&
                 player.Hands.Any();
         }
