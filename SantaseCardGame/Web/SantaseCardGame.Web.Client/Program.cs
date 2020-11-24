@@ -38,6 +38,7 @@ namespace SantaseCardGame.Web.Client
             builder.Services.AddTransient<IPlayerManager, PlayerManager>();
             builder.Services.AddTransient<IAnnounceCardProvider, AnnounceCardProvider>();
             builder.Services.AddTransient<IPlayCardDecision, PlayHigherCard>();
+            builder.Services.AddTransient<IPlayCardDecision, PlayLowerCard>();
             builder.Services.AddTransient<IPlayCardDecision, PlayTrumpCard>();
             builder.Services.AddTransient<IPlayCardDecision, PlayDifferentCard>();
 
