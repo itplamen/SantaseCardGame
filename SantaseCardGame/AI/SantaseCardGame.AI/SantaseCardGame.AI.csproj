@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\SantaseCardGame.Core.Infrastructure\SantaseCardGame.Core.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Core\SantaseCardGame.Core.Logic\SantaseCardGame.Core.Logic.csproj" />
     <ProjectReference Include="..\..\Data\SantaseCardGame.Data.Models\SantaseCardGame.Data.Models.csproj" />
   </ItemGroup>
 
