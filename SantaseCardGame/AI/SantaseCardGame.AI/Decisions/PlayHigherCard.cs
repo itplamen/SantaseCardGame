@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.AI.Decisions.PlayCard
+﻿namespace SantaseCardGame.AI.Decisions
 {
     using System.Linq;
 

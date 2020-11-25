@@ -8,7 +8,7 @@ namespace SantaseCardGame.Web.Client
     using Microsoft.Extensions.DependencyInjection;
 
     using SantaseCardGame.AI.Contracts;
-    using SantaseCardGame.AI.Decisions.PlayCard;
+    using SantaseCardGame.AI.Decisions;
     using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Core.Infrastructure.States;
     using SantaseCardGame.Core.Logic.Contracts;
