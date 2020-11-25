@@ -16,6 +16,7 @@ namespace SantaseCardGame.Web.Client
     using SantaseCardGame.Core.Logic.Managers;
     using SantaseCardGame.Core.Logic.Providers;
     using SantaseCardGame.Core.Logic.Shuffle;
+    using SantaseCardGame.Core.Logic.Validators;
     using SantaseCardGame.Core.Logic.Win;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Providers;
@@ -41,6 +42,7 @@ namespace SantaseCardGame.Web.Client
             builder.Services.AddTransient<IPlayCardDecision, PlayLowerCard>();
             builder.Services.AddTransient<IPlayCardDecision, PlayTrumpCard>();
             builder.Services.AddTransient<IPlayCardDecision, PlayDifferentCard>();
+            builder.Services.AddTransient<IPlayerActionValidator, PlayerActionValidator>();
 
             await builder.Build().RunAsync();
         }

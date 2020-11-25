@@ -9,15 +9,17 @@
     public class AnnounceCardProvider : IAnnounceCardProvider
     {
         private readonly ITrickState trickState;
+        private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnounceCardProvider(ITrickState trickState)
+        public AnnounceCardProvider(ITrickState trickState, IPlayerActionValidator playerActionValidator)
         {
             this.trickState = trickState;
+            this.playerActionValidator = playerActionValidator;
         }
 
         public PlayerAction GetAnnounce(Player player, Card card)
         {
-            if (CanAnnounce(player, card))
+            if (playerActionValidator.CanAnnounce(player))
             {
                 CardType cardType = GetMarriageCardType(card);
                 bool hasMarriage = player.Cards.FirstOrDefault(x => x.Suit == card.Suit && x.Type == cardType && x.Type != CardType.None) != null;
@@ -47,14 +49,6 @@
                 default:
                     return CardType.None;
             }
-        }
-
-        private bool CanAnnounce(Player player, Card card)
-        {
-            return card != null &&
-                player.Position == trickState.PlayerTurn &&
-                !trickState.Cards.Any() &&
-                player.Hands.Any();
         }
     }
 }
