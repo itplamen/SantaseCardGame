@@ -9,22 +9,22 @@
 
     public class PlayerManager : IPlayerManager
     {
-        private const int DECK_CARDS_REQUIRED = 4;
-
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
         private readonly IAnnounceCardProvider announceCardProvider;
+        private readonly IPlayerActionValidator playerActionValidator;
 
-        public PlayerManager(IDeckState deckState, ITrickState trickState, IAnnounceCardProvider announceCardProvider)
+        public PlayerManager(IDeckState deckState, ITrickState trickState, IAnnounceCardProvider announceCardProvider, IPlayerActionValidator playerActionValidator)
         {
             this.deckState = deckState;
             this.trickState = trickState;
             this.announceCardProvider = announceCardProvider;
+            this.playerActionValidator = playerActionValidator;
         }
 
         public bool ChangeTrumpCard(Player player, Card trumpCard)
         {
-            if (CanPerformAction(player))
+            if (playerActionValidator.CanChangeTrump(player))
             {
                 Card nineOfTrumpsCard = player.Cards.FirstOrDefault(x => x.Type == CardType.Nine && x.Suit == trumpCard.Suit);
 
@@ -43,7 +43,7 @@
 
         public bool CloseDeck(Player player)
         {
-            if (CanPerformAction(player))
+            if (playerActionValidator.CanCloseDeck(player))
             {
                 deckState.IsClosed = true;
             }
@@ -91,16 +91,6 @@
             }
 
             return Announce.None;
-        }
-
-        private bool CanPerformAction(Player player)
-        {
-            return deckState.CardsLeft >= DECK_CARDS_REQUIRED &&
-                !deckState.ShouldFollowSuit &&
-                !deckState.IsClosed &&
-                player.Position == trickState.PlayerTurn &&
-                !trickState.Cards.Any() &&
-                player.Hands.Any();
         }
     }
 }
