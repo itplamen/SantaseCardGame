@@ -8,7 +8,7 @@ namespace SantaseCardGame.Web.Client
     using Microsoft.Extensions.DependencyInjection;
 
     using SantaseCardGame.AI.Contracts;
-    using SantaseCardGame.AI.Decisions;
+    using SantaseCardGame.AI.Play;
     using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Core.Infrastructure.States;
     using SantaseCardGame.Core.Logic.Contracts;
@@ -38,10 +38,10 @@ namespace SantaseCardGame.Web.Client
             builder.Services.AddTransient<IGameManager, GameManager>();
             builder.Services.AddTransient<IPlayerManager, PlayerManager>();
             builder.Services.AddTransient<IAnnounceCardProvider, AnnounceCardProvider>();
-            builder.Services.AddTransient<IPlayCardDecision, PlayHigherCard>();
-            builder.Services.AddTransient<IPlayCardDecision, PlayLowerCard>();
-            builder.Services.AddTransient<IPlayCardDecision, PlayTrumpCard>();
-            builder.Services.AddTransient<IPlayCardDecision, PlayDifferentCard>();
+            builder.Services.AddTransient<IPlayCard, PlayHigherCard>();
+            builder.Services.AddTransient<IPlayCard, PlayLowerCard>();
+            builder.Services.AddTransient<IPlayCard, PlayTrumpCard>();
+            builder.Services.AddTransient<IPlayCard, PlayDifferentCard>();
             builder.Services.AddTransient<IPlayerActionValidator, PlayerActionValidator>();
 
             await builder.Build().RunAsync();

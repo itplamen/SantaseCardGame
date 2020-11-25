@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.AI.Decisions
+﻿namespace SantaseCardGame.AI.Play
 {
     using System.Linq;
 
@@ -6,7 +6,7 @@
     using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class PlayDifferentCard : IPlayCardDecision
+    public class PlayDifferentCard : IPlayCard
     {
         private readonly ITrickState trickState;
 

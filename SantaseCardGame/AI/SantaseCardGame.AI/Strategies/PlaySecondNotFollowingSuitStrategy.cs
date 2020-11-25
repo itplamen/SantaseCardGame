@@ -10,9 +10,9 @@
     public class PlaySecondNotFollowingSuitStrategy : IChoosePlayerActionStrategy
     {
         private readonly ITrickState trickState;
-        private readonly IEnumerable<IPlayCardDecision> playCardDecisions;
+        private readonly IEnumerable<IPlayCard> playCardDecisions;
 
-        public PlaySecondNotFollowingSuitStrategy(ITrickState trickState, IEnumerable<IPlayCardDecision> playCardDecisions)
+        public PlaySecondNotFollowingSuitStrategy(ITrickState trickState, IEnumerable<IPlayCard> playCardDecisions)
         {
             this.trickState = trickState;
             this.playCardDecisions = playCardDecisions;
