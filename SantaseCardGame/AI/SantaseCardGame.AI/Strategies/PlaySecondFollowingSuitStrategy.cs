@@ -7,18 +7,27 @@
     using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class PlaySecondFollowingSuitStrategy : IChoosePlayerActionStrategy
+    public class PlaySecondFollowingSuitStrategy : IPlayerActionStrategy
     {
+        private readonly IDeckState deckState;
         private readonly ITrickState trickState;
         private readonly IEnumerable<IPlayCard> playCardDecisions;
 
-        public PlaySecondFollowingSuitStrategy(ITrickState trickState, IEnumerable<IPlayCard> playCardDecisions)
+        public PlaySecondFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayCard> playCardDecisions)
         {
+            this.deckState = deckState;
             this.trickState = trickState;
             this.playCardDecisions = playCardDecisions;
         }
 
-        public PlayerAction ChoosePlayerAction(Player player)
+        public bool ShouldPlay(Player player)
+        {
+            return player.Position == PlayerPosition.Second &&
+                player.Position == trickState.PlayerTurn &&
+                deckState.ShouldFollowSuit;
+        }
+
+        public PlayerAction Play(Player player)
         {
             Card opponentCard = trickState.Cards.First(x => x.Key != player.Position).Value;
 
