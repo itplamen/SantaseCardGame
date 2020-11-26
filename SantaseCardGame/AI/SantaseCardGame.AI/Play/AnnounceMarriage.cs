@@ -8,7 +8,7 @@
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class AnnounceMarriage : IPlaySpecialFeature
+    public class AnnounceMarriage : IPlayLogic
     {
         private const int MARRIAGE_CARDS_COUNT = 2;
 

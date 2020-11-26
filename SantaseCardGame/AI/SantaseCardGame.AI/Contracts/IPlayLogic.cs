@@ -2,8 +2,8 @@
 {
     using SantaseCardGame.Data.Models;
 
-    public interface IPlayCard
+    public interface IPlayLogic
     {
-        Card PlayCard(Player player, Card opponentCard);
+        PlayerAction Play(Player player);
     }
 }

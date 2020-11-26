@@ -6,7 +6,7 @@
     using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class PlayDifferentCard : IPlayCard
+    public class PlayDifferentCard : IPlayLogic
     {
         private readonly ITrickState trickState;
 
@@ -15,16 +15,20 @@
             this.trickState = trickState;
         }
 
-        public Card PlayCard(Player player, Card opponentCard)
+        public PlayerAction Play(Player player)
         {
+            Card opponentCard = trickState.Cards.First(x => x.Key != player.Position).Value;
+            
             if (player.Cards.All(x => x.Suit != opponentCard.Suit && x.Suit != trickState.TrumpCardSuit))
             {
-                return player.Cards
+                Card playCard =  player.Cards
                     .OrderBy(x => x.Type)
                     .FirstOrDefault();
+
+                return new PlayerAction(PlayerActionType.PlayCard, playCard);
             }
 
-            return null;
+            return new PlayerAction(PlayerActionType.None);
         }
     }
 }

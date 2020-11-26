@@ -6,7 +6,7 @@
     using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class PlayTrumpCard : IPlayCard
+    public class PlayTrumpCard : IPlayLogic
     {
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
@@ -17,17 +17,24 @@
             this.trickState = trickState;
         }
 
-        public Card PlayCard(Player player, Card opponentCard)
+        public PlayerAction Play(Player player)
         {
+            Card opponentCard = trickState.Cards.First(x => x.Key != player.Position).Value;
+
             if (ShouldPlayTrumpWhenFollowingSuit(player, opponentCard) ||
                 ShouldPlayTrumpWhenNotFollowingSuit(player, opponentCard))
             {
-                return player.Cards
+                Card playCard = player.Cards
                     .OrderBy(x => x.Type)
                     .FirstOrDefault(x => x.Suit == trickState.TrumpCardSuit);
+
+                if (playCard != null)
+                {
+                    return new PlayerAction(PlayerActionType.PlayCard, playCard);
+                }
             }
 
-            return null;
+            return new PlayerAction(PlayerActionType.None);
         }
 
         private bool ShouldPlayTrumpWhenFollowingSuit(Player player, Card opponentCard)

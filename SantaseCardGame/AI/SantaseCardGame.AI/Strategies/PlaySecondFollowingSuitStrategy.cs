@@ -11,13 +11,13 @@
     {
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
-        private readonly IEnumerable<IPlayCard> playCardDecisions;
+        private readonly IEnumerable<IPlayLogic> playLogics;
 
-        public PlaySecondFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayCard> playCardDecisions)
+        public PlaySecondFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayLogic> playLogics)
         {
             this.deckState = deckState;
             this.trickState = trickState;
-            this.playCardDecisions = playCardDecisions;
+            this.playLogics = playLogics;
         }
 
         public bool ShouldPlay(Player player)
@@ -29,19 +29,17 @@
 
         public PlayerAction Play(Player player)
         {
-            Card opponentCard = trickState.Cards.First(x => x.Key != player.Position).Value;
-
-            foreach (var cardDecision in playCardDecisions)
+            foreach (var logic in playLogics)
             {
-                Card playCard = cardDecision.PlayCard(player, opponentCard);
+                PlayerAction playerAction = logic.Play(player);
 
-                if (playCard != null)
+                if (playerAction.Type != PlayerActionType.None)
                 {
-                    return new PlayerAction(PlayerActionType.PlayCard, playCard);
+                    return playerAction;
                 }
             }
 
-            return new PlayerAction(PlayerActionType.PlayCard);
+            return new PlayerAction(PlayerActionType.None);
         }
     }
 }

@@ -10,13 +10,13 @@
     {
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
-        private readonly IEnumerable<IPlaySpecialFeature> playSpecialFeatures;
+        private readonly IEnumerable<IPlayLogic> playLogics;
 
-        public PlayFirstNotFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlaySpecialFeature> playSpecialFeatures)
+        public PlayFirstNotFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayLogic> playLogics)
         {
             this.deckState = deckState;
             this.trickState = trickState;
-            this.playSpecialFeatures = playSpecialFeatures;
+            this.playLogics = playLogics;
         }
 
         public bool ShouldPlay(Player player)
@@ -28,11 +28,11 @@
 
         public PlayerAction Play(Player player)
         {
-            foreach (var feature in playSpecialFeatures)
+            foreach (var logic in playLogics)
             {
-                PlayerAction playerAction = feature.Play(player);
+                PlayerAction playerAction = logic.Play(player);
 
-                if (playerAction != null)
+                if (playerAction.Type != PlayerActionType.None)
                 {
                     return playerAction;
                 }

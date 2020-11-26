@@ -7,7 +7,7 @@
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class CloseDeck : IPlaySpecialFeature
+    public class CloseDeck : IPlayLogic
     {
         private readonly IPlayerActionValidator playerActionValidator;
 

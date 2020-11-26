@@ -7,7 +7,7 @@
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class ChangeTrumpCard : IPlaySpecialFeature
+    public class ChangeTrumpCard : IPlayLogic
     {
         private readonly ITrickState trickState;
         private readonly IPlayerActionValidator playerActionValidator;
