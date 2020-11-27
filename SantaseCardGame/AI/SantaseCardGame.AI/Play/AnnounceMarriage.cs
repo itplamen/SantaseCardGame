@@ -3,33 +3,27 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class AnnounceMarriage : IPlayLogic
+    public class AnnounceMarriage : BasePlayLogic
     {
-        private const int MARRIAGE_CARDS_COUNT = 2;
-
         private readonly ITrickState trickState;
         private readonly IPlayerActionValidator playerActionValidator;
 
         public AnnounceMarriage(ITrickState trickState, IPlayerActionValidator playerActionValidator)
+            : base(trickState)
         {
             this.trickState = trickState;
             this.playerActionValidator = playerActionValidator;
         }
 
-        public PlayerAction Play(Player player)
+        protected override PlayerAction PlayLogic(Player player)
         {
             if (playerActionValidator.CanAnnounce(player))
             {
-                IEnumerable<Card> marriages = player.Cards
-                    .Where(x => x.Type == CardType.Queen || x.Type == CardType.King)
-                    .GroupBy(x => x.Suit)
-                    .Where(x => x.Count() == MARRIAGE_CARDS_COUNT)
-                    .SelectMany(x => x);
+                IEnumerable<Card> marriages = GetMarriages(player);
 
                 if (marriages.Any())
                 {
@@ -44,7 +38,7 @@
                 }
             }
 
-            return new PlayerAction(PlayerActionType.Announce);
+            return new PlayerAction(PlayerActionType.None);
         }
     }
 }

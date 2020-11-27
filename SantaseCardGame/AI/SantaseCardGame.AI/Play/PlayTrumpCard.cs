@@ -2,36 +2,31 @@
 {
     using System.Linq;
 
-    using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class PlayTrumpCard : IPlayLogic
+    public class PlayTrumpCard : BasePlayLogic
     {
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
 
         public PlayTrumpCard(IDeckState deckState, ITrickState trickState)
+            : base(trickState)
         {
             this.deckState = deckState;
             this.trickState = trickState;
         }
 
-        public PlayerAction Play(Player player)
+        protected override PlayerAction PlayLogic(Player player)
         {
-            Card opponentCard = trickState.Cards.First(x => x.Key != player.Position).Value;
-
-            if (ShouldPlayTrumpWhenFollowingSuit(player, opponentCard) ||
-                ShouldPlayTrumpWhenNotFollowingSuit(player, opponentCard))
+            if (ShouldPlayTrumpWhenFollowingSuit(player, OpponentCard) ||
+                ShouldPlayTrumpWhenNotFollowingSuit(player, OpponentCard))
             {
-                Card playCard = player.Cards
+                Card card = player.Cards
                     .OrderBy(x => x.Type)
                     .FirstOrDefault(x => x.Suit == trickState.TrumpCardSuit);
 
-                if (playCard != null)
-                {
-                    return new PlayerAction(PlayerActionType.PlayCard, playCard);
-                }
+                return new PlayerAction(PlayerActionType.PlayCard, card);
             }
 
             return new PlayerAction(PlayerActionType.None);

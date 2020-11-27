@@ -3,17 +3,17 @@
     public class PlayerAction
     {
         public PlayerAction(PlayerActionType type)
-            :this(type, null, Announce.None)
+            : this(type, null, Announce.None)
         {
         }
 
         public PlayerAction(PlayerActionType type, Announce announce)
-            :this(type, null, announce)
+            : this(type, null, announce)
         {
         }
 
         public PlayerAction(PlayerActionType type, Card card)
-            :this(type, card, Announce.None)
+            : this(type, card, Announce.None)
         {
         }
 
