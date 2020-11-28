@@ -4,7 +4,7 @@
 
     public interface IPlayerActionManager
     {
-        bool ShouldManage(PlayerAction playerAction);
+        bool ShouldManage(PlayerAction playerAction, Player player);
 
         void Manage(PlayerAction playerAction, Player player);
     }

@@ -6,25 +6,28 @@
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class ChangeTrumpCardManager : IPlayerActionManager
+    public class ChangeTrumpCardManager : BasePlayerActionManager
     {
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
         private readonly IPlayerActionValidator playerActionValidator;
 
         public ChangeTrumpCardManager(IDeckState deckState, ITrickState trickState, IPlayerActionValidator playerActionValidator)
+            : base(trickState)
         {
             this.deckState = deckState;
             this.trickState = trickState;
             this.playerActionValidator = playerActionValidator;
         }
 
-        public bool ShouldManage(PlayerAction playerAction)
+        public override bool ShouldManage(PlayerAction playerAction, Player player)
         {
-            return playerAction.Type == PlayerActionType.ChangeTrump && playerAction.Card != null;
+            return base.ShouldManage(playerAction, player) &&
+                playerAction.Type == PlayerActionType.ChangeTrump && 
+                playerAction.Card != null;
         }
 
-        public void Manage(PlayerAction playerAction, Player player)
+        public override void Manage(PlayerAction playerAction, Player player)
         {
             if (playerActionValidator.CanChangeTrump(player))
             {

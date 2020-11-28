@@ -30,8 +30,8 @@
 
     private void Play(PlayerAction playerAction)
     {
-        IPlayerActionManager manager = Managers.First(x => x.ShouldManage(playerAction));
-        manager.Manage(playerAction, Player);
+        IPlayerActionManager manager = Managers.FirstOrDefault(x => x.ShouldManage(playerAction, Player));
+        manager?.Manage(playerAction, Player);
 
         StateHasChanged();
     }

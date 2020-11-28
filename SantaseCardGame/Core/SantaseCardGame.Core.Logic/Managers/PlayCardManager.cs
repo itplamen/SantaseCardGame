@@ -4,48 +4,47 @@
     using System.Linq;
 
     using SantaseCardGame.Core.Infrastructure.Contracts;
-    using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class PlayCardManager : IPlayerActionManager
+    public class PlayCardManager : BasePlayerActionManager
     {
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
 
         public PlayCardManager(IDeckState deckState, ITrickState trickState)
+            : base(trickState)
         {
             this.deckState = deckState;
             this.trickState = trickState;
         }
 
-        public bool ShouldManage(PlayerAction playerAction)
+        public override bool ShouldManage(PlayerAction playerAction, Player player)
         {
-            return playerAction.Type == PlayerActionType.PlayCard && playerAction.Card != null;
+            return base.ShouldManage(playerAction, player) &&
+                playerAction.Type == PlayerActionType.PlayCard && 
+                playerAction.Card != null;
         }
 
-        public void Manage(PlayerAction playerAction, Player player)
+        public override void Manage(PlayerAction playerAction, Player player)
         {
-            if (player.Position == trickState.PlayerTurn)
+            Card opponentCard = trickState.Cards.FirstOrDefault(x => x.Key != player.Position).Value;
+
+            if (opponentCard != null && deckState.ShouldFollowSuit)
             {
-                Card opponentCard = trickState.Cards.FirstOrDefault(x => x.Key != player.Position).Value;
+                IEnumerable<Card> sameSuitCards = player.Cards.Where(x => x.Suit == opponentCard.Suit);
 
-                if (opponentCard != null && deckState.ShouldFollowSuit)
+                if ((sameSuitCards.Any(x => x.Type > opponentCard.Type) && playerAction.Card.Type < opponentCard.Type) ||
+                    (sameSuitCards.Any() && playerAction.Card.Suit != opponentCard.Suit) ||
+                    (!sameSuitCards.Any() && player.Cards.Any(x => x.Suit == trickState.TrumpCardSuit) && playerAction.Card.Suit != trickState.TrumpCardSuit))
                 {
-                    IEnumerable<Card> sameSuitCards = player.Cards.Where(x => x.Suit == opponentCard.Suit);
+                    trickState.Notify("Cant play");
 
-                    if ((sameSuitCards.Any(x => x.Type > opponentCard.Type) && playerAction.Card.Type < opponentCard.Type) || 
-                        (sameSuitCards.Any() && playerAction.Card.Suit != opponentCard.Suit) || 
-                        (!sameSuitCards.Any() && player.Cards.Any(x => x.Suit == trickState.TrumpCardSuit) && playerAction.Card.Suit != trickState.TrumpCardSuit))
-                    {
-                        trickState.Notify("Cant play");
-
-                        return;
-                    }    
+                    return;
                 }
-
-                player.Cards.Remove(playerAction.Card);
-                trickState.AddCard(playerAction.Card, player.Position);
             }
+
+            player.Cards.Remove(playerAction.Card);
+            trickState.AddCard(playerAction.Card, player.Position);
         }
     }
 }

@@ -4,25 +4,27 @@
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class CloseDeckManager : IPlayerActionManager
+    public class CloseDeckManager : BasePlayerActionManager
     {
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
         private readonly IPlayerActionValidator playerActionValidator;
 
         public CloseDeckManager(IDeckState deckState, ITrickState trickState, IPlayerActionValidator playerActionValidator)
+            : base(trickState)
         {
             this.deckState = deckState;
             this.trickState = trickState;
             this.playerActionValidator = playerActionValidator;
         }
 
-        public bool ShouldManage(PlayerAction playerAction)
+        public override bool ShouldManage(PlayerAction playerAction, Player player)
         {
-            return playerAction.Type == PlayerActionType.CloseDeck;
+            return base.ShouldManage(playerAction, player) &&
+                playerAction.Type == PlayerActionType.CloseDeck;
         }
 
-        public void Manage(PlayerAction playerAction, Player player)
+        public override void Manage(PlayerAction playerAction, Player player)
         {
             if (playerActionValidator.CanCloseDeck(player))
             {

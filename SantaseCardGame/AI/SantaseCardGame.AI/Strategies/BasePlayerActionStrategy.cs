@@ -10,7 +10,7 @@
     {
         private readonly IEnumerable<IPlayLogic> playLogics;
 
-        public BasePlayerActionStrategy(IEnumerable<IPlayLogic> playLogics)
+        protected BasePlayerActionStrategy(IEnumerable<IPlayLogic> playLogics)
         {
             this.playLogics = playLogics;
         }
