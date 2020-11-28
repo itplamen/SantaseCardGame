@@ -1,7 +1,7 @@
 ﻿@inject IDeckState DeckState;
 @inject ITrickState TrickState;
 @inject IJSRuntime JSRuntime;
-@inject IPlayerManager PlayerManager;
+@inject IEnumerable<IPlayerActionManager> Managers;
 
 <div id="@(Player.Position == PlayerPosition.First ? "FirstPlayerCards" : "SecondPlayerCards")">
     @if (Player.Position == PlayerPosition.Second)
@@ -31,7 +31,9 @@
 
     private void CloseDeck()
     {
-        bool isClosed = PlayerManager.CloseDeck(Player);
+        Play(new PlayerAction(PlayerActionType.CloseDeck));
+
+        bool isClosed = true;
 
         if (isClosed)
         {
@@ -41,7 +43,8 @@
 
     private void ChangeTrumpCard(Card trumpCard)
     {
-        bool isChanged = PlayerManager.ChangeTrumpCard(Player, trumpCard);
+        Play(new PlayerAction(PlayerActionType.ChangeTrump, trumpCard));
+        bool isChanged = true;
 
         if (isChanged)
         {
@@ -52,11 +55,17 @@
 
     private void PlayCard(Card card)
     {
-        Announce announce = PlayerManager.PlayCard(Player, card);
+        Play(new PlayerAction(PlayerActionType.PlayCard, card));
 
-        if (announce != Announce.None)
+        if (true)
         {
-            JSRuntime.InvokeVoidAsync("announce", announce);
+            JSRuntime.InvokeVoidAsync("announce", 10);
         }
+    }
+
+    private void Play(PlayerAction playerAction)
+    {
+        IPlayerActionManager manager = Managers.First(x => x.ShouldManage(playerAction));
+        manager.Manage(playerAction, Player);
     }
 }

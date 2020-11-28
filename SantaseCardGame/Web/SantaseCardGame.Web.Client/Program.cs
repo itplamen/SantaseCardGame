@@ -36,7 +36,10 @@ namespace SantaseCardGame.Web.Client
             builder.Services.AddTransient<ICardsShuffler, CardsShuffler>();
             builder.Services.AddTransient<ICardsDealer, CardsDealer>();
             builder.Services.AddTransient<IGameManager, GameManager>();
-            builder.Services.AddTransient<IPlayerManager, PlayerManager>();
+            builder.Services.AddTransient<IPlayerActionManager, AnnounceManager>();
+            builder.Services.AddTransient<IPlayerActionManager, ChangeTrumpCardManager>();
+            builder.Services.AddTransient<IPlayerActionManager, CloseDeckManager>();
+            builder.Services.AddTransient<IPlayerActionManager, PlayCardManager>();
             builder.Services.AddTransient<IAnnounceCardProvider, AnnounceCardProvider>();
             builder.Services.AddTransient<IPlayLogic, PlayHigherCard>();
             builder.Services.AddTransient<IPlayLogic, PlayLowerCard>();
