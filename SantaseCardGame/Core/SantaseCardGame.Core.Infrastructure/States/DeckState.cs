@@ -7,9 +7,9 @@
 
     public class DeckState : IDeckState
     {
-        public event Action OnClose;
+        public event Action<PlayerAction> OnClose;
 
-        public event Action<Card> OnChangeTrumpCard;
+        public event Action<PlayerAction> OnChangeTrumpCard;
 
         public event Action<Card> OnExchangeTrumpCardForNineOfTrumps;
 
@@ -23,17 +23,17 @@
         {
             if (!IsClosed)
             {
-                OnClose?.Invoke();
+                OnClose?.Invoke(new PlayerAction(PlayerActionType.CloseDeck));
 
                 ShouldFollowSuit = true;
             }
         }
 
-        public void ChangeTrumpCard(Card trumpCard)
+        public void ChangeTrumpCard(PlayerAction playerAction)
         {
             if (!IsClosed)
             {
-                OnChangeTrumpCard?.Invoke(trumpCard);
+                OnChangeTrumpCard?.Invoke(playerAction);
             }
         }
 

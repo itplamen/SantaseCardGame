@@ -1,16 +1,13 @@
-﻿<img id="@Card.Name"
-     alt="@Card.Name" 
-     @onclick="@(() => OnClick.InvokeAsync(Card))"
-     src="/images/cards/@string.Concat(Card.Name,".png")"
-     class="card-component @(IsTrumpCard ? "trump-card" : string.Empty)" />
+﻿<img id="@PlayerAction.Card.Name"
+     alt="@PlayerAction.Card.Name" 
+     @onclick="@(() => OnClick.InvokeAsync(PlayerAction))"
+     src="/images/cards/@string.Concat(PlayerAction.Card.Name,".png")"
+     class="card-component @(PlayerAction.Type == PlayerActionType.ChangeTrump ? "trump-card" : string.Empty)" />
 
 @code {
     [Parameter]
-    public Card Card { get; set; }
+    public PlayerAction PlayerAction { get; set; } 
 
     [Parameter]
-    public bool IsTrumpCard { get; set; }    
-
-    [Parameter]
-    public EventCallback<Card> OnClick { get; set; }
+    public EventCallback<PlayerAction> OnClick { get; set; }
 }

@@ -1,7 +1,7 @@
 ﻿@inject IDeckState DeckState;
-@inject ITrickState TrickState;
 @inject IJSRuntime JSRuntime;
 @inject IEnumerable<IPlayerActionManager> Managers;
+@inject IAnnounceCardProvider AnnounceCardProvider;
 
 <div id="@(Player.Position == PlayerPosition.First ? "FirstPlayerCards" : "SecondPlayerCards")">
     @if (Player.Position == PlayerPosition.Second)
@@ -15,7 +15,7 @@
 
     @foreach (var card in Player.Cards)
     {
-        <CardComponent Card="card" OnClick="PlayCard"></CardComponent>
+        <CardComponent PlayerAction="GetPlayerAction(card)" OnClick="Play"></CardComponent>
     }
 </div>
 
@@ -25,47 +25,30 @@
 
     protected override void OnInitialized()
     {
-        DeckState.OnClose += CloseDeck;
-        DeckState.OnChangeTrumpCard += ChangeTrumpCard;
-    }
-
-    private void CloseDeck()
-    {
-        Play(new PlayerAction(PlayerActionType.CloseDeck));
-
-        bool isClosed = true;
-
-        if (isClosed)
-        {
-            JSRuntime.InvokeVoidAsync("announce", "Close");
-        }
-    }
-
-    private void ChangeTrumpCard(Card trumpCard)
-    {
-        Play(new PlayerAction(PlayerActionType.ChangeTrump, trumpCard));
-        bool isChanged = true;
-
-        if (isChanged)
-        {
-            JSRuntime.InvokeVoidAsync("announce", "Change");
-            StateHasChanged();
-        }
-    }
-
-    private void PlayCard(Card card)
-    {
-        Play(new PlayerAction(PlayerActionType.PlayCard, card));
-
-        if (true)
-        {
-            JSRuntime.InvokeVoidAsync("announce", 10);
-        }
+        DeckState.OnClose += Play;
+        DeckState.OnChangeTrumpCard += Play;
     }
 
     private void Play(PlayerAction playerAction)
     {
         IPlayerActionManager manager = Managers.First(x => x.ShouldManage(playerAction));
         manager.Manage(playerAction, Player);
+
+        // JSRuntime.InvokeVoidAsync("announce", "Close");
+        // JSRuntime.InvokeVoidAsync("announce", "Change");
+        // JSRuntime.InvokeVoidAsync("announce", 40);
+        StateHasChanged();
+    }
+
+    private PlayerAction GetPlayerAction(Card card)
+    {
+        PlayerAction playerAction = AnnounceCardProvider.GetAnnounce(Player, card);
+
+        if (playerAction.Announce != Announce.None)
+        {
+            return playerAction;
+        }
+
+        return new PlayerAction(PlayerActionType.PlayCard, card);
     }
 }

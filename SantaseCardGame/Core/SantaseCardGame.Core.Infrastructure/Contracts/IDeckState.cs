@@ -6,9 +6,9 @@
 
     public interface IDeckState
     {
-        event Action OnClose;
+        event Action<PlayerAction> OnClose;
         
-        event Action<Card> OnChangeTrumpCard;
+        event Action<PlayerAction> OnChangeTrumpCard;
 
         event Action<Card> OnExchangeTrumpCardForNineOfTrumps;
 
@@ -20,7 +20,7 @@
 
         void Close();
 
-        void ChangeTrumpCard(Card trumpCard);
+        void ChangeTrumpCard(PlayerAction playerAction);
 
         void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard);
     }

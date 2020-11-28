@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\AI\SantaseCardGame.AI\SantaseCardGame.AI.csproj" />
+    <ProjectReference Include="..\SantaseCardGame.Core.Logic\SantaseCardGame.Core.Logic.csproj" />
+  </ItemGroup>
+
 </Project>
