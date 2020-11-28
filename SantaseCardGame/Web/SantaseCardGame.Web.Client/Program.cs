@@ -9,6 +9,8 @@ namespace SantaseCardGame.Web.Client
 
     using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.AI.Play;
+    using SantaseCardGame.Core.Engine;
+    using SantaseCardGame.Core.Engine.Contracts;
     using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Core.Infrastructure.States;
     using SantaseCardGame.Core.Logic.Contracts;
@@ -35,7 +37,7 @@ namespace SantaseCardGame.Web.Client
             builder.Services.AddTransient<ITrickWinner, TrickWinner>();
             builder.Services.AddTransient<ICardsShuffler, CardsShuffler>();
             builder.Services.AddTransient<ICardsDealer, CardsDealer>();
-            builder.Services.AddTransient<IGameManager, GameManager>();
+            builder.Services.AddTransient<IGameEngine, GameEngine>();
             builder.Services.AddTransient<IPlayerActionManager, AnnounceManager>();
             builder.Services.AddTransient<IPlayerActionManager, ChangeTrumpCardManager>();
             builder.Services.AddTransient<IPlayerActionManager, CloseDeckManager>();

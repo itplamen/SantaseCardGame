@@ -1,8 +1,8 @@
-﻿namespace SantaseCardGame.Core.Logic.Contracts
+﻿namespace SantaseCardGame.Core.Engine.Contracts
 {
     using SantaseCardGame.Data.Models;
 
-    public interface IGameManager
+    public interface IGameEngine
     {
         Game StartGame(string username);
     }

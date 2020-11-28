@@ -1,18 +1,19 @@
-﻿namespace SantaseCardGame.Core.Logic.Managers
+﻿namespace SantaseCardGame.Core.Engine
 {
     using System.Collections.Generic;
 
+    using SantaseCardGame.Core.Engine.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
-    
-    public class GameManager : IGameManager
+
+    public class GameEngine : IGameEngine
     {
         private readonly ICardsDealer cardsDealer;
         private readonly ICardsProvider cardsProvider;
         private readonly ICardsShuffler cardsShuffler;
 
-        public GameManager(ICardsDealer cardsDealer, ICardsProvider cardsProvider, ICardsShuffler cardsShuffler)
+        public GameEngine(ICardsDealer cardsDealer, ICardsProvider cardsProvider, ICardsShuffler cardsShuffler)
         {
             this.cardsDealer = cardsDealer;
             this.cardsProvider = cardsProvider;

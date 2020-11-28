@@ -4,7 +4,7 @@
 @inject IDeckState DeckState;
 @inject ITrickState TrickState;
 @inject ITrickWinner TrickWinner;
-@inject IGameManager GameManager;
+@inject IGameEngine GameEngine;
 
 @if (Game != null)
 {
@@ -21,7 +21,7 @@
 
     protected override void OnInitialized()
     {
-        Game = GameManager.StartGame("Plamen");
+        Game = GameEngine.StartGame("Plamen");
 
         TrickState.OnPlay += PlayTrick;
         TrickState.OnNotify += Notify;
