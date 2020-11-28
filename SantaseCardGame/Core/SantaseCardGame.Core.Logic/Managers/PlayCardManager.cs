@@ -37,7 +37,8 @@
                         (sameSuitCards.Any() && playerAction.Card.Suit != opponentCard.Suit) || 
                         (!sameSuitCards.Any() && player.Cards.Any(x => x.Suit == trickState.TrumpCardSuit) && playerAction.Card.Suit != trickState.TrumpCardSuit))
                     {
-                        // TODO: Notify
+                        trickState.Notify("Cant play");
+
                         return;
                     }    
                 }

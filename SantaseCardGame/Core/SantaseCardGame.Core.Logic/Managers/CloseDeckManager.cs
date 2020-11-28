@@ -7,11 +7,13 @@
     public class CloseDeckManager : IPlayerActionManager
     {
         private readonly IDeckState deckState;
+        private readonly ITrickState trickState;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public CloseDeckManager(IDeckState deckState, IPlayerActionValidator playerActionValidator)
+        public CloseDeckManager(IDeckState deckState, ITrickState trickState, IPlayerActionValidator playerActionValidator)
         {
             this.deckState = deckState;
+            this.trickState = trickState;
             this.playerActionValidator = playerActionValidator;
         }
 
@@ -25,11 +27,12 @@
             if (playerActionValidator.CanCloseDeck(player))
             {
                 deckState.IsClosed = true;
+                trickState.Notify("Close");
 
-                // TODO: Notify
+                return;
             }
 
-            // TODO: Notify when cant
+            trickState.Notify("Cant close");
         }
     }
 }

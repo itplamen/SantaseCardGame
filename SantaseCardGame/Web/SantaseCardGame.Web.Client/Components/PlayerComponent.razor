@@ -1,5 +1,4 @@
 ﻿@inject IDeckState DeckState;
-@inject IJSRuntime JSRuntime;
 @inject IEnumerable<IPlayerActionManager> Managers;
 @inject IAnnounceCardProvider AnnounceCardProvider;
 
@@ -34,9 +33,6 @@
         IPlayerActionManager manager = Managers.First(x => x.ShouldManage(playerAction));
         manager.Manage(playerAction, Player);
 
-        // JSRuntime.InvokeVoidAsync("announce", "Close");
-        // JSRuntime.InvokeVoidAsync("announce", "Change");
-        // JSRuntime.InvokeVoidAsync("announce", 40);
         StateHasChanged();
     }
 

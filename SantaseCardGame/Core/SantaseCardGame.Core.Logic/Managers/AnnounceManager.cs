@@ -29,8 +29,7 @@
             if (announce != Announce.None)
             {
                 player.Announcements.Add(playerAction.Card.Suit, announce);
-
-                // TODO: notify
+                trickState.Notify(announce.ToString());
             }
 
             player.Cards.Remove(playerAction.Card);

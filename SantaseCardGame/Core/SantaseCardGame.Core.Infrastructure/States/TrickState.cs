@@ -18,6 +18,8 @@
 
         public event Action OnDisplay;
 
+        public event Action<string> OnNotify;
+
         public PlayerPosition PlayerTurn { get; set; }
 
         public CardSuit TrumpCardSuit { get; set; }
@@ -45,6 +47,11 @@
             cards = new Dictionary<PlayerPosition, Card>();
 
             OnClear?.Invoke();
+        }
+
+        public void Notify(string message)
+        {
+            OnNotify?.Invoke(message);
         }
 
         private PlayerPosition GetNextPlayerPosition(PlayerPosition current)

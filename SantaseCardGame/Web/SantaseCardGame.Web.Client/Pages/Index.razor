@@ -1,5 +1,6 @@
 ﻿@page "/"
 
+@inject IJSRuntime JSRuntime;
 @inject IDeckState DeckState;
 @inject ITrickState TrickState;
 @inject ITrickWinner TrickWinner;
@@ -23,15 +24,16 @@
         Game = GameManager.StartGame("Plamen");
 
         TrickState.OnPlay += PlayTrick;
+        TrickState.OnNotify += Notify;
         TrickState.PlayerTurn = PlayerPosition.First;
         TrickState.TrumpCardSuit = Game.Deck.TrumpCard.Suit;
     }
 
     private async void PlayTrick()
     {
-        Hand hand = new Hand() 
-        { 
-            Cards = TrickState.Cards.Select(x => x.Value) 
+        Hand hand = new Hand()
+        {
+            Cards = TrickState.Cards.Select(x => x.Value)
         };
 
         PlayerPosition winnerPosition = TrickWinner.GetWinner(TrickState.Cards, Game.Deck.TrumpCard.Suit);
@@ -81,5 +83,10 @@
         {
             DeckState.ShouldFollowSuit = true;
         }
+    }
+
+    private void Notify(string message)
+    {
+        JSRuntime.InvokeVoidAsync("announce", message);
     }
 }

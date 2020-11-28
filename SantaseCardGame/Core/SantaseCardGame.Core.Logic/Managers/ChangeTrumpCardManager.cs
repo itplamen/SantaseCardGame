@@ -9,11 +9,13 @@
     public class ChangeTrumpCardManager : IPlayerActionManager
     {
         private readonly IDeckState deckState;
+        private readonly ITrickState trickState;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public ChangeTrumpCardManager(IDeckState deckState, IPlayerActionValidator playerActionValidator)
+        public ChangeTrumpCardManager(IDeckState deckState, ITrickState trickState, IPlayerActionValidator playerActionValidator)
         {
             this.deckState = deckState;
+            this.trickState = trickState;
             this.playerActionValidator = playerActionValidator;
         }
 
@@ -32,13 +34,15 @@
                 {
                     int nineOfTrumpsIndex = player.Cards.FindIndex(x => x.Name == nineOfTrumpsCard.Name);
                     player.Cards[nineOfTrumpsIndex] = playerAction.Card;
+                    
                     deckState.ExchangeTrumpCardForNineOfTrumps(nineOfTrumpsCard);
+                    trickState.Notify("Change");
 
-                    // TODO: Notify
+                    return;
                 }
             }
 
-            // TODO: Notify when cant
+            trickState.Notify("Can't");
         }
     }
 }

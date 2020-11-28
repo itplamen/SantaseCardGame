@@ -13,6 +13,8 @@
 
         event Action OnDisplay;
 
+        event Action<string> OnNotify;
+
         PlayerPosition PlayerTurn { get; set; }
 
         CardSuit TrumpCardSuit { get; set; }
@@ -22,5 +24,7 @@
         void AddCard(Card card, PlayerPosition playerPosition);
 
         void Clear();
+
+        void Notify(string message);
     }
 }
