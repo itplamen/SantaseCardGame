@@ -1,14 +1,20 @@
 namespace SantaseCardGame.Web.Client
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
+    using SantaseCardGame.AI;
     using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.AI.Play.First;
     using SantaseCardGame.AI.Play.Second;
+    using SantaseCardGame.AI.Strategies;
     using SantaseCardGame.Core.Engine;
     using SantaseCardGame.Core.Engine.Contracts;
     using SantaseCardGame.Core.Infrastructure.Contracts;
@@ -43,6 +49,7 @@ namespace SantaseCardGame.Web.Client
             services.AddTransient<ITrickWinner, TrickWinner>();
             services.AddTransient<ICardsShuffler, CardsShuffler>();
             services.AddTransient<ICardsDealer, CardsDealer>();
+            services.AddTransient<IGamePlayer, GamePlayer>();
             services.AddTransient<IGameEngine, GameEngine>();
             services.AddTransient<IPlayerActionManager, AnnounceManager>();
             services.AddTransient<IPlayerActionManager, ChangeTrumpCardManager>();
@@ -58,6 +65,20 @@ namespace SantaseCardGame.Web.Client
             services.AddTransient<IPlayLogic, PlayTrumpCard>();
             services.AddTransient<IPlayLogic, PlayDifferentCard>();
             services.AddTransient<IPlayerActionValidator, PlayerActionValidator>();
+
+            IEnumerable<Type> types = new List<Type>()
+            {
+                typeof(AnnounceMarriage), 
+                typeof(ChangeTrumpCard), 
+                typeof(CloseDeck), 
+                typeof(PlayCard)
+            };
+
+            services.AddTransient<IPlayerActionStrategy, PlayFirstNotFollowingSuitStrategy>(x =>
+                new PlayFirstNotFollowingSuitStrategy(
+                    x.GetRequiredService<IDeckState>(),
+                    x.GetRequiredService<ITrickState>(),
+                    x.GetServices<IPlayLogic>().Where(y => types.Contains(y.GetType()))));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
