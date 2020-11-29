@@ -1,55 +1,20 @@
 namespace SantaseCardGame.Web.Client
 {
-    using System;
-    using System.Net.Http;
-    using System.Threading.Tasks;
-    
-    using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-    using Microsoft.Extensions.DependencyInjection;
-
-    using SantaseCardGame.AI.Contracts;
-    using SantaseCardGame.AI.Play;
-    using SantaseCardGame.Core.Engine;
-    using SantaseCardGame.Core.Engine.Contracts;
-    using SantaseCardGame.Core.Infrastructure.Contracts;
-    using SantaseCardGame.Core.Infrastructure.States;
-    using SantaseCardGame.Core.Logic.Contracts;
-    using SantaseCardGame.Core.Logic.Deal;
-    using SantaseCardGame.Core.Logic.Managers;
-    using SantaseCardGame.Core.Logic.Providers;
-    using SantaseCardGame.Core.Logic.Shuffle;
-    using SantaseCardGame.Core.Logic.Validators;
-    using SantaseCardGame.Core.Logic.Win;
-    using SantaseCardGame.Data.Contracts;
-    using SantaseCardGame.Data.Providers;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Hosting;
 
     public class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("app");
-
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddSingleton<ICardsProvider, CardsProvider>();
-            builder.Services.AddSingleton<ITrickState, TrickState>();
-            builder.Services.AddSingleton<IDeckState, DeckState>();
-            builder.Services.AddTransient<ITrickWinner, TrickWinner>();
-            builder.Services.AddTransient<ICardsShuffler, CardsShuffler>();
-            builder.Services.AddTransient<ICardsDealer, CardsDealer>();
-            builder.Services.AddTransient<IGameEngine, GameEngine>();
-            builder.Services.AddTransient<IPlayerActionManager, AnnounceManager>();
-            builder.Services.AddTransient<IPlayerActionManager, ChangeTrumpCardManager>();
-            builder.Services.AddTransient<IPlayerActionManager, CloseDeckManager>();
-            builder.Services.AddTransient<IPlayerActionManager, PlayCardManager>();
-            builder.Services.AddTransient<IAnnounceCardProvider, AnnounceCardProvider>();
-            builder.Services.AddTransient<IPlayLogic, PlayHigherCard>();
-            builder.Services.AddTransient<IPlayLogic, PlayLowerCard>();
-            builder.Services.AddTransient<IPlayLogic, PlayTrumpCard>();
-            builder.Services.AddTransient<IPlayLogic, PlayDifferentCard>();
-            builder.Services.AddTransient<IPlayerActionValidator, PlayerActionValidator>();
-
-            await builder.Build().RunAsync();
+            CreateHostBuilder(args).Build().Run();
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
     }
 }
