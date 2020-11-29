@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.AI.Play
+﻿namespace SantaseCardGame.AI.Play.First
 {
     using System.Linq;
 

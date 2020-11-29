@@ -7,7 +7,8 @@ namespace SantaseCardGame.Web.Client
     using Microsoft.Extensions.Hosting;
 
     using SantaseCardGame.AI.Contracts;
-    using SantaseCardGame.AI.Play;
+    using SantaseCardGame.AI.Play.First;
+    using SantaseCardGame.AI.Play.Second;
     using SantaseCardGame.Core.Engine;
     using SantaseCardGame.Core.Engine.Contracts;
     using SantaseCardGame.Core.Infrastructure.Contracts;
@@ -48,6 +49,9 @@ namespace SantaseCardGame.Web.Client
             services.AddTransient<IPlayerActionManager, CloseDeckManager>();
             services.AddTransient<IPlayerActionManager, PlayCardManager>();
             services.AddTransient<IAnnounceCardProvider, AnnounceCardProvider>();
+            services.AddTransient<IPlayLogic, AnnounceMarriage>();
+            services.AddTransient<IPlayLogic, ChangeTrumpCard>();
+            services.AddTransient<IPlayLogic, CloseDeck>();
             services.AddTransient<IPlayLogic, PlayHigherCard>();
             services.AddTransient<IPlayLogic, PlayLowerCard>();
             services.AddTransient<IPlayLogic, PlayTrumpCard>();
