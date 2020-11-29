@@ -52,6 +52,7 @@ namespace SantaseCardGame.Web.Client
             services.AddTransient<IPlayLogic, AnnounceMarriage>();
             services.AddTransient<IPlayLogic, ChangeTrumpCard>();
             services.AddTransient<IPlayLogic, CloseDeck>();
+            services.AddTransient<IPlayLogic, PlayCard>();
             services.AddTransient<IPlayLogic, PlayHigherCard>();
             services.AddTransient<IPlayLogic, PlayLowerCard>();
             services.AddTransient<IPlayLogic, PlayTrumpCard>();
