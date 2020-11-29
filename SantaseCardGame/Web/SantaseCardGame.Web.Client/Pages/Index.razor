@@ -1,9 +1,7 @@
 ﻿@page "/"
 
 @inject IJSRuntime JSRuntime;
-@inject IDeckState DeckState;
 @inject ITrickState TrickState;
-@inject ITrickWinner TrickWinner;
 @inject IGameEngine GameEngine;
 
 @if (Game != null)
@@ -22,67 +20,28 @@
     protected override void OnInitialized()
     {
         Game = GameEngine.StartGame("Plamen");
+        TrickState.OnNotify += Notify;
 
         TrickState.OnPlay += PlayTrick;
-        TrickState.OnNotify += Notify;
         TrickState.PlayerTurn = PlayerPosition.First;
         TrickState.TrumpCardSuit = Game.Deck.TrumpCard.Suit;
     }
 
-    private async void PlayTrick()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        Hand hand = new Hand()
+        if (firstRender)
         {
-            Cards = TrickState.Cards.Select(x => x.Value)
-        };
+            await Task.Delay(1500);
 
-        PlayerPosition winnerPosition = TrickWinner.GetWinner(TrickState.Cards, Game.Deck.TrumpCard.Suit);
-
-        if (winnerPosition == Game.FirstPlayer.Position)
-        {
-            Game.FirstPlayer.Hands.Add(hand);
-        }
-        else
-        {
-            Game.SecondPlayer.Hands.Add(hand);
+            GameEngine.AIPlay(Game.FirstPlayer);
         }
 
-        await Task.Delay(1500);
-
-        TrickState.Clear();
-        TrickState.PlayerTurn = winnerPosition;
-
-        DrawCards(winnerPosition);
         StateHasChanged();
     }
 
-    private void DrawCards(PlayerPosition winnerPosition)
+    private void PlayTrick()
     {
-        if (DeckState.IsClosed || !Game.Deck.Cards.Any())
-        {
-            return;
-        }
-
-        Card firstCard = Game.Deck.GetNextCard();
-        Card secondCard = Game.Deck.GetNextCard();
-
-        DeckState.CardsLeft = Game.Deck.Cards.Count;
-
-        if (Game.FirstPlayer.Position == winnerPosition)
-        {
-            Game.FirstPlayer.Cards.Add(firstCard);
-            Game.SecondPlayer.Cards.Add(secondCard);
-        }
-        else
-        {
-            Game.SecondPlayer.Cards.Add(firstCard);
-            Game.FirstPlayer.Cards.Add(secondCard);
-        }
-
-        if (!Game.Deck.Cards.Any())
-        {
-            DeckState.ShouldFollowSuit = true;
-        }
+        GameEngine.PlayTrick(Game);
     }
 
     private void Notify(string message)
