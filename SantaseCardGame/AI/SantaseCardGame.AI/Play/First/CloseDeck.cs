@@ -8,11 +8,13 @@
 
     public class CloseDeck : BasePlayLogic
     {
+        private readonly IGameRules gameRules;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public CloseDeck(ITrickState trickState, IPlayerActionValidator playerActionValidator)
+        public CloseDeck(ITrickState trickState, IGameRules gameRules, IPlayerActionValidator playerActionValidator)
             : base(trickState)
         {
+            this.gameRules = gameRules;
             this.playerActionValidator = playerActionValidator;
         }
 
@@ -29,8 +31,8 @@
         private bool ShouldClose(Player player)
         {
             return player.Points >= 50 ||
-                    (player.Points >= 33 && player.Cards.Sum(x => (int)x.Type) >= 20) ||
-                    (player.Points >= 33 && GetMarriages(player).Any());
+                    (player.Points >= gameRules.RoundHalfPoints && player.Cards.Sum(x => (int)x.Type) >= 20) ||
+                    (player.Points >= gameRules.RoundHalfPoints && GetMarriages(player).Any());
         }
     }
 }

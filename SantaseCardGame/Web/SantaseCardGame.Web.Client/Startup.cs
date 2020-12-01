@@ -23,6 +23,7 @@ namespace SantaseCardGame.Web.Client
     using SantaseCardGame.Core.Logic.Deal;
     using SantaseCardGame.Core.Logic.Managers;
     using SantaseCardGame.Core.Logic.Providers;
+    using SantaseCardGame.Core.Logic.Rules;
     using SantaseCardGame.Core.Logic.Shuffle;
     using SantaseCardGame.Core.Logic.Validators;
     using SantaseCardGame.Core.Logic.Win;
@@ -43,6 +44,7 @@ namespace SantaseCardGame.Web.Client
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
+            services.AddSingleton<IGameRules, GameRules>();
             services.AddSingleton<ICardsProvider, CardsProvider>();
             services.AddScoped<ITrickState, TrickState>();
             services.AddScoped<IDeckState, DeckState>();
@@ -65,6 +67,8 @@ namespace SantaseCardGame.Web.Client
             services.AddTransient<IPlayLogic, PlayTrumpCard>();
             services.AddTransient<IPlayLogic, PlayDifferentCard>();
             services.AddTransient<IPlayerActionValidator, PlayerActionValidator>();
+            services.AddTransient<IRoundWinner, DeckClosedRoundWinner>();
+            services.AddTransient<IRoundWinner, DeckNotClosedRoundWinner>();
 
             IEnumerable<Type> types = new List<Type>()
             {
