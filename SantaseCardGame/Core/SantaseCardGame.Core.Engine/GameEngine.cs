@@ -94,7 +94,7 @@
 
         private void DrawCards(PlayerPosition winnerPosition, Game game)
         {
-            if (deckState.IsClosed || !game.Deck.Cards.Any())
+            if (deckState.ClosedBy != PlayerPosition.NoOne || !game.Deck.Cards.Any())
             {
                 return;
             }

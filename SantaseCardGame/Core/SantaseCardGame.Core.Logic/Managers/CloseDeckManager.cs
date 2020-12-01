@@ -28,7 +28,7 @@
         {
             if (playerActionValidator.CanCloseDeck(player))
             {
-                deckState.IsClosed = true;
+                deckState.ClosedBy = player.Position;
                 trickState.Notify("Close");
 
                 return;

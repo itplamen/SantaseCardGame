@@ -39,8 +39,8 @@
         private bool CanPerformAction(Player player)
         {
             return deckState.CardsLeft >= DECK_CARDS_REQUIRED &&
+                deckState.ClosedBy == PlayerPosition.NoOne &&
                 !deckState.ShouldFollowSuit &&
-                !deckState.IsClosed &&
                 player.Position == trickState.PlayerTurn &&
                 !trickState.Cards.Any() &&
                 player.Hands.Any();

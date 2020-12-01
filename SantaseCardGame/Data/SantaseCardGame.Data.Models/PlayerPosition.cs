@@ -2,6 +2,7 @@
 {
     public enum PlayerPosition
     {
+        NoOne,
         First,
         Second
     }

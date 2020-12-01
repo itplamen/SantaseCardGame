@@ -12,7 +12,7 @@
 
         event Action<Card> OnExchangeTrumpCardForNineOfTrumps;
 
-        bool IsClosed { get; set; }
+        PlayerPosition ClosedBy { get; set; }
 
         int CardsLeft { get; set; }
 
