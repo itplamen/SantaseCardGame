@@ -6,10 +6,10 @@
 
 @if (Game != null)
 {
-    <PlayerComponent Player="Game.FirstPlayer"></PlayerComponent>
+    <PlayerComponent Player="Game.Players.First()"></PlayerComponent>
     <DeckComponent Deck="Game.Deck"></DeckComponent>
     <TrickComponent></TrickComponent>
-    <PlayerComponent Player="Game.SecondPlayer"></PlayerComponent>
+    <PlayerComponent Player="Game.Players.Last()"></PlayerComponent>
     <div id="Announce"></div>
 }
 
@@ -33,7 +33,7 @@
         {
             await Task.Delay(1500);
 
-            GameEngine.AIPlay(Game.FirstPlayer);
+            GameEngine.AIPlay(Game.Players.First());
         }
 
         StateHasChanged();

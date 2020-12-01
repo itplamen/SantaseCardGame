@@ -54,8 +54,7 @@
             return new Game()
             {
                 Deck = deck,
-                FirstPlayer = firstPlayer,
-                SecondPlayer = secondPlayer
+                Players = new List<Player>() { firstPlayer, secondPlayer }
             };
         }
 
@@ -74,16 +73,9 @@
             };
 
             PlayerPosition winnerPosition = trickWinner.GetWinner(trickState.Cards, game.Deck.TrumpCard.Suit);
-
-            if (winnerPosition == game.FirstPlayer.Position)
-            {
-                game.FirstPlayer.Hands.Add(hand);
-            }
-            else
-            {
-                game.SecondPlayer.Hands.Add(hand);
-            }
-
+            Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
+            winnerPlayer.Hands.Add(hand);
+            
             await Task.Delay(1500);
 
             trickState.Clear();
@@ -103,17 +95,12 @@
             Card secondCard = game.Deck.GetNextCard();
 
             deckState.CardsLeft = game.Deck.Cards.Count;
+            
+            Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
+            winnerPlayer.Cards.Add(firstCard);
 
-            if (game.FirstPlayer.Position == winnerPosition)
-            {
-                game.FirstPlayer.Cards.Add(firstCard);
-                game.SecondPlayer.Cards.Add(secondCard);
-            }
-            else
-            {
-                game.SecondPlayer.Cards.Add(firstCard);
-                game.FirstPlayer.Cards.Add(secondCard);
-            }
+            Player loserPlayer = game.Players.First(x => x.Position != winnerPosition);
+            loserPlayer.Cards.Add(secondCard);
 
             if (!game.Deck.Cards.Any())
             {

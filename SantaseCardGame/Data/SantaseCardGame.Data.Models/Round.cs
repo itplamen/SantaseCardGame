@@ -2,8 +2,8 @@
 {
     public class Round
     {
-        public int FirstPlayerPoints { get; set; }
+        public int Points { get; set; }
 
-        public int SecondPlayerPoints { get; set; }
+        public PlayerPosition WinnerPosition { get; set; }
     }
 }

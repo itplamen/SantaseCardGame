@@ -4,11 +4,9 @@
 
     public class Game
     {
-        public Player FirstPlayer { get; set; }
-
-        public Player SecondPlayer { get; set; }
-
         public Deck Deck { get; set; }
+
+        public List<Player> Players { get; set; } = new List<Player>();
 
         public List<Round> Rounds { get; set; } = new List<Round>();
     }
