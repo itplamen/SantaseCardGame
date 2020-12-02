@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.AI", "AI\Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Core.Engine", "Core\SantaseCardGame.Core.Engine\SantaseCardGame.Core.Engine.csproj", "{4BA8952B-8266-40C9-A7AE-12804E5483F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Web.Client", "Web\SantaseCardGame.Web.Client\SantaseCardGame.Web.Client.csproj", "{A70CAB08-26D7-48EC-B282-DC8146A2C2AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Web.Client", "Web\SantaseCardGame.Web.Client\SantaseCardGame.Web.Client.csproj", "{A70CAB08-26D7-48EC-B282-DC8146A2C2AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
