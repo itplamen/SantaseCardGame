@@ -11,7 +11,6 @@
     using SantaseCardGame.Core.Logic.Managers;
     using SantaseCardGame.Core.Logic.Providers;
     using SantaseCardGame.Core.Logic.Rules;
-    using SantaseCardGame.Core.Logic.Shuffle;
     using SantaseCardGame.Core.Logic.Validators;
     using SantaseCardGame.Core.Logic.Win;
 
@@ -23,7 +22,6 @@
             services.AddScoped<ITrickState, TrickState>();
             services.AddScoped<IDeckState, DeckState>();
             services.AddTransient<ITrickWinner, TrickWinner>();
-            services.AddTransient<ICardsShuffler, CardsShuffler>();
             services.AddTransient<ICardsDealer, CardsDealer>();
             services.AddTransient<IGameEngine, GameEngine>();
             services.AddTransient<IPlayerActionManager, AnnounceManager>();

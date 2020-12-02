@@ -8,7 +8,6 @@
     using SantaseCardGame.Core.Engine.Contracts;
     using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
-    using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
 
     public class GameEngine : IGameEngine
@@ -18,25 +17,18 @@
         private readonly IDeckState deckState;
         private readonly ITrickWinner trickWinner;
         private readonly ICardsDealer cardsDealer;
-        private readonly ICardsProvider cardsProvider;
-        private readonly ICardsShuffler cardsShuffler;
 
-        public GameEngine(IGamePlayer gamePlayer, ITrickState trickState, IDeckState deckState, ITrickWinner trickWinner, ICardsDealer cardsDealer, ICardsProvider cardsProvider, ICardsShuffler cardsShuffler)
+        public GameEngine(IGamePlayer gamePlayer, ITrickState trickState, IDeckState deckState, ITrickWinner trickWinner, ICardsDealer cardsDealer)
         {
             this.gamePlayer = gamePlayer;
             this.trickState = trickState;
             this.deckState = deckState;
             this.trickWinner = trickWinner;
             this.cardsDealer = cardsDealer;
-            this.cardsProvider = cardsProvider;
-            this.cardsShuffler = cardsShuffler;
         }
 
         public Game StartGame(string username)
         {
-            IEnumerable<Card> cards = cardsProvider.Get();
-            Deck deck = cardsShuffler.Shuffle(cards);
-
             var firstPlayer = new Player()
             {
                 Username = "Bot",
@@ -49,7 +41,7 @@
                 Position = PlayerPosition.Second
             };
 
-            cardsDealer.Deal(deck, firstPlayer, secondPlayer);
+            Deck deck = cardsDealer.Deal(firstPlayer, secondPlayer);
 
             return new Game()
             {

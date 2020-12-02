@@ -4,6 +4,6 @@
 
     public interface ICardsDealer
     {
-        void Deal(Deck deck, Player firstPlayer, Player secondPlayer);
+        Deck Deal(Player firstPlayer, Player secondPlayer);
     }
 }

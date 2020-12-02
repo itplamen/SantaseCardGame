@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.Core.Logic.Shuffle
+﻿namespace SantaseCardGame.Core.Logic.Deal
 {
     using System;
     using System.Threading;
