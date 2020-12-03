@@ -1,7 +1,7 @@
 ﻿namespace SantaseCardGame.AI.Strategies
 {
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.Data.Models;
@@ -15,21 +15,35 @@
             this.playLogics = playLogics;
         }
 
-        public PlayerAction Play(Player player)
+        public abstract bool ShouldPlay(Player player);
+
+        public IEnumerable<PlayerAction> Play(Player player)
         {
+            var playerActions = new List<PlayerAction>();
+
             foreach (var logic in playLogics)
             {
                 PlayerAction playerAction = logic.Play(player);
 
-                if (playerAction.Type != PlayerActionType.None)
+                if (ShouldAddPlayerAction(playerAction, playerActions))
                 {
-                    return playerAction;
+                    playerActions.Add(playerAction);
                 }
             }
 
-            throw new InvalidOperationException("AI did not play any strategy!");
+            return playerActions;
+
+            // TODO: Add decorator and validate throw new InvalidOperationException("AI did not play any strategy!");
         }
 
-        public abstract bool ShouldPlay(Player player);
+        private bool ShouldAddPlayerAction(PlayerAction playerAction, IEnumerable<PlayerAction> playerActions)
+        {
+            if (playerAction.Type == PlayerActionType.PlayCard)
+            {
+                return !playerActions.Any(x => x.Type == PlayerActionType.Announce);
+            }
+
+            return playerAction.Type != PlayerActionType.None;
+        }
     }
 }

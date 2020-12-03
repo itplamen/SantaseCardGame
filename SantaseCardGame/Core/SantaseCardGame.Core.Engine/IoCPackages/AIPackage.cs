@@ -35,9 +35,9 @@
         {
             IEnumerable<Type> types = new List<Type>()
             {
-                typeof(AnnounceMarriage),
                 typeof(ChangeTrumpCard),
                 typeof(CloseDeck),
+                typeof(AnnounceMarriage),
                 typeof(PlayCard)
             };
 

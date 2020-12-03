@@ -25,8 +25,13 @@
 
             if (strategy != null)
             {
-                PlayerAction playerAction = strategy.Play(player);
-                managers.First(x => x.ShouldManage(playerAction, player)).Manage(playerAction, player);
+                IEnumerable<PlayerAction> playerActions = strategy.Play(player);
+
+                foreach (var playerAction in playerActions)
+                {
+                    IPlayerActionManager manager = managers.First(x => x.ShouldManage(playerAction, player));
+                    manager.Manage(playerAction, player);
+                }
 
                 return;
             }
