@@ -13,14 +13,16 @@
     public class GameEngine : IGameEngine
     {
         private readonly IGamePlayer gamePlayer;
+        private readonly IGameState gameState;
         private readonly ITrickState trickState;
         private readonly IDeckState deckState;
         private readonly ITrickWinner trickWinner;
         private readonly ICardsDealer cardsDealer;
 
-        public GameEngine(IGamePlayer gamePlayer, ITrickState trickState, IDeckState deckState, ITrickWinner trickWinner, ICardsDealer cardsDealer)
+        public GameEngine(IGamePlayer gamePlayer, IGameState gameState, ITrickState trickState, IDeckState deckState, ITrickWinner trickWinner, ICardsDealer cardsDealer)
         {
             this.gamePlayer = gamePlayer;
+            this.gameState = gameState;
             this.trickState = trickState;
             this.deckState = deckState;
             this.trickWinner = trickWinner;
@@ -74,6 +76,9 @@
             trickState.PlayerTurn = winnerPosition;
 
             DrawCards(winnerPosition, game);
+
+            gameState.RenderBoard();
+
         }
 
         private void DrawCards(PlayerPosition winnerPosition, Game game)

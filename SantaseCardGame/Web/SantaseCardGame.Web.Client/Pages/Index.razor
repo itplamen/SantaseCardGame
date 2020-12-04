@@ -24,6 +24,7 @@
         Game = GameEngine.StartGame("Plamen");
 
         TrickState.OnPlay += () => GameEngine.PlayTrick(Game);
+        TrickState.OnDisplay += () => StateHasChanged();
         TrickState.PlayerTurn = PlayerPosition.First;
         DeckState.TrumpCard = Game.Deck.TrumpCard;
 
