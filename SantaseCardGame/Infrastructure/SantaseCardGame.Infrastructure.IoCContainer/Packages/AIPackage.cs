@@ -29,6 +29,7 @@
             services.AddTransient<IPlayLogic, PlayDifferentCard>();
 
             RegisterStrategy(services, RegisterPlayFirstNotFollowingSuitStrategy);
+            RegisterStrategy(services, RegisterPlaySecondNotFollowingSuitStrategy);
         }
 
         private PlayFirstNotFollowingSuitStrategy RegisterPlayFirstNotFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayLogic> playLogics)
@@ -44,6 +45,21 @@
             IEnumerable<IPlayLogic> strategyLogics = playLogics.Where(x => types.Contains(x.GetType())).ToList();
 
             return new PlayFirstNotFollowingSuitStrategy(deckState, trickState, strategyLogics);
+        }
+
+        private PlaySecondNotFollowingSuitStrategy RegisterPlaySecondNotFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayLogic> playLogics)
+        {
+            IEnumerable<Type> types = new List<Type>()
+            {
+                typeof(PlayHigherCard),
+                typeof(PlayLowerCard),
+                typeof(PlayDifferentCard),
+                typeof(PlayTrumpCard)
+            };
+
+            IEnumerable<IPlayLogic> strategyLogics = playLogics.Where(x => types.Contains(x.GetType())).ToList();
+
+            return new PlaySecondNotFollowingSuitStrategy(deckState, trickState, strategyLogics);
         }
 
         private void RegisterStrategy<TStrategy>(IServiceCollection services, Func<IDeckState, ITrickState, IEnumerable<IPlayLogic>, TStrategy> strategy)
