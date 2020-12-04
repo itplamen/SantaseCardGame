@@ -21,8 +21,9 @@
                 ShouldPlayTrumpWhenNotFollowingSuit(player, OpponentCard))
             {
                 Card card = player.Cards
+                    .Where(x => x.Suit == deckState.TrumpCard.Suit)
                     .OrderBy(x => x.Type)
-                    .FirstOrDefault(x => x.Suit == deckState.TrumpCard.Suit);
+                    .FirstOrDefault();
 
                 return new PlayerAction(PlayerActionType.PlayCard, card);
             }

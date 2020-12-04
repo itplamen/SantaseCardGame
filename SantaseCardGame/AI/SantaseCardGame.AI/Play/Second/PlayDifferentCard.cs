@@ -17,9 +17,10 @@
 
         protected override PlayerAction PlayLogic(Player player)
         {
-            if (player.Cards.All(x => x.Suit != OpponentCard.Suit && x.Suit != deckState.TrumpCard.Suit))
+            if (player.Cards.All(x => x.Suit != OpponentCard.Suit))
             {
                 Card card = player.Cards
+                    .Where(x => x.Suit != deckState.TrumpCard.Suit)
                     .OrderBy(x => x.Type)
                     .FirstOrDefault();
 
