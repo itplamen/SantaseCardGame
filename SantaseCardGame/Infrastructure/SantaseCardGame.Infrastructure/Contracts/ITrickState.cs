@@ -13,6 +13,8 @@
 
         event Action OnDisplay;
 
+        event Action OnManagePlayerTurn;
+
         PlayerPosition PlayerTurn { get; set; }
 
         IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards { get; }

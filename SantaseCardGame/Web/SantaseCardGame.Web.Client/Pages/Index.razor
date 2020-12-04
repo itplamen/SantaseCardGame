@@ -25,20 +25,14 @@
 
         TrickState.OnPlay += () => GameEngine.PlayTrick(Game);
         TrickState.OnDisplay += () => StateHasChanged();
+        TrickState.OnManagePlayerTurn += () => GameEngine.ManagePlayersTurn();
         TrickState.PlayerTurn = PlayerPosition.First;
         DeckState.TrumpCard = Game.Deck.TrumpCard;
 
         GameState.OnRenderBoard += () => StateHasChanged();
         GameState.OnShowMessage += (message) => JSRuntime.InvokeVoidAsync("announce", message);
-    }
+        GameState.Game = Game;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await Task.Delay(1500);
-
-            GameEngine.AIPlay(Game.Players.First());
-        }
+        GameEngine.ManagePlayersTurn();
     }
 }

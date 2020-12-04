@@ -6,7 +6,7 @@
     {
         Game StartGame(string username);
 
-        void AIPlay(Player player);
+        void ManagePlayersTurn();
 
         void PlayTrick(Game game);
     }

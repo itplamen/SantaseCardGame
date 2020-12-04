@@ -10,13 +10,15 @@
     {
         private const int TRICK_CARDS = 2;
 
-        private IDictionary<PlayerPosition, Card> cards = new Dictionary<PlayerPosition, Card>();
+        private IDictionary<PlayerPosition, Card> cards = new Dictionary<PlayerPosition, Card>(TRICK_CARDS);
 
         public event Action OnPlay;
 
         public event Action OnClear;
 
         public event Action OnDisplay;
+
+        public event Action OnManagePlayerTurn;
 
         public PlayerPosition PlayerTurn { get; set; }
 
@@ -28,6 +30,8 @@
             {
                 cards.Add(playerPosition, card);
                 PlayerTurn = GetNextPlayerPosition(playerPosition);
+
+                OnManagePlayerTurn?.Invoke();
             }
 
             OnDisplay?.Invoke();
@@ -47,12 +51,17 @@
 
         private PlayerPosition GetNextPlayerPosition(PlayerPosition current)
         {
-            if (current == PlayerPosition.First)
+            if (cards.Count < TRICK_CARDS)
             {
-                return PlayerPosition.Second;
+                if (current == PlayerPosition.First)
+                {
+                    return PlayerPosition.Second;
+                }
+
+                return PlayerPosition.First;
             }
 
-            return PlayerPosition.First;
+            return current;
         }
     }
 }

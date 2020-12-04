@@ -52,11 +52,13 @@
             };
         }
 
-        public async void AIPlay(Player player)
+        public async void ManagePlayersTurn()
         {
-            await Task.Delay(1500);
-
-            gamePlayer.Play(player);
+            if (trickState.PlayerTurn == PlayerPosition.First)
+            {
+                await Task.Delay(1500);
+                gamePlayer.Play(gameState.Game.Players.First());
+            }
         }
 
         public async void PlayTrick(Game game)
@@ -78,7 +80,7 @@
             DrawCards(winnerPosition, game);
 
             gameState.RenderBoard();
-
+            ManagePlayersTurn();
         }
 
         private void DrawCards(PlayerPosition winnerPosition, Game game)
