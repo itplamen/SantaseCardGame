@@ -6,12 +6,14 @@
 
     public class AnnounceManager : BasePlayerActionManager
     {
+        private readonly IGameState gameState;
         private readonly ITrickState trickState;
         private readonly IAnnounceCardProvider announceCardProvider;
 
-        public AnnounceManager(ITrickState trickState, IAnnounceCardProvider announceCardProvider)
+        public AnnounceManager(IGameState gameState, ITrickState trickState, IAnnounceCardProvider announceCardProvider)
             : base(trickState)
         {
+            this.gameState = gameState;
             this.trickState = trickState;
             this.announceCardProvider = announceCardProvider;
         }
@@ -31,7 +33,7 @@
             if (announce != Announce.None)
             {
                 player.Announcements.Add(playerAction.Card.Suit, announce);
-                trickState.Notify($"{(int)announce}");
+                gameState.ShowMessage($"{(int)announce}");
             }
 
             player.Cards.Remove(playerAction.Card);

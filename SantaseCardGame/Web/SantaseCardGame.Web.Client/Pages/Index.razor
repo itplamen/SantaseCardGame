@@ -1,6 +1,7 @@
 ﻿@page "/"
 
 @inject IJSRuntime JSRuntime;
+@inject IGameState GameState;
 @inject IDeckState DeckState;
 @inject ITrickState TrickState;
 @inject IGameEngine GameEngine;
@@ -21,11 +22,13 @@
     protected override void OnInitialized()
     {
         Game = GameEngine.StartGame("Plamen");
-        TrickState.OnNotify += Notify;
 
-        TrickState.OnPlay += PlayTrick;
+        TrickState.OnPlay += () => GameEngine.PlayTrick(Game);
         TrickState.PlayerTurn = PlayerPosition.First;
         DeckState.TrumpCard = Game.Deck.TrumpCard;
+
+        GameState.OnRenderBoard += () => StateHasChanged();
+        GameState.OnShowMessage += (message) => JSRuntime.InvokeVoidAsync("announce", message);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -36,17 +39,5 @@
 
             GameEngine.AIPlay(Game.Players.First());
         }
-
-        StateHasChanged();
-    }
-
-    private void PlayTrick()
-    {
-        GameEngine.PlayTrick(Game);
-    }
-
-    private void Notify(string message)
-    {
-        JSRuntime.InvokeVoidAsync("announce", message);
     }
 }

@@ -9,12 +9,14 @@
     public class PlayCardManager : BasePlayerActionManager
     {
         private readonly IDeckState deckState;
+        private readonly IGameState gameState;
         private readonly ITrickState trickState;
 
-        public PlayCardManager(IDeckState deckState, ITrickState trickState)
+        public PlayCardManager(IDeckState deckState, IGameState gameState, ITrickState trickState)
             : base(trickState)
         {
             this.deckState = deckState;
+            this.gameState = gameState;
             this.trickState = trickState;
         }
 
@@ -37,7 +39,7 @@
                     (sameSuitCards.Any() && playerAction.Card.Suit != opponentCard.Suit) ||
                     (!sameSuitCards.Any() && player.Cards.Any(x => x.Suit == deckState.TrumpCard.Suit) && playerAction.Card.Suit != deckState.TrumpCard.Suit))
                 {
-                    trickState.Notify("Cant play");
+                    gameState.ShowMessage("Cant play");
 
                     return;
                 }

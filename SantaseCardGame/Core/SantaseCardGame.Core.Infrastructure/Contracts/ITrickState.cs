@@ -13,8 +13,6 @@
 
         event Action OnDisplay;
 
-        event Action<string> OnNotify;
-
         PlayerPosition PlayerTurn { get; set; }
 
         IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards { get; }
@@ -22,7 +20,5 @@
         void AddCard(Card card, PlayerPosition playerPosition);
 
         void Clear();
-
-        void Notify(string message);
     }
 }

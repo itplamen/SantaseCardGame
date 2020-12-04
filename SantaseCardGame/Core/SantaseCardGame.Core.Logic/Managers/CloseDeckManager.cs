@@ -7,14 +7,14 @@
     public class CloseDeckManager : BasePlayerActionManager
     {
         private readonly IDeckState deckState;
-        private readonly ITrickState trickState;
+        private readonly IGameState gameState;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public CloseDeckManager(IDeckState deckState, ITrickState trickState, IPlayerActionValidator playerActionValidator)
+        public CloseDeckManager(IDeckState deckState, IGameState gameState, ITrickState trickState, IPlayerActionValidator playerActionValidator)
             : base(trickState)
         {
             this.deckState = deckState;
-            this.trickState = trickState;
+            this.gameState = gameState;
             this.playerActionValidator = playerActionValidator;
         }
 
@@ -29,12 +29,12 @@
             if (playerActionValidator.CanCloseDeck(player))
             {
                 deckState.ClosedBy = player.Position;
-                trickState.Notify("Close");
+                gameState.ShowMessage("Close");
 
                 return;
             }
 
-            trickState.Notify("Cant close");
+            gameState.ShowMessage("Cant close");
         }
     }
 }

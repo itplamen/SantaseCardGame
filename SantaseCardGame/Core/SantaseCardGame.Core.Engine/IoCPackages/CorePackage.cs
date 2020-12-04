@@ -21,6 +21,7 @@
             services.AddSingleton<IGameRules, GameRules>();
             services.AddScoped<ITrickState, TrickState>();
             services.AddScoped<IDeckState, DeckState>();
+            services.AddScoped<IGameState, GameState>();
             services.AddTransient<ITrickWinner, TrickWinner>();
             services.AddTransient<ICardsDealer, CardsDealer>();
             services.AddTransient<IGameEngine, GameEngine>();
