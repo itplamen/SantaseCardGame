@@ -15,7 +15,7 @@
 
         public PlayerPosition ClosedBy { get; set; }
 
-        public CardSuit TrumpCardSuit { get; set; }
+        public Card TrumpCard { get; set; }
 
         public int CardsLeft { get; set; }
 

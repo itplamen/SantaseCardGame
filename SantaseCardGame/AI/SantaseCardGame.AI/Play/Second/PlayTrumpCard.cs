@@ -22,7 +22,7 @@
             {
                 Card card = player.Cards
                     .OrderBy(x => x.Type)
-                    .FirstOrDefault(x => x.Suit == deckState.TrumpCardSuit);
+                    .FirstOrDefault(x => x.Suit == deckState.TrumpCard.Suit);
 
                 return new PlayerAction(PlayerActionType.PlayCard, card);
             }
@@ -33,7 +33,7 @@
         private bool ShouldPlayTrumpWhenFollowingSuit(Player player, Card opponentCard)
         {
             return deckState.ShouldFollowSuit &&
-                opponentCard.Suit != deckState.TrumpCardSuit &&
+                opponentCard.Suit != deckState.TrumpCard.Suit &&
                 player.Cards.All(x => x.Suit != opponentCard.Suit);
         }
 
@@ -41,7 +41,7 @@
         {
             return !deckState.ShouldFollowSuit &&
                 opponentCard.Type >= CardType.Ten &&
-                opponentCard.Suit != deckState.TrumpCardSuit &&
+                opponentCard.Suit != deckState.TrumpCard.Suit &&
                 !player.Cards.Any(x => x.Suit == opponentCard.Suit && x.Type > opponentCard.Type);
         }
     }

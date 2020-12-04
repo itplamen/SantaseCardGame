@@ -26,7 +26,7 @@
 
             if (playCards.Any())
             {
-                Card playCard = playCards.FirstOrDefault(x => x.Suit != deckState.TrumpCardSuit);
+                Card playCard = playCards.FirstOrDefault(x => x.Suit != deckState.TrumpCard.Suit);
 
                 if (playCard != null)
                 {

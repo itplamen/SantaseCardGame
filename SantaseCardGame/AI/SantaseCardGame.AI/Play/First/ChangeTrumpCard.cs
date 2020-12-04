@@ -22,9 +22,12 @@
         {
             if (playerActionValidator.CanChangeTrump(player))
             {
-                Card nineOfTrumps = player.Cards.FirstOrDefault(x => x.Type == CardType.Nine && x.Suit == deckState.TrumpCardSuit);
+                Card nineOfTrumps = player.Cards.FirstOrDefault(x => x.Type == CardType.Nine && x.Suit == deckState.TrumpCard.Suit);
 
-                return new PlayerAction(PlayerActionType.ChangeTrump, nineOfTrumps);
+                if (nineOfTrumps != null)
+                {
+                    return new PlayerAction(PlayerActionType.ChangeTrump, deckState.TrumpCard);
+                }
             }
 
             return new PlayerAction(PlayerActionType.None);

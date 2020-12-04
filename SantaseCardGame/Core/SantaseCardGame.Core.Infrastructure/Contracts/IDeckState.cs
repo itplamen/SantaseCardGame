@@ -14,7 +14,7 @@
 
         PlayerPosition ClosedBy { get; set; }
 
-        CardSuit TrumpCardSuit { get; set; }
+        Card TrumpCard { get; set; }
 
         int CardsLeft { get; set; }
 

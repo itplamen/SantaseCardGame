@@ -25,7 +25,7 @@
 
         TrickState.OnPlay += PlayTrick;
         TrickState.PlayerTurn = PlayerPosition.First;
-        DeckState.TrumpCardSuit = Game.Deck.TrumpCard.Suit;
+        DeckState.TrumpCard = Game.Deck.TrumpCard;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

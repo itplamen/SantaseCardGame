@@ -26,7 +26,7 @@
 
                 if (hasMarriage)
                 {
-                    if (card.Suit == deckState.TrumpCardSuit)
+                    if (card.Suit == deckState.TrumpCard.Suit)
                     {
                         return new PlayerAction(PlayerActionType.Announce, card, Announce.Forty);
                     }

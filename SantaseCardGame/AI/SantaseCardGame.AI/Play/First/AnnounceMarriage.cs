@@ -29,7 +29,7 @@
                 {
                     Card queen = marriages.First(x => x.Type == CardType.Queen);
 
-                    if (queen.Suit == deckState.TrumpCardSuit)
+                    if (queen.Suit == deckState.TrumpCard.Suit)
                     {
                         return new PlayerAction(PlayerActionType.Announce, queen, Announce.Forty);
                     }
