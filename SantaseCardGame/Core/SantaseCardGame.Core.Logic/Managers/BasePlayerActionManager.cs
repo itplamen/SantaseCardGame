@@ -1,8 +1,8 @@
 ﻿namespace SantaseCardGame.Core.Logic.Managers
 {
-    using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public abstract class BasePlayerActionManager : IPlayerActionManager
     {

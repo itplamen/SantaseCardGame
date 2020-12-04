@@ -4,8 +4,8 @@
     using System.Linq;
 
     using SantaseCardGame.AI.Contracts;
-    using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public abstract class BasePlayLogic : IPlayLogic
     {

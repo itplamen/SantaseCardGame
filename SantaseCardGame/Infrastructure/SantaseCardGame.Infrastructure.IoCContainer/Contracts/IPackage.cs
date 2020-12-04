@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.Core.Engine.Contracts
+﻿namespace SantaseCardGame.Infrastructure.IoCContainer.Contracts
 {
     using Microsoft.Extensions.DependencyInjection;
 

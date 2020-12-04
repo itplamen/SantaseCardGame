@@ -1,10 +1,10 @@
-﻿namespace SantaseCardGame.Core.Infrastructure.States
+﻿namespace SantaseCardGame.Infrastructure.States
 {
     using System;
     using System.Collections.Generic;
 
-    using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public class TrickState : ITrickState
     {

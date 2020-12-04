@@ -1,11 +1,11 @@
-﻿namespace SantaseCardGame.Core.Engine
+﻿namespace SantaseCardGame.Infrastructure.IoCContainer
 {
     using Microsoft.Extensions.DependencyInjection;
 
-    using SantaseCardGame.Core.Engine.Contracts;
-    using SantaseCardGame.Core.Engine.IoCPackages;
+    using SantaseCardGame.Infrastructure.IoCContainer.Contracts;
+    using SantaseCardGame.Infrastructure.IoCContainer.Packages;
 
-    public static class IoCContainerConfig
+    public static class ContainerConfig
     {
         public static void RegisterGameServices(this IServiceCollection services)
         {
@@ -13,7 +13,8 @@
             {
                 new AIPackage(),
                 new CorePackage(),
-                new DataPackage()
+                new DataPackage(),
+                new InfrastructurePackage()
             };
 
             foreach (var package in packages)

@@ -1,8 +1,8 @@
-﻿namespace SantaseCardGame.Core.Infrastructure.States
+﻿namespace SantaseCardGame.Infrastructure.States
 {
     using System;
 
-    using SantaseCardGame.Core.Infrastructure.Contracts;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public class GameState : IGameState
     {

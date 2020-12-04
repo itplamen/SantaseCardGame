@@ -6,9 +6,9 @@
 
     using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.Core.Engine.Contracts;
-    using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public class GameEngine : IGameEngine
     {

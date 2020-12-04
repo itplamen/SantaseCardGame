@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.Core.Infrastructure.Contracts
+﻿namespace SantaseCardGame.Infrastructure.Contracts
 {
     using System;
 

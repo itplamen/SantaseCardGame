@@ -6,7 +6,7 @@ namespace SantaseCardGame.Web.Client
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
-    using SantaseCardGame.Core.Engine;
+    using SantaseCardGame.Infrastructure.IoCContainer;
 
     public class Startup
     {

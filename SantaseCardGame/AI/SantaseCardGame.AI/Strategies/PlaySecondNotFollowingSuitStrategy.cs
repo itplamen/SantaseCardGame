@@ -3,8 +3,8 @@
     using System.Collections.Generic;
 
     using SantaseCardGame.AI.Contracts;
-    using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public class PlaySecondNotFollowingSuitStrategy : BasePlayerActionStrategy
     {

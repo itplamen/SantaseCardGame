@@ -2,8 +2,8 @@
 {
     using System.Linq;
 
-    using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public class PlayTrumpCard : BasePlayLogic
     {

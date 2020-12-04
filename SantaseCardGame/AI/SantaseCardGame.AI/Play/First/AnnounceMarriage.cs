@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using SantaseCardGame.Core.Infrastructure.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public class AnnounceMarriage : BasePlayLogic
     {
