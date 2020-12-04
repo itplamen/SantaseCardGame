@@ -8,13 +8,11 @@
     public class PlayTrumpCard : BasePlayLogic
     {
         private readonly IDeckState deckState;
-        private readonly ITrickState trickState;
 
-        public PlayTrumpCard(IDeckState deckState, ITrickState trickState)
+        public PlayTrumpCard(ITrickState trickState, IDeckState deckState)
             : base(trickState)
         {
             this.deckState = deckState;
-            this.trickState = trickState;
         }
 
         protected override PlayerAction PlayLogic(Player player)
@@ -24,7 +22,7 @@
             {
                 Card card = player.Cards
                     .OrderBy(x => x.Type)
-                    .FirstOrDefault(x => x.Suit == trickState.TrumpCardSuit);
+                    .FirstOrDefault(x => x.Suit == deckState.TrumpCardSuit);
 
                 return new PlayerAction(PlayerActionType.PlayCard, card);
             }
@@ -35,7 +33,7 @@
         private bool ShouldPlayTrumpWhenFollowingSuit(Player player, Card opponentCard)
         {
             return deckState.ShouldFollowSuit &&
-                opponentCard.Suit != trickState.TrumpCardSuit &&
+                opponentCard.Suit != deckState.TrumpCardSuit &&
                 player.Cards.All(x => x.Suit != opponentCard.Suit);
         }
 
@@ -43,7 +41,7 @@
         {
             return !deckState.ShouldFollowSuit &&
                 opponentCard.Type >= CardType.Ten &&
-                opponentCard.Suit != trickState.TrumpCardSuit &&
+                opponentCard.Suit != deckState.TrumpCardSuit &&
                 !player.Cards.Any(x => x.Suit == opponentCard.Suit && x.Type > opponentCard.Type);
         }
     }

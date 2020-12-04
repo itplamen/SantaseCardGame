@@ -7,17 +7,17 @@
 
     public class PlayDifferentCard : BasePlayLogic
     {
-        private readonly ITrickState trickState;
+        private readonly IDeckState deckState;
 
-        public PlayDifferentCard(ITrickState trickState)
+        public PlayDifferentCard(ITrickState trickState, IDeckState deckState)
             : base(trickState)
         {
-            this.trickState = trickState;
+            this.deckState = deckState;
         }
 
         protected override PlayerAction PlayLogic(Player player)
         {
-            if (player.Cards.All(x => x.Suit != OpponentCard.Suit && x.Suit != trickState.TrumpCardSuit))
+            if (player.Cards.All(x => x.Suit != OpponentCard.Suit && x.Suit != deckState.TrumpCardSuit))
             {
                 Card card = player.Cards
                     .OrderBy(x => x.Type)

@@ -8,12 +8,12 @@
 
     public class AnnounceCardProvider : IAnnounceCardProvider
     {
-        private readonly ITrickState trickState;
+        private readonly IDeckState deckState;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnounceCardProvider(ITrickState trickState, IPlayerActionValidator playerActionValidator)
+        public AnnounceCardProvider(IDeckState deckState, IPlayerActionValidator playerActionValidator)
         {
-            this.trickState = trickState;
+            this.deckState = deckState;
             this.playerActionValidator = playerActionValidator;
         }
 
@@ -26,7 +26,7 @@
 
                 if (hasMarriage)
                 {
-                    if (card.Suit == trickState.TrumpCardSuit)
+                    if (card.Suit == deckState.TrumpCardSuit)
                     {
                         return new PlayerAction(PlayerActionType.Announce, card, Announce.Forty);
                     }

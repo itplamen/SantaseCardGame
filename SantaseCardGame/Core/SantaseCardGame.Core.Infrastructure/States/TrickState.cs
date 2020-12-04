@@ -22,8 +22,6 @@
 
         public PlayerPosition PlayerTurn { get; set; }
 
-        public CardSuit TrumpCardSuit { get; set; }
-
         public IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards => cards;
 
         public void AddCard(Card card, PlayerPosition playerPosition)

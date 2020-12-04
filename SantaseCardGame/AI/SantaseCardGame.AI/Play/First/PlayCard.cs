@@ -9,12 +9,12 @@
 
     public class PlayCard : BasePlayLogic
     {
-        private readonly ITrickState trickState;
+        private readonly IDeckState deckState;
 
-        public PlayCard(ITrickState trickState)
+        public PlayCard(ITrickState trickState, IDeckState deckState)
             : base(trickState)
         {
-            this.trickState = trickState;
+            this.deckState = deckState;
         }
 
         protected override PlayerAction PlayLogic(Player player)
@@ -26,7 +26,7 @@
 
             if (playCards.Any())
             {
-                Card playCard = playCards.FirstOrDefault(x => x.Suit != trickState.TrumpCardSuit);
+                Card playCard = playCards.FirstOrDefault(x => x.Suit != deckState.TrumpCardSuit);
 
                 if (playCard != null)
                 {

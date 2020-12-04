@@ -8,13 +8,13 @@
 
     public class ChangeTrumpCard : BasePlayLogic
     {
-        private readonly ITrickState trickState;
+        private readonly IDeckState deckState;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public ChangeTrumpCard(ITrickState trickState, IPlayerActionValidator playerActionValidator)
+        public ChangeTrumpCard(ITrickState trickState, IDeckState deckState, IPlayerActionValidator playerActionValidator)
             : base(trickState)
         {
-            this.trickState = trickState;
+            this.deckState = deckState;
             this.playerActionValidator = playerActionValidator;
         }
 
@@ -22,7 +22,7 @@
         {
             if (playerActionValidator.CanChangeTrump(player))
             {
-                Card nineOfTrumps = player.Cards.FirstOrDefault(x => x.Type == CardType.Nine && x.Suit == trickState.TrumpCardSuit);
+                Card nineOfTrumps = player.Cards.FirstOrDefault(x => x.Type == CardType.Nine && x.Suit == deckState.TrumpCardSuit);
 
                 return new PlayerAction(PlayerActionType.ChangeTrump, nineOfTrumps);
             }

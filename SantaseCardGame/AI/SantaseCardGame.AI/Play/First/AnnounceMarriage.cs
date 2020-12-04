@@ -9,13 +9,13 @@
 
     public class AnnounceMarriage : BasePlayLogic
     {
-        private readonly ITrickState trickState;
+        private readonly IDeckState deckState;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnounceMarriage(ITrickState trickState, IPlayerActionValidator playerActionValidator)
+        public AnnounceMarriage(ITrickState trickState, IDeckState deckState, IPlayerActionValidator playerActionValidator)
             : base(trickState)
         {
-            this.trickState = trickState;
+            this.deckState = deckState;
             this.playerActionValidator = playerActionValidator;
         }
 
@@ -29,7 +29,7 @@
                 {
                     Card queen = marriages.First(x => x.Type == CardType.Queen);
 
-                    if (queen.Suit == trickState.TrumpCardSuit)
+                    if (queen.Suit == deckState.TrumpCardSuit)
                     {
                         return new PlayerAction(PlayerActionType.Announce, queen, Announce.Forty);
                     }
