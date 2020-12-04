@@ -1,6 +1,7 @@
 ﻿namespace SantaseCardGame.AI.Strategies
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.Data.Models;
@@ -12,7 +13,7 @@
         private readonly ITrickState trickState;
 
         public PlaySecondNotFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayLogic> playLogics)
-            : base(playLogics)
+            : base(trickState, playLogics)
         {
             this.deckState = deckState;
             this.trickState = trickState;
@@ -20,9 +21,9 @@
 
         public override bool ShouldPlay(Player player)
         {
-            return player.Position == PlayerPosition.Second &&
-                player.Position == trickState.PlayerTurn &&
-                !deckState.ShouldFollowSuit;
+            return base.ShouldPlay(player) &&
+                !deckState.ShouldFollowSuit &&
+                trickState.Cards.Any();
         }
     }
 }

@@ -5,17 +5,23 @@
 
     using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public abstract class BasePlayerActionStrategy : IPlayerActionStrategy
     {
+        private readonly ITrickState trickState;
         private readonly IEnumerable<IPlayLogic> playLogics;
 
-        protected BasePlayerActionStrategy(IEnumerable<IPlayLogic> playLogics)
+        protected BasePlayerActionStrategy(ITrickState trickState, IEnumerable<IPlayLogic> playLogics)
         {
+            this.trickState = trickState;
             this.playLogics = playLogics;
         }
 
-        public abstract bool ShouldPlay(Player player);
+        public virtual bool ShouldPlay(Player player)
+        {
+            return player.Position == PlayerPosition.First && player.Position == trickState.PlayerTurn;
+        }
 
         public IEnumerable<PlayerAction> Play(Player player)
         {
@@ -28,6 +34,11 @@
                 if (ShouldAddPlayerAction(playerAction, playerActions))
                 {
                     playerActions.Add(playerAction);
+
+                    if (trickState.Cards.Any())
+                    {
+                        break;
+                    }
                 }
             }
 
