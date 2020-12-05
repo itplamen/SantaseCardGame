@@ -8,7 +8,6 @@
     using SantaseCardGame.Core.Logic.Deal;
     using SantaseCardGame.Core.Logic.Managers;
     using SantaseCardGame.Core.Logic.Providers;
-    using SantaseCardGame.Core.Logic.Rules;
     using SantaseCardGame.Core.Logic.Validators;
     using SantaseCardGame.Core.Logic.Win;
     using SantaseCardGame.Infrastructure.IoCContainer.Contracts;
@@ -17,7 +16,6 @@
     {
         public void RegisterServices(IServiceCollection services)
         {
-            services.AddSingleton<IGameRules, GameRules>();
             services.AddTransient<ITrickWinner, TrickWinner>();
             services.AddTransient<ICardsDealer, CardsDealer>();
             services.AddTransient<IGameEngine, GameEngine>();

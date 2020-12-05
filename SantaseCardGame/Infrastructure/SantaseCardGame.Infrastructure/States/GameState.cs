@@ -13,6 +13,16 @@
 
         public Game Game { get; set;  }
 
+        public int RoundWinPoints => 66;
+
+        public int RoundHalfPoints => 33;
+
+        public int GameWinPoints => 11;
+
+        public int PlayerStartCards => 6;
+
+        public int TrickCards => 2;
+
         public void RenderBoard()
         {
             OnRenderBoard?.Invoke();

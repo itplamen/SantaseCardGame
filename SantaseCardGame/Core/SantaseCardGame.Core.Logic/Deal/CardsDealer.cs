@@ -7,15 +7,16 @@
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public class CardsDealer : ICardsDealer
     {
-        private readonly IGameRules gameRules;
+        private readonly IGameState gameState;
         private readonly ICardsProvider cardsProvider;
 
-        public CardsDealer(IGameRules gameRules, ICardsProvider cardsProvider)
+        public CardsDealer(IGameState gameState, ICardsProvider cardsProvider)
         {
-            this.gameRules = gameRules;
+            this.gameState = gameState;
             this.cardsProvider = cardsProvider;
         }
 
@@ -34,7 +35,7 @@
 
         private void DealCards(Deck deck, Player player)
         {
-            for (int i = 1; i <= gameRules.PlayerStartCards; i++)
+            for (int i = 1; i <= gameState.PlayerStartCards; i++)
             {
                 Card card = deck.GetNextCard();
                 player.Cards.Add(card);

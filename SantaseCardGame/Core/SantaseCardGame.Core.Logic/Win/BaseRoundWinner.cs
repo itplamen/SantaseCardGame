@@ -4,26 +4,27 @@
 
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.Contracts;
 
     public abstract class BaseRoundWinner : IRoundWinner
     {
-        private readonly IGameRules gameRules;
+        private readonly IGameState gameState;
 
-        protected BaseRoundWinner(IGameRules gameRules)
+        protected BaseRoundWinner(IGameState gameState)
         {
-            this.gameRules = gameRules;
+            this.gameState = gameState;
         }
 
         public abstract Round GetWinner(Game game);
 
         protected int GetWinnerPoints(Player loser)
         {
-            if (loser.Points >= gameRules.RoundHalfPoints)
+            if (loser.Points >= gameState.RoundHalfPoints)
             {
                 return 1;
             }
             
-            if (loser.Hands.Any() && loser.Points < gameRules.RoundHalfPoints)
+            if (loser.Hands.Any() && loser.Points < gameState.RoundHalfPoints)
             {
                 return 2;
             }
