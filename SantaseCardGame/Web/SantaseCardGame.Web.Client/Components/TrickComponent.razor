@@ -17,21 +17,12 @@
     protected override void OnInitialized()
     {
         TrickState.OnDisplay += Display;
-        TrickState.OnClear += Clear;
     }
 
     private void Display()
     {
         firstPlayerCard = GetPlayerTrickCard(PlayerPosition.First);
         secondPlayerCard = GetPlayerTrickCard(PlayerPosition.Second);
-
-        StateHasChanged();
-    }
-
-    private void Clear()
-    {
-        firstPlayerCard = null;
-        secondPlayerCard = null;
 
         StateHasChanged();
     }

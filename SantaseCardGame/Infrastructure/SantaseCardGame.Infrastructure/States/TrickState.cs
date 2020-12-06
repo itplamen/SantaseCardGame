@@ -2,19 +2,23 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.Contracts;
 
     public class TrickState : ITrickState
     {
-        private const int TRICK_CARDS = 2;
+        private readonly IGameState gameState;
+        private readonly IDictionary<PlayerPosition, Card> cards;
 
-        private IDictionary<PlayerPosition, Card> cards = new Dictionary<PlayerPosition, Card>(TRICK_CARDS);
+        public TrickState(IGameState gameState)
+        {
+            this.gameState = gameState;
+            this.cards = new Dictionary<PlayerPosition, Card>(gameState.TrickCards);
+        }
 
         public event Action OnPlay;
-
-        public event Action OnClear;
 
         public event Action OnDisplay;
 
@@ -22,36 +26,35 @@
 
         public PlayerPosition PlayerTurn { get; set; }
 
-        public IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards => cards;
+        public IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards => new List<KeyValuePair<PlayerPosition, Card>>(cards);
 
-        public void AddCard(Card card, PlayerPosition playerPosition)
+        public async void AddCard(Card card, PlayerPosition playerPosition)
         {
-            if (cards.Count < TRICK_CARDS)
+            if (cards.Count < gameState.TrickCards)
             {
                 cards.Add(playerPosition, card);
                 PlayerTurn = GetNextPlayerPosition(playerPosition);
-
-                OnManagePlayerTurn?.Invoke();
             }
 
             OnDisplay?.Invoke();
 
-            if (cards.Count == TRICK_CARDS)
+            if (cards.Count == gameState.TrickCards)
             {
+                await Task.Delay(1500);
                 OnPlay?.Invoke();
+
+                cards.Clear();
+                OnDisplay?.Invoke();
             }
-        }
-
-        public void Clear()
-        {
-            cards = new Dictionary<PlayerPosition, Card>();
-
-            OnClear?.Invoke();
+            else
+            {
+                OnManagePlayerTurn?.Invoke();
+            }
         }
 
         private PlayerPosition GetNextPlayerPosition(PlayerPosition current)
         {
-            if (cards.Count < TRICK_CARDS)
+            if (cards.Count < gameState.TrickCards)
             {
                 if (current == PlayerPosition.First)
                 {

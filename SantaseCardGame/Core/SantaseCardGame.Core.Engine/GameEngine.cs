@@ -61,7 +61,7 @@
             }
         }
 
-        public async void PlayTrick(Game game)
+        public void PlayTrick(Game game)
         {
             Hand hand = new Hand()
             {
@@ -71,10 +71,7 @@
             PlayerPosition winnerPosition = trickWinner.GetWinner(trickState.Cards, game.Deck.TrumpCard.Suit);
             Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
             winnerPlayer.Hands.Add(hand);
-            
-            await Task.Delay(1500);
 
-            trickState.Clear();
             trickState.PlayerTurn = winnerPosition;
 
             DrawCards(winnerPosition, game);

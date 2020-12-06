@@ -9,8 +9,6 @@
     {
         event Action OnPlay;
 
-        event Action OnClear;
-
         event Action OnDisplay;
 
         event Action OnManagePlayerTurn;
@@ -20,7 +18,5 @@
         IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards { get; }
 
         void AddCard(Card card, PlayerPosition playerPosition);
-
-        void Clear();
     }
 }
