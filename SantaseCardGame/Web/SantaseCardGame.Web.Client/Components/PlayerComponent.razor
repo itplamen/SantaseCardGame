@@ -14,7 +14,14 @@
 
     @foreach (var card in Player.Cards)
     {
-        <CardComponent PlayerAction="GetPlayerAction(card)" OnClick="Play"></CardComponent>
+        if (Player.Position == PlayerPosition.Second)
+        {
+            <CardComponent PlayerAction="GetPlayerAction(card)" OnClick="Play"></CardComponent>
+        }
+        else
+        {
+            <CardComponent PlayerAction="new PlayerAction(PlayerActionType.None, card)"></CardComponent>
+        }
     }
 </div>
 
