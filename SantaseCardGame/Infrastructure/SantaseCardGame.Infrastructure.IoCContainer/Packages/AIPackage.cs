@@ -36,7 +36,7 @@
 
         private PlayFirstNotFollowingSuitStrategy RegisterPlayFirstNotFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayLogic> playLogics)
         {
-            IEnumerable<Type> types = new List<Type>()
+            List<Type> types = new List<Type>()
             {
                 typeof(ChangeTrumpCard),
                 typeof(CloseDeck),
@@ -44,27 +44,27 @@
                 typeof(PlayCard)
             };
 
-            IEnumerable<IPlayLogic> strategyLogics = playLogics.Where(x => types.Contains(x.GetType())).ToList();
+            IEnumerable<IPlayLogic> strategyLogics = GetOrderedPlayLogics(types, playLogics);
 
             return new PlayFirstNotFollowingSuitStrategy(deckState, trickState, strategyLogics);
         }
 
         private PlayFirstFollowingSuitStrategy RegisterPlayFirstFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayLogic> playLogics)
         {
-            IEnumerable<Type> types = new List<Type>()
+            List<Type> types = new List<Type>()
             {
                 typeof(AnnounceMarriage),
                 typeof(PlayCard)
             };
 
-            IEnumerable<IPlayLogic> strategyLogics = playLogics.Where(x => types.Contains(x.GetType())).ToList();
+            IEnumerable<IPlayLogic> strategyLogics = GetOrderedPlayLogics(types, playLogics);
 
             return new PlayFirstFollowingSuitStrategy(deckState, trickState, strategyLogics);
         }
 
         private PlaySecondNotFollowingSuitStrategy RegisterPlaySecondNotFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayLogic> playLogics)
         {
-            IEnumerable<Type> types = new List<Type>()
+            List<Type> types = new List<Type>()
             {
                 typeof(PlayHigherCard),
                 typeof(PlayLowerCard),
@@ -72,14 +72,14 @@
                 typeof(PlayTrumpCard)
             };
 
-            IEnumerable<IPlayLogic> strategyLogics = playLogics.Where(x => types.Contains(x.GetType())).ToList();
+            IEnumerable<IPlayLogic> strategyLogics = GetOrderedPlayLogics(types, playLogics);
 
             return new PlaySecondNotFollowingSuitStrategy(deckState, trickState, strategyLogics);
         }
 
         private PlaySecondFollowingSuitStrategy RegisterPlaySecondFollowingSuitStrategy(IDeckState deckState, ITrickState trickState, IEnumerable<IPlayLogic> playLogics)
         {
-            IEnumerable<Type> types = new List<Type>()
+            List<Type> types = new List<Type>()
             {
                 typeof(PlayHigherCard),
                 typeof(PlayLowerCard),
@@ -87,9 +87,16 @@
                 typeof(PlayDifferentCard)
             };
 
-            IEnumerable<IPlayLogic> strategyLogics = playLogics.Where(x => types.Contains(x.GetType())).ToList();
+            IEnumerable<IPlayLogic> strategyLogics = GetOrderedPlayLogics(types, playLogics);
 
             return new PlaySecondFollowingSuitStrategy(deckState, trickState, strategyLogics);
+        }
+
+        private IEnumerable<IPlayLogic> GetOrderedPlayLogics(List<Type> playLogicTypes, IEnumerable<IPlayLogic> playLogics)
+        {
+            return playLogics.Where(x => playLogicTypes.Contains(x.GetType()))
+                .OrderBy(x => playLogicTypes.IndexOf(x.GetType()))
+                .ToList();
         }
 
         private void RegisterStrategy<TStrategy>(IServiceCollection services, Func<IDeckState, ITrickState, IEnumerable<IPlayLogic>, TStrategy> strategy)
