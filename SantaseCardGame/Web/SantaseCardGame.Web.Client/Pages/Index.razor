@@ -26,14 +26,13 @@
 
         TrickState.OnPlay += () => GameEngine.PlayTrick(Game);
         TrickState.OnDisplay += () => StateHasChanged();
-        TrickState.OnManagePlayerTurn += () => GameEngine.ManagePlayersTurn();
+        TrickState.OnManagePlayerTurn += () => GameEngine.ManagePlayersTurn(Game);
         TrickState.PlayerTurn = PlayerPosition.First;
         DeckState.TrumpCard = Game.Deck.TrumpCard;
 
         GameState.OnRenderBoard += () => StateHasChanged();
         GameState.OnShowMessage += (message) => JSRuntime.InvokeVoidAsync("announce", message);
-        GameState.Game = Game;
 
-        GameEngine.ManagePlayersTurn();
+        GameEngine.ManagePlayersTurn(Game);
     }
 }

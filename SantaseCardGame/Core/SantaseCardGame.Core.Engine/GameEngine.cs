@@ -52,12 +52,12 @@
             };
         }
 
-        public async void ManagePlayersTurn()
+        public async void ManagePlayersTurn(Game game)
         {
             if (trickState.PlayerTurn == PlayerPosition.First)
             {
                 await Task.Delay(1500);
-                gamePlayer.Play(gameState.Game.Players.First());
+                gamePlayer.Play(game.Players.First());
             }
         }
 
@@ -77,7 +77,7 @@
             DrawCards(winnerPosition, game);
 
             gameState.RenderBoard();
-            ManagePlayersTurn();
+            ManagePlayersTurn(game);
         }
 
         private void DrawCards(PlayerPosition winnerPosition, Game game)

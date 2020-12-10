@@ -2,7 +2,6 @@
 {
     using System;
 
-    using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.Contracts;
 
     public class GameState : IGameState
@@ -10,8 +9,6 @@
         public event Action OnRenderBoard;
 
         public event Action<string> OnShowMessage;
-
-        public Game Game { get; set;  }
 
         public int RoundWinPoints => 66;
 
