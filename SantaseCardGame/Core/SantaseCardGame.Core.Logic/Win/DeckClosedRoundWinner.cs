@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Core.Logic.Win
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using SantaseCardGame.Data.Models;
@@ -17,14 +18,14 @@
             this.deckState = deckState;
         }
 
-        public override Round GetWinner(Game game)
+        public override Round GetWinner(IEnumerable<Player> players)
         {
             Round round = new Round();
 
-            if (AreRoundWinPointsReached(game) && deckState.ClosedBy != PlayerPosition.NoOne)
+            if (AreRoundWinPointsReached(players) && deckState.ClosedBy != PlayerPosition.NoOne)
             {
-                Player winner = game.Players.First(x => x.Position == deckState.ClosedBy);
-                Player loser = game.Players.First(x => x.Position != winner.Position);
+                Player winner = players.First(x => x.Position == deckState.ClosedBy);
+                Player loser = players.First(x => x.Position != winner.Position);
 
                 if (winner.Points >= gameState.RoundWinPoints)
                 {

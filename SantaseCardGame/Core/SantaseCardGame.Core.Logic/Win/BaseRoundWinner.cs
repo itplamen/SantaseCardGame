@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Core.Logic.Win
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using SantaseCardGame.Core.Logic.Contracts;
@@ -15,11 +16,11 @@
             this.gameState = gameState;
         }
 
-        public abstract Round GetWinner(Game game);
+        public abstract Round GetWinner(IEnumerable<Player> players);
 
-        protected bool AreRoundWinPointsReached(Game game)
+        protected bool AreRoundWinPointsReached(IEnumerable<Player> players)
         {
-            return game.Players.Any(x => x.Points >= gameState.RoundWinPoints);
+            return players.Any(x => x.Points >= gameState.RoundWinPoints);
         }
 
         protected int GetWinnerPoints(Player loser)
