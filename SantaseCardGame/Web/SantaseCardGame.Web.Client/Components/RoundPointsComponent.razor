@@ -1,0 +1,17 @@
+﻿<div id="RoundPointsInfo">
+    <div id="CurrentRound">Round @(Game.Rounds.Count() + 1)</div>
+    <div class="player-points">@Game.Players.First().Username <span>@GetPoints(Game.Players.First().Position)</span></div>
+    <div class="player-points">@Game.Players.Last().Username <span>@GetPoints(Game.Players.Last().Position)</span></div>
+</div>
+
+@code {
+    [Parameter]
+    public Game Game { get; set; }
+
+    private int GetPoints(PlayerPosition playerPosition)
+    {
+        return Game.Rounds
+            .Where(x => x.WinnerPosition == playerPosition)
+            .Sum(x => x.Points);
+    }
+}

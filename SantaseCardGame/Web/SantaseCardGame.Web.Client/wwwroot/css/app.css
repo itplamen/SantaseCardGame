@@ -203,7 +203,7 @@ app {
     display: none;
 }
 
-#PlayerInfo {
+#PlayerInfo, #RoundPointsInfo {
     border: 3px solid #823d05;
     border-radius: 20px;
     width: 200px;
@@ -219,7 +219,7 @@ app {
     border-radius: 10px;
 }
 
-#Username {
+#Username, #CurrentRound {
     font-size: 28px;
     color: #fff;
     position: relative;
@@ -229,4 +229,19 @@ app {
 #Points {
     position: relative;
     left: 100px;
+}
+
+.player-points {
+    font-size: 20px;
+    padding-left: 20px;
+    margin-top: 5px;
+    z-index: 99 !important;
+    color: #ffffff;
+    background-color: #f4a624;
+    border-radius: 10px;
+}
+
+.player-points span {
+    float: right;
+    padding-right: 20px;
 }
