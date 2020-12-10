@@ -17,6 +17,11 @@
 
         public abstract Round GetWinner(Game game);
 
+        protected bool AreRoundWinPointsReached(Game game)
+        {
+            return game.Players.Any(x => x.Points >= gameState.RoundWinPoints);
+        }
+
         protected int GetWinnerPoints(Player loser)
         {
             if (loser.Points >= gameState.RoundHalfPoints)
