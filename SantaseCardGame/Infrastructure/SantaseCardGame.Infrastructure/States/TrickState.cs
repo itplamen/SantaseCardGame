@@ -34,9 +34,8 @@
             {
                 cards.Add(playerPosition, card);
                 PlayerTurn = GetNextPlayerPosition(playerPosition);
+                OnDisplay?.Invoke();
             }
-
-            OnDisplay?.Invoke();
 
             if (cards.Count == gameState.TrickCards)
             {
@@ -46,10 +45,8 @@
                 cards.Clear();
                 OnDisplay?.Invoke();
             }
-            else
-            {
-                OnManagePlayerTurn?.Invoke();
-            }
+
+            OnManagePlayerTurn?.Invoke();
         }
 
         private PlayerPosition GetNextPlayerPosition(PlayerPosition current)

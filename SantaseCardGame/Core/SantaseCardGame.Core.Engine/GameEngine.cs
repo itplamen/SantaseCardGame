@@ -77,7 +77,6 @@
             DrawCards(winnerPosition, game);
 
             gameState.RenderBoard();
-            ManagePlayersTurn(game);
         }
 
         private void DrawCards(PlayerPosition winnerPosition, Game game)
