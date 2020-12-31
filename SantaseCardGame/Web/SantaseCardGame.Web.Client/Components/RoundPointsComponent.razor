@@ -1,17 +1,79 @@
 ﻿<div id="RoundPointsInfo">
     <div id="CurrentRound">Round @(Game.Rounds.Count() + 1)</div>
-    <div class="player-points">@Game.Players.First().Username <span>@GetPoints(Game.Players.First().Position)</span></div>
-    <div class="player-points">@Game.Players.Last().Username <span>@GetPoints(Game.Players.Last().Position)</span></div>
+    <div class="game-points">@firstPlayer.Username <span>@GetGamePoints(firstPlayer)</span></div>
+    <div class="game-points">@secondPlayer.Username <span>@GetGamePoints(secondPlayer)</span></div>
+</div>
+<div id="Scoreboard">
+    <table>
+        <thead>
+            <tr>
+                <th colspan="3">Scoreboard</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th></th>
+                <th>@firstPlayer.Username</th>
+                <th>@secondPlayer.Username</th>
+            </tr>
+            <tr>
+                <td>Announcements</td>
+                <td>@GetAnnouncements(firstPlayer)</td>
+                <td>@GetAnnouncements(secondPlayer)</td>
+            </tr>
+            <tr>
+                <td>Round Points</td>
+                <td>@firstPlayer.Points</td>
+                <td>@secondPlayer.Points</td>
+            </tr>
+            <tr>
+                <td>Game Points</td>
+                <td>@GetLastGamePoints(firstPlayer)</td>
+                <td>@GetLastGamePoints(secondPlayer)</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button type="button" class="btn btn-success">Continue</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 @code {
     [Parameter]
     public Game Game { get; set; }
 
-    private int GetPoints(PlayerPosition playerPosition)
+    private Player firstPlayer;
+    private Player secondPlayer;
+
+    protected override void OnInitialized()
+    {
+        firstPlayer = Game.Players.First();
+        secondPlayer = Game.Players.Last();
+    }
+
+    private int GetGamePoints(Player player)
     {
         return Game.Rounds
-            .Where(x => x.WinnerPosition == playerPosition)
+            .Where(x => x.WinnerPosition == player.Position)
             .Sum(x => x.Points);
+    }
+
+    private string GetAnnouncements(Player player)
+    {
+        return "";
+    }
+
+    private int GetLastGamePoints(Player player)
+    {
+        Round lastRound = Game.Rounds.LastOrDefault();
+
+        if (lastRound != null && lastRound.WinnerPosition == player.Position)
+        {
+            return lastRound.Points;
+        }
+
+        return 0;
     }
 }
