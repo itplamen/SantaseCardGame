@@ -13,42 +13,40 @@
     public class GameEngine : IGameEngine
     {
         private readonly IGamePlayer gamePlayer;
-        private readonly IGameState gameState;
         private readonly ITrickState trickState;
-        private readonly IDeckState deckState;
-        private readonly ITrickWinner trickWinner;
-        private readonly ICardsDealer cardsDealer;
+        private readonly IRoundManager roundManager;
+        private readonly ICardsDrawingManager cardsDrawingManager;
 
-        public GameEngine(IGamePlayer gamePlayer, IGameState gameState, ITrickState trickState, IDeckState deckState, ITrickWinner trickWinner, ICardsDealer cardsDealer)
+        public GameEngine(IGamePlayer gamePlayer, ITrickState trickState, IRoundManager roundManager, ICardsDrawingManager cardsDrawingManager)
         {
             this.gamePlayer = gamePlayer;
-            this.gameState = gameState;
             this.trickState = trickState;
-            this.deckState = deckState;
-            this.trickWinner = trickWinner;
-            this.cardsDealer = cardsDealer;
+            this.roundManager = roundManager;
+            this.cardsDrawingManager = cardsDrawingManager;
         }
 
         public Game StartGame(string username)
         {
-            var firstPlayer = new Player()
+            var players = new List<Player>()
             {
-                Username = "Bot",
-                Position = PlayerPosition.First
+                new Player() 
+                {
+                    Username = "Bot",
+                    Position = PlayerPosition.First
+                },
+                new Player()
+                {
+                    Username = username,
+                    Position = PlayerPosition.Second
+                }
             };
 
-            var secondPlayer = new Player()
-            {
-                Username = username,
-                Position = PlayerPosition.Second
-            };
-
-            Deck deck = cardsDealer.Deal(firstPlayer, secondPlayer);
+            Deck deck = roundManager.StartRound(players);
 
             return new Game()
             {
                 Deck = deck,
-                Players = new List<Player>() { firstPlayer, secondPlayer }
+                Players = players
             };
         }
 
@@ -63,43 +61,12 @@
 
         public void PlayTrick(Game game)
         {
-            Hand hand = new Hand()
+            PlayerPosition winnerPosition = roundManager.PlayTrick(game);
+            Round round = roundManager.GetRoundWinner(game.Players);
+
+            if (round.WinnerPosition == PlayerPosition.NoOne)
             {
-                Cards = trickState.Cards.Select(x => x.Value)
-            };
-
-            PlayerPosition winnerPosition = trickWinner.GetWinner(trickState.Cards, game.Deck.TrumpCard.Suit);
-            Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
-            winnerPlayer.Hands.Add(hand);
-
-            trickState.PlayerTurn = winnerPosition;
-
-            DrawCards(winnerPosition, game);
-
-            gameState.RenderBoard();
-        }
-
-        private void DrawCards(PlayerPosition winnerPosition, Game game)
-        {
-            if (deckState.ClosedBy != PlayerPosition.NoOne || !game.Deck.Cards.Any())
-            {
-                return;
-            }
-
-            Card firstCard = game.Deck.GetNextCard();
-            Card secondCard = game.Deck.GetNextCard();
-
-            deckState.CardsLeft = game.Deck.Cards.Count;
-            
-            Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
-            winnerPlayer.Cards.Add(firstCard);
-
-            Player loserPlayer = game.Players.First(x => x.Position != winnerPosition);
-            loserPlayer.Cards.Add(secondCard);
-
-            if (!game.Deck.Cards.Any())
-            {
-                deckState.ShouldFollowSuit = true;
+                cardsDrawingManager.DrawCards(winnerPosition, game);
             }
         }
     }
