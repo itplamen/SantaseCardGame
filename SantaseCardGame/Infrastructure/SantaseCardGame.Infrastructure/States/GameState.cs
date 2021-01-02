@@ -6,6 +6,8 @@
 
     public class GameState : IGameState
     {
+        public event Action OnEndRound;
+
         public event Action OnRenderBoard;
 
         public event Action<string> OnShowMessage;
@@ -19,6 +21,11 @@
         public int PlayerStartCards => 6;
 
         public int TrickCards => 2;
+
+        public void EndRound()
+        {
+            OnEndRound?.Invoke();
+        }
 
         public void RenderBoard()
         {

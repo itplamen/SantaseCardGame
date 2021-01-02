@@ -4,6 +4,8 @@
 
     public interface IGameState
     {
+        event Action OnEndRound;
+
         event Action OnRenderBoard;
 
         event Action<string> OnShowMessage;
@@ -17,6 +19,8 @@
         int PlayerStartCards { get; }
 
         int TrickCards { get; }
+
+        void EndRound();
 
         void RenderBoard();
 

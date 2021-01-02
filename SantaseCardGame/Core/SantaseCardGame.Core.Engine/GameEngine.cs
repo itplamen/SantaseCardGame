@@ -68,6 +68,10 @@
             {
                 cardsDrawingManager.DrawCards(winnerPosition, game);
             }
+            else
+            {
+                roundManager.EndRound(round, game);
+            }
         }
     }
 }

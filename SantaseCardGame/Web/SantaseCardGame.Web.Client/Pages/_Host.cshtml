@@ -38,10 +38,18 @@
             crossorigin="anonymous"></script>
     <script>
         function announce(announceValue) {
-            $("#Announce").html(announceValue);
-            $("#Announce").fadeIn(1500);
-            $("#Announce").fadeOut(1500);
+            $('#Announce').html(announceValue);
+            $('#Announce').fadeIn(1500);
+            $('#Announce').fadeOut(1500);
         }
+
+        function showScoreboard() {
+            $('#Scoreboard').show();
+        }
+
+        $(document).on('click', '#Scoreboard button', function () {
+            $('#Scoreboard').hide();
+        });
     </script>
 </body>
 </html>

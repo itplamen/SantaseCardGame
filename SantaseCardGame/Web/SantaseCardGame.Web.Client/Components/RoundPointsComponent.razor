@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <button type="button" class="btn btn-success">Continue</button>
+                    <button type="button" class="btn btn-success" @onclick="@OnClick.InvokeAsync">Continue</button>
                 </td>
             </tr>
         </tbody>
@@ -43,6 +43,9 @@
 @code {
     [Parameter]
     public Game Game { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
 
     private Player firstPlayer;
     private Player secondPlayer;

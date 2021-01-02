@@ -9,14 +9,16 @@
 
     public class RoundManager : IRoundManager
     {
+        private readonly IGameState gameState;
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
         private readonly ITrickWinner trickWinner;
         private readonly ICardsDealer cardsDealer;
         private readonly IEnumerable<IRoundWinner> roundWinners;
 
-        public RoundManager(IDeckState deckState, ITrickState trickState, ITrickWinner trickWinner, ICardsDealer cardsDealer, IEnumerable<IRoundWinner> roundWinners)
+        public RoundManager(IGameState gameState, IDeckState deckState, ITrickState trickState, ITrickWinner trickWinner, ICardsDealer cardsDealer, IEnumerable<IRoundWinner> roundWinners)
         {
+            this.gameState = gameState;
             this.deckState = deckState;
             this.trickState = trickState;
             this.trickWinner = trickWinner;
@@ -26,6 +28,13 @@
 
         public Deck StartRound(IEnumerable<Player> players)
         {
+            foreach (var player in players)
+            {
+                player.Cards.Clear();
+                player.Hands.Clear();
+                player.Announcements.Clear();
+            }
+
             Deck deck = cardsDealer.Deal(players.First(), players.Last());
 
             deckState.ShouldFollowSuit = false;
@@ -35,6 +44,12 @@
             trickState.PlayerTurn = PlayerPosition.First; // TODO:
 
             return deck;
+        }
+
+        public void EndRound(Round round, Game game)
+        {
+            game.Rounds.Add(round);
+            gameState.EndRound();
         }
 
         public Round GetRoundWinner(IEnumerable<Player> players)
