@@ -41,13 +41,15 @@
             deckState.TrumpCard = deck.TrumpCard;
             deckState.CardsLeft = deck.Cards.Count;
             deckState.ClosedBy = PlayerPosition.NoOne;
-            trickState.PlayerTurn = PlayerPosition.First; // TODO:
+            trickState.PlayerTurn = GetPlayerTurn();
 
             return deck;
         }
 
         public void EndRound(Round round, Game game)
         {
+            trickState.PlayerTurn = GetPlayerTurn(round.WinnerPosition);
+
             game.Rounds.Add(round);
             gameState.EndRound();
         }
@@ -78,6 +80,21 @@
             trickState.PlayerTurn = winnerPosition;
 
             return winnerPosition;
+        }
+
+        private PlayerPosition GetPlayerTurn(PlayerPosition lastRoundWinner = PlayerPosition.NoOne)
+        {
+            if (trickState.PlayerTurn == PlayerPosition.NoOne || lastRoundWinner != PlayerPosition.NoOne)
+            {
+                if (lastRoundWinner == PlayerPosition.First)
+                {
+                    return PlayerPosition.Second;
+                }
+
+                return PlayerPosition.First;
+            }
+
+            return trickState.PlayerTurn;
         }
     }
 }
