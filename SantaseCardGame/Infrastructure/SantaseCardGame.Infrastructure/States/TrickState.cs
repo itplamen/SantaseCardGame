@@ -46,7 +46,10 @@
                 OnDisplay?.Invoke();
             }
 
-            OnManagePlayerTurn?.Invoke();
+            if (gameState.RoundWinner == PlayerPosition.NoOne)
+            {
+                OnManagePlayerTurn?.Invoke();
+            }
         }
 
         private PlayerPosition GetNextPlayerPosition(PlayerPosition current)

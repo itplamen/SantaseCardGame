@@ -2,6 +2,7 @@
 {
     using System;
 
+    using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.Contracts;
 
     public class GameState : IGameState
@@ -21,6 +22,8 @@
         public int PlayerStartCards => 6;
 
         public int TrickCards => 2;
+
+        public PlayerPosition RoundWinner { get; set; }
 
         public void EndRound()
         {

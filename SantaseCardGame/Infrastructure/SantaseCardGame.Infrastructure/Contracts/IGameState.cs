@@ -2,6 +2,8 @@
 {
     using System;
 
+    using SantaseCardGame.Data.Models;
+
     public interface IGameState
     {
         event Action OnEndRound;
@@ -19,6 +21,8 @@
         int PlayerStartCards { get; }
 
         int TrickCards { get; }
+
+        PlayerPosition RoundWinner { get; set; }
 
         void EndRound();
 

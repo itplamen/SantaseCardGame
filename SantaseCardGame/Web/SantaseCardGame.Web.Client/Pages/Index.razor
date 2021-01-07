@@ -39,5 +39,7 @@
     {
         Deck deck = RoundManager.StartRound(Game.Players);
         Game.Deck = deck;
+
+        GameEngine.ManagePlayersTurn(Game);
     }
 }
