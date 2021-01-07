@@ -11,7 +11,7 @@
         private readonly IAnnounceCardProvider announceCardProvider;
 
         public AnnounceManager(IGameState gameState, ITrickState trickState, IAnnounceCardProvider announceCardProvider)
-            : base(trickState)
+            : base(gameState, trickState)
         {
             this.gameState = gameState;
             this.trickState = trickState;

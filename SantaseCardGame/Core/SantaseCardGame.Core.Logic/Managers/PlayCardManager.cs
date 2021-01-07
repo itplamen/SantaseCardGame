@@ -13,7 +13,7 @@
         private readonly ITrickState trickState;
 
         public PlayCardManager(IDeckState deckState, IGameState gameState, ITrickState trickState)
-            : base(trickState)
+            : base(gameState, trickState)
         {
             this.deckState = deckState;
             this.gameState = gameState;

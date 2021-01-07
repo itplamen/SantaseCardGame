@@ -13,7 +13,7 @@
         private readonly IPlayerActionValidator playerActionValidator;
 
         public ChangeTrumpCardManager(IDeckState deckState, IGameState gameState, ITrickState trickState, IPlayerActionValidator playerActionValidator)
-            : base(trickState)
+            : base(gameState, trickState)
         {
             this.deckState = deckState;
             this.gameState = gameState;
