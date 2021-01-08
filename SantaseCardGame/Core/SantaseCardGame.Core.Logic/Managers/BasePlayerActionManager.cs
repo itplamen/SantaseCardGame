@@ -1,5 +1,7 @@
 ﻿namespace SantaseCardGame.Core.Logic.Managers
 {
+    using System.Linq;
+
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.Contracts;
@@ -19,7 +21,8 @@
         {
             return playerAction != null && 
                 player.Position == trickState.PlayerTurn &&
-                gameState.RoundWinner == PlayerPosition.NoOne;
+                gameState.RoundWinner == PlayerPosition.NoOne &&
+                !trickState.Cards.Any(x => x.Key == player.Position);
         }
 
         public abstract void Manage(PlayerAction playerAction, Player player);
