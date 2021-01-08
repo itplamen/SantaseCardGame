@@ -22,7 +22,7 @@
         {
             Round round = new Round();
 
-            if (AreRoundWinPointsReached(players) && deckState.ClosedBy == PlayerPosition.NoOne)
+            if (deckState.ClosedBy == PlayerPosition.NoOne && AreRoundWinPointsReached(players))
             {
                 Player winner = players.FirstOrDefault(x => x.Points >= gameState.RoundWinPoints);
 

@@ -22,7 +22,7 @@
         {
             Round round = new Round();
 
-            if (AreRoundWinPointsReached(players) && deckState.ClosedBy != PlayerPosition.NoOne)
+            if (deckState.ClosedBy != PlayerPosition.NoOne && (AreRoundWinPointsReached(players) || players.All(x => !x.Cards.Any())))
             {
                 Player winner = players.First(x => x.Position == deckState.ClosedBy);
                 Player loser = players.First(x => x.Position != winner.Position);
