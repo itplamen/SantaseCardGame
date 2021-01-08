@@ -64,7 +64,7 @@
             PlayerPosition winnerPosition = roundManager.PlayTrick(game);
             Round round = roundManager.GetRoundWinner(game.Players);
 
-            if (round.WinnerPosition == PlayerPosition.NoOne)
+            if (round.WinnerPosition == PlayerPosition.NoOne && game.Players.All(x => x.Cards.Any()))
             {
                 cardsDrawingManager.DrawCards(winnerPosition, game);
             }
