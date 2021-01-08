@@ -18,9 +18,9 @@
 
         public abstract Round GetWinner(IEnumerable<Player> players);
 
-        protected bool AreRoundWinPointsReached(IEnumerable<Player> players)
+        protected bool HasRoundEnded(IEnumerable<Player> players)
         {
-            return players.Any(x => x.Points >= gameState.RoundWinPoints);
+            return players.Any(x => x.Points >= gameState.RoundWinPoints) || players.All(x => !x.Cards.Any());
         }
 
         protected int GetWinnerPoints(Player loser)

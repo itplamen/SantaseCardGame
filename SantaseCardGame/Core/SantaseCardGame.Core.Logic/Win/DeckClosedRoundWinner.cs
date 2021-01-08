@@ -22,7 +22,7 @@
         {
             Round round = new Round();
 
-            if (deckState.ClosedBy != PlayerPosition.NoOne && (AreRoundWinPointsReached(players) || players.All(x => !x.Cards.Any())))
+            if (deckState.ClosedBy != PlayerPosition.NoOne && HasRoundEnded(players))
             {
                 Player winner = players.First(x => x.Position == deckState.ClosedBy);
                 Player loser = players.First(x => x.Position != winner.Position);
@@ -35,15 +35,7 @@
                 else
                 {
                     round.WinnerPosition = loser.Position;
-
-                    if (loser.Hands.Any())
-                    {
-                        round.Points = 2;
-                    }
-                    else
-                    {
-                        round.Points = 3;
-                    }
+                    round.Points = loser.Hands.Any() ? 2 : 3;
                 }
             }
 
