@@ -33,7 +33,7 @@
             if (announce != Announce.None)
             {
                 player.Announcements.Add(playerAction.Card.Suit, announce);
-                gameState.ShowMessage($"{(int)announce}");
+                gameState.ShowMessage(player.Position, $"Announced {(int)announce}");
             }
 
             player.Cards.Remove(playerAction.Card);

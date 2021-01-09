@@ -13,7 +13,6 @@
     <DeckComponent Deck="Game.Deck"></DeckComponent>
     <TrickComponent></TrickComponent>
     <PlayerComponent Player="Game.Players.Last()"></PlayerComponent>
-    <div id="Announce"></div>
 }
 
 @code {
@@ -30,7 +29,7 @@
 
         GameState.OnRenderBoard += () => StateHasChanged();
         GameState.OnEndRound += () => JSRuntime.InvokeVoidAsync("showScoreboard");
-        GameState.OnShowMessage += (message) => JSRuntime.InvokeVoidAsync("announce", message);
+        GameState.OnShowMessage += (possition, message) => JSRuntime.InvokeVoidAsync("showMessage", possition.ToString(), message);
 
         GameEngine.ManagePlayersTurn(Game);
     }

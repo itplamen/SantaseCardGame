@@ -37,10 +37,13 @@
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
             crossorigin="anonymous"></script>
     <script>
-        function announce(announceValue) {
-            $('#Announce').html(announceValue);
-            $('#Announce').fadeIn(1500);
-            $('#Announce').fadeOut(1500);
+        function showMessage(position, message) {
+            let id = "#Messages-" + position;
+            $(id).prepend('<div>' + message + '</div>');
+
+            $(id + ' div:first-child').fadeOut(3000, function () {
+                $(id).empty();
+            });
         }
 
         function showScoreboard() {

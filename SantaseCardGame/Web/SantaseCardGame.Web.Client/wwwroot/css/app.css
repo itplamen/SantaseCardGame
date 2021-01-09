@@ -189,18 +189,21 @@ app {
     }
 }
 
-#Announce {
+#Messages-First, #Messages-Second {
     width: 200px;
-    height: 100px;
+    height: 150px;
+    position: absolute;
+    left: 80%;
+}
+
+#Messages-First div, #Messages-Second div {
     background-color: #f4a624;
     border-radius: 10px;
     color: #fff;
-    font-size: 60px;
+    font-size: 16px;
     text-align: center;
-    position: relative;
-    bottom: 20%;
-    left: 40%;
-    display: none;
+    padding: 10px;
+    margin-bottom: 5px;
 }
 
 #PlayerInfo, #RoundPointsInfo {

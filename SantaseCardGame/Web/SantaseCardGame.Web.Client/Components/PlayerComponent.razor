@@ -3,6 +3,8 @@
 @inject IAnnounceCardProvider AnnounceCardProvider;
 
 <div id="@(Player.Position == PlayerPosition.First ? "FirstPlayerCards" : "SecondPlayerCards")">
+    <div id="Messages-@Player.Position"></div>
+
     @if (Player.Position == PlayerPosition.Second)
     {
         <div id="PlayerInfo">

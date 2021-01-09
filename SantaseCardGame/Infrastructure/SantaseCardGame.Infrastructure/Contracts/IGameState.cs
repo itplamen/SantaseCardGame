@@ -10,7 +10,7 @@
 
         event Action OnRenderBoard;
 
-        event Action<string> OnShowMessage;
+        event Action<PlayerPosition, string> OnShowMessage;
 
         int RoundWinPoints { get; }
 
@@ -28,6 +28,6 @@
 
         void RenderBoard();
 
-        void ShowMessage(string message);
+        void ShowMessage(PlayerPosition possition, string message);
     }
 }

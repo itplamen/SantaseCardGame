@@ -11,7 +11,7 @@
 
         public event Action OnRenderBoard;
 
-        public event Action<string> OnShowMessage;
+        public event Action<PlayerPosition, string> OnShowMessage;
 
         public int RoundWinPoints => 66;
 
@@ -35,9 +35,9 @@
             OnRenderBoard?.Invoke();
         }
 
-        public void ShowMessage(string message)
+        public void ShowMessage(PlayerPosition possition, string message)
         {
-            OnShowMessage?.Invoke(message);
+            OnShowMessage?.Invoke(possition, message);
         }
     }
 }

@@ -39,13 +39,9 @@
                     player.Cards[nineOfTrumpsIndex] = playerAction.Card;
                     
                     deckState.ExchangeTrumpCardForNineOfTrumps(nineOfTrumpsCard);
-                    gameState.ShowMessage("Change");
-
-                    return;
+                    gameState.ShowMessage(player.Position, $"Trump card changed");
                 }
             }
-
-            gameState.ShowMessage("Can't");
         }
     }
 }

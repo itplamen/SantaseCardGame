@@ -39,7 +39,7 @@
                     (sameSuitCards.Any() && playerAction.Card.Suit != opponentCard.Suit) ||
                     (!sameSuitCards.Any() && player.Cards.Any(x => x.Suit == deckState.TrumpCard.Suit) && playerAction.Card.Suit != deckState.TrumpCard.Suit))
                 {
-                    gameState.ShowMessage("Cant play");
+                    gameState.ShowMessage(player.Position, "Cant play");
 
                     return;
                 }

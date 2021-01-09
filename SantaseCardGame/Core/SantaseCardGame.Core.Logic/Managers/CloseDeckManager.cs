@@ -29,12 +29,8 @@
             if (playerActionValidator.CanCloseDeck(player))
             {
                 deckState.ClosedBy = player.Position;
-                gameState.ShowMessage("Close");
-
-                return;
+                gameState.ShowMessage(player.Position, "Closed");
             }
-
-            gameState.ShowMessage("Cant close");
         }
     }
 }
