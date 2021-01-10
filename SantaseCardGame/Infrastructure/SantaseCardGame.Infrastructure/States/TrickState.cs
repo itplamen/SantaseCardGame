@@ -22,7 +22,7 @@
 
         public event Action OnDisplay;
 
-        public event Action OnManagePlayerTurn;
+        public event Action OnGamePlayerTurn;
 
         public PlayerPosition PlayerTurn { get; set; }
 
@@ -46,9 +46,9 @@
                 OnDisplay?.Invoke();
             }
 
-            if (gameState.RoundWinner == PlayerPosition.NoOne)
+            if (gameState.RoundWinner == PlayerPosition.NoOne && PlayerTurn == PlayerPosition.First)
             {
-                OnManagePlayerTurn?.Invoke();
+                OnGamePlayerTurn?.Invoke();
             }
         }
 

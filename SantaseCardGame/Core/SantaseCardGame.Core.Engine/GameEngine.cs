@@ -2,25 +2,18 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
 
-    using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.Core.Engine.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
-    using SantaseCardGame.Infrastructure.Contracts;
 
     public class GameEngine : IGameEngine
     {
-        private readonly IGamePlayer gamePlayer;
-        private readonly ITrickState trickState;
         private readonly IRoundManager roundManager;
         private readonly ICardsDrawingManager cardsDrawingManager;
 
-        public GameEngine(IGamePlayer gamePlayer, ITrickState trickState, IRoundManager roundManager, ICardsDrawingManager cardsDrawingManager)
+        public GameEngine(IRoundManager roundManager, ICardsDrawingManager cardsDrawingManager)
         {
-            this.gamePlayer = gamePlayer;
-            this.trickState = trickState;
             this.roundManager = roundManager;
             this.cardsDrawingManager = cardsDrawingManager;
         }
@@ -50,16 +43,7 @@
             };
         }
 
-        public async void ManagePlayersTurn(Game game)
-        {
-            if (trickState.PlayerTurn == PlayerPosition.First)
-            {
-                await Task.Delay(1500);
-                gamePlayer.Play(game.Players.First());
-            }
-        }
-
-        public void PlayTrick(Game game)
+        public void ManageTrick(Game game)
         {
             PlayerPosition winnerPosition = roundManager.PlayTrick(game);
             Round round = roundManager.GetRoundWinner(game.Players);

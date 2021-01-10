@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
@@ -19,7 +20,7 @@
             this.strategies = strategies;
         }
 
-        public void Play(Player player)
+        public async void Play(Player player)
         {
             IPlayerActionStrategy strategy = strategies.FirstOrDefault(x => x.ShouldPlay(player));
 
@@ -29,14 +30,12 @@
 
                 foreach (var playerAction in playerActions)
                 {
+                    await Task.Delay(1500);
+
                     IPlayerActionManager manager = managers.First(x => x.ShouldManage(playerAction, player));
                     manager.Manage(playerAction, player);
                 }
-
-                return;
             }
-
-            throw new InvalidOperationException("AI did not play any strategy!");
         }
     }
 }

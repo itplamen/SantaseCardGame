@@ -5,6 +5,7 @@
 @inject ITrickState TrickState;
 @inject IGameEngine GameEngine;
 @inject IRoundManager RoundManager; 
+@inject IGamePlayer GamePlayer;
 
 @if (Game != null)
 {
@@ -23,15 +24,15 @@
     {
         Game = GameEngine.StartGame("Plamen");
 
-        TrickState.OnPlay += () => GameEngine.PlayTrick(Game);
+        TrickState.OnPlay += () => GameEngine.ManageTrick(Game);
         TrickState.OnDisplay += () => StateHasChanged();
-        TrickState.OnManagePlayerTurn += () => GameEngine.ManagePlayersTurn(Game);
+        TrickState.OnGamePlayerTurn += () => GamePlayer.Play(Game.Players.First());
 
         GameState.OnRenderBoard += () => StateHasChanged();
         GameState.OnEndRound += () => JSRuntime.InvokeVoidAsync("showScoreboard");
-        GameState.OnShowMessage += (possition, message) => JSRuntime.InvokeVoidAsync("showMessage", possition.ToString(), message);
+        GameState.OnShowMessage += (position, message) => JSRuntime.InvokeVoidAsync("showMessage", position.ToString(), message);
 
-        GameEngine.ManagePlayersTurn(Game);
+        GamePlayer.Play(Game.Players.First());
     }
 
     private void StartNewRound()
@@ -39,6 +40,6 @@
         Deck deck = RoundManager.StartRound(Game.Players);
         Game.Deck = deck;
 
-        GameEngine.ManagePlayersTurn(Game);
+        GamePlayer.Play(Game.Players.First());
     }
 }

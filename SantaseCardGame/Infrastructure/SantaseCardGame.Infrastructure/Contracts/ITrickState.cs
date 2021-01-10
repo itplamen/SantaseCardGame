@@ -11,7 +11,7 @@
 
         event Action OnDisplay;
 
-        event Action OnManagePlayerTurn;
+        event Action OnGamePlayerTurn;
 
         PlayerPosition PlayerTurn { get; set; }
 
