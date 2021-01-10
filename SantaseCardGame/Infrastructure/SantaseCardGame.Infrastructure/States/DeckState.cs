@@ -26,8 +26,6 @@
             if (ClosedBy == PlayerPosition.NoOne)
             {
                 OnClose?.Invoke(new PlayerAction(PlayerActionType.CloseDeck));
-
-                ShouldFollowSuit = true;
             }
         }
 

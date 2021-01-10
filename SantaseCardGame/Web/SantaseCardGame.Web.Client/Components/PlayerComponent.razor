@@ -33,8 +33,11 @@
 
     protected override void OnInitialized()
     {
-        DeckState.OnClose += Play;
-        DeckState.OnChangeTrumpCard += Play;
+        if (Player.Position == PlayerPosition.Second)
+        {
+            DeckState.OnClose += Play;
+            DeckState.OnChangeTrumpCard += Play;
+        }
     }
 
     private void Play(PlayerAction playerAction)

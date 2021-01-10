@@ -50,7 +50,11 @@ else
     private void CloseDeck()
     {
         DeckState.Close();
-        JSRuntime.InvokeVoidAsync("closeDeck");
+
+        if (DeckState.ClosedBy != PlayerPosition.NoOne)
+        {
+            JSRuntime.InvokeVoidAsync("closeDeck");
+        }
     }
 
     private void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard)

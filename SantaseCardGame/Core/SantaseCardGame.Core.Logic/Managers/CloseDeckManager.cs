@@ -28,6 +28,7 @@
         {
             if (playerActionValidator.CanCloseDeck(player))
             {
+                deckState.ShouldFollowSuit = true;
                 deckState.ClosedBy = player.Position;
                 gameState.ShowMessage(player.Position, "Closed");
             }
