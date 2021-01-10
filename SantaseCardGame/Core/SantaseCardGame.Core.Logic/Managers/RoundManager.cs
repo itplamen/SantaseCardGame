@@ -79,6 +79,7 @@
             winnerPlayer.Hands.Add(hand);
 
             trickState.PlayerTurn = winnerPosition;
+            gameState.ShowMessage(winnerPosition, "Win");
 
             return winnerPosition;
         }
