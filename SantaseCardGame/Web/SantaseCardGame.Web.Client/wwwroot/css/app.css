@@ -295,11 +295,22 @@ app {
     border-bottom: 0;
 }
 
-#TrumpSuit {
+#TrumpSuit, #ClosedDeck {
     width: 110px;
+    position: absolute;
+}
+
+#TrumpSuit {
     height: 150px;
     background: url(../images/common/CardSuits.png) no-repeat center;
     background-size: 240px;
-    position: absolute;
     top: 320px;
+}
+
+#ClosedDeck {
+    display: none;
+    height: 110px;
+    background: url(../images/common/LockIcon.png) no-repeat center;
+    background-size: 110px;
+    top: 340px;
 }

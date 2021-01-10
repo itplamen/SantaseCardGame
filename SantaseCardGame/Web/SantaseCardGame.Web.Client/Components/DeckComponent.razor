@@ -4,10 +4,12 @@
 @if (Deck.Cards.Any())
 {
     <CardComponent PlayerAction="new PlayerAction(PlayerActionType.ChangeTrump, Deck.TrumpCard)" OnClick="DeckState.ChangeTrumpCard"></CardComponent>
-    <div id="DeckCards" class="card-component" @onclick="DeckState.Close">
+    <div id="DeckCards" class="card-component" @onclick="CloseDeck">
         <div id="DeckCardsCount">@(Deck.Cards.Count)</div>
         <img src="/images/cards/Back.png" id="DeckBackCard" alt="DeckBackCard" class="card-component" />
     </div>
+
+    <div id="ClosedDeck"></div>
 }
 else
 {
@@ -43,6 +45,12 @@ else
 
             isTrumpSuitVisible = true;
         }
+    }
+
+    private void CloseDeck()
+    {
+        DeckState.Close();
+        JSRuntime.InvokeVoidAsync("closeDeck");
     }
 
     private void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard)
