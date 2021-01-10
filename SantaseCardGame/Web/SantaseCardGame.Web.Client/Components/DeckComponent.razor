@@ -1,4 +1,5 @@
 ﻿@inject IDeckState DeckState;
+@inject IJSRuntime JSRuntime;
 
 @if (Deck.Cards.Any())
 {
@@ -8,14 +9,40 @@
         <img src="/images/cards/Back.png" id="DeckBackCard" alt="DeckBackCard" class="card-component" />
     </div>
 }
+else
+{
+    <div id="TrumpSuit"></div>
+}
 
 @code {
     [Parameter]
     public Deck Deck { get; set; }
 
+    private bool isTrumpSuitVisible = false;
+
+    private IEnumerable<Tuple<CardSuit, int, int>> trumpSuitCoordinates;
+
     protected override void OnInitialized()
     {
         DeckState.OnExchangeTrumpCardForNineOfTrumps += ExchangeTrumpCardForNineOfTrumps;
+        trumpSuitCoordinates = new List<Tuple<CardSuit, int, int>>()
+        {
+            new Tuple<CardSuit, int, int>(CardSuit.Spade, 10, 20),
+            new Tuple<CardSuit, int, int>(CardSuit.Heart, -130, 20),
+            new Tuple<CardSuit, int, int>(CardSuit.Diamond, 10, -120),
+            new Tuple<CardSuit, int, int>(CardSuit.Club, -130, -120)
+        };
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (!Deck.Cards.Any() && !isTrumpSuitVisible)
+        {
+            var coordinates = trumpSuitCoordinates.First(x => x.Item1 == DeckState.TrumpCard.Suit);
+            JSRuntime.InvokeVoidAsync("showTrumpSuit", coordinates.Item2, coordinates.Item3);
+
+            isTrumpSuitVisible = true;
+        }
     }
 
     private void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard)

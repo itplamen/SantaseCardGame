@@ -50,6 +50,10 @@
             $('#Scoreboard').show();
         }
 
+        function showTrumpSuit(x, y) {
+            $('#TrumpSuit').css('background-position', x + 'px ' + y + 'px');
+        }
+
         $(document).on('click', '#Scoreboard button', function () {
             $('#Scoreboard').hide();
         });
