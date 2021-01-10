@@ -1,10 +1,19 @@
 ﻿namespace SantaseCardGame.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public enum CardSuit
     {
-        Club,       // ♣
-        Diamond,    // ♦
-        Heart,      // ♥
-        Spade       // ♠
+        [Display(Name = "♣")]
+        Club,
+
+        [Display(Name = "♦")]
+        Diamond,
+
+        [Display(Name = "♥")]
+        Heart,
+
+        [Display(Name = "♠")]
+        Spade
     }
 }

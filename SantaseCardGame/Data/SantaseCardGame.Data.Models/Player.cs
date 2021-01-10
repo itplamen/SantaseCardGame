@@ -17,7 +17,7 @@
 
         public List<Hand> Hands { get; set; } = new List<Hand>();
 
-        public Dictionary<CardSuit, Announce> Announcements = new Dictionary<CardSuit, Announce>();
+        public Dictionary<CardSuit, Announce> Announcements { get; set; } = new Dictionary<CardSuit, Announce>();
 
         private int CalculatePoints()
         {
