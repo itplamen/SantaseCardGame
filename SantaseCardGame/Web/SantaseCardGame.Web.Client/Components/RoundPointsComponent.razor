@@ -23,8 +23,8 @@
             </tr>
             <tr>
                 <td>Round Points</td>
-                <td>@firstPlayer.Points</td>
-                <td>@secondPlayer.Points</td>
+                <td>@GetRoundPoints(firstPlayer)</td>
+                <td>@GetRoundPoints(secondPlayer)</td>
             </tr>
             <tr>
                 <td>Game Points</td>
@@ -66,6 +66,16 @@
     private string GetAnnouncements(Player player)
     {
         return "";
+    }
+
+    private string GetRoundPoints(Player player)
+    {
+        if (player.BonusPoints > 0)
+        {
+            return $"{player.Points} (+{player.BonusPoints})";
+        }
+
+        return player.Points.ToString();
     }
 
     private int GetLastGamePoints(Player player)

@@ -7,6 +7,8 @@
     {
         public int Points => CalculatePoints();
 
+        public int BonusPoints { get; set; }
+
         public string Username { get; set; }
 
         public PlayerPosition Position { get; set; }
@@ -24,7 +26,7 @@
                 int handsSum = Hands.SelectMany(x => x.Cards).Sum(x => (int)x.Type);
                 int announcementsSum = Announcements.Any() ? Announcements.Values.Sum(x => (int)x) : 0;
 
-                return handsSum + announcementsSum;
+                return handsSum + announcementsSum + BonusPoints;
             }
 
             return 0;

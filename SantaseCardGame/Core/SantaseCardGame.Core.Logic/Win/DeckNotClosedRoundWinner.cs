@@ -35,8 +35,9 @@
                 else
                 {
                     Player lastTrickWinner = players.First(x => x.Position == trickState.PlayerTurn);
+                    lastTrickWinner.BonusPoints = LAST_TRICK_WINNER_BONUS_POINTS;
 
-                    if (lastTrickWinner.Points + LAST_TRICK_WINNER_BONUS_POINTS >= gameState.RoundWinPoints)
+                    if (lastTrickWinner.Points >= gameState.RoundWinPoints)
                     {
                         return GetRound(players, lastTrickWinner.Position);
                     }
