@@ -23,6 +23,8 @@
 
         public int TrickCards => 2;
 
+        public int SimulateDelay => 1500;
+
         public PlayerPosition RoundWinner { get; set; }
 
         public void EndRound()

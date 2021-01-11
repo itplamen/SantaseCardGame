@@ -50,11 +50,13 @@
             PlayerPosition winnerPosition = trickManager.Play(game);
             Round round = roundManager.GetRoundWinner(game.Players);
 
-            if (round.WinnerPosition == PlayerPosition.NoOne && game.Players.All(x => x.Cards.Any()))
+            if (round.WinnerPosition == PlayerPosition.NoOne && 
+                winnerPosition != PlayerPosition.NoOne &&
+                game.Players.All(x => x.Cards.Any()))
             {
                 cardsDrawingManager.DrawCards(winnerPosition, game);
             }
-            else
+            else if (round.WinnerPosition != PlayerPosition.NoOne)
             {
                 roundManager.EndRound(round, game);
             }

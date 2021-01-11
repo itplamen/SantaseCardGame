@@ -39,14 +39,23 @@
 
             if (cards.Count == gameState.TrickCards)
             {
-                await Task.Delay(1500);
-                OnPlay?.Invoke();
+                await Task.Delay(gameState.SimulateDelay);
+            }
+
+            OnPlay?.Invoke();
+
+            if (cards.Count == gameState.TrickCards || gameState.RoundWinner != PlayerPosition.NoOne)
+            {
+                if (gameState.RoundWinner != PlayerPosition.NoOne && cards.Count < gameState.TrickCards)
+                {
+                    await Task.Delay(gameState.SimulateDelay);
+                }
 
                 cards.Clear();
                 OnDisplay?.Invoke();
             }
 
-            if (gameState.RoundWinner == PlayerPosition.NoOne && PlayerTurn == PlayerPosition.First)
+            if (PlayerTurn == PlayerPosition.First && gameState.RoundWinner == PlayerPosition.NoOne)
             {
                 OnGamePlayerTurn?.Invoke();
             }

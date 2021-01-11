@@ -22,6 +22,8 @@
 
         int TrickCards { get; }
 
+        int SimulateDelay { get; }
+
         PlayerPosition RoundWinner { get; set; }
 
         void EndRound();

@@ -25,11 +25,11 @@
         Game = GameEngine.StartGame("Plamen");
 
         TrickState.OnPlay += () => GameEngine.ManageGame(Game);
-        TrickState.OnDisplay += () => StateHasChanged();
+        TrickState.OnDisplay += StateHasChanged;
         TrickState.OnGamePlayerTurn += () => GamePlayer.Play(Game.Players.First());
 
-        GameState.OnRenderBoard += () => StateHasChanged();
-        GameState.OnEndRound += () => JSRuntime.InvokeVoidAsync("showScoreboard");
+        GameState.OnRenderBoard += StateHasChanged;
+        GameState.OnEndRound += EndRound;
         GameState.OnShowMessage += (position, message) => JSRuntime.InvokeVoidAsync("showMessage", position.ToString(), message);
 
         GamePlayer.Play(Game.Players.First());
@@ -41,5 +41,11 @@
         Game.Deck = deck;
 
         GamePlayer.Play(Game.Players.First());
+    }
+
+    private async void EndRound()
+    {
+        await Task.Delay(GameState.SimulateDelay);
+        await JSRuntime.InvokeVoidAsync("showScoreboard");
     }
 }
