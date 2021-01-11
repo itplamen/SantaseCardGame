@@ -24,7 +24,7 @@
     {
         Game = GameEngine.StartGame("Plamen");
 
-        TrickState.OnPlay += () => GameEngine.ManageTrick(Game);
+        TrickState.OnPlay += () => GameEngine.ManageGame(Game);
         TrickState.OnDisplay += () => StateHasChanged();
         TrickState.OnGamePlayerTurn += () => GamePlayer.Play(Game.Players.First());
 

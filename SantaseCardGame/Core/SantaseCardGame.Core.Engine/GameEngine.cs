@@ -9,11 +9,13 @@
 
     public class GameEngine : IGameEngine
     {
+        private readonly ITrickManager trickManager;
         private readonly IRoundManager roundManager;
         private readonly ICardsDrawingManager cardsDrawingManager;
 
-        public GameEngine(IRoundManager roundManager, ICardsDrawingManager cardsDrawingManager)
+        public GameEngine(ITrickManager trickManager, IRoundManager roundManager, ICardsDrawingManager cardsDrawingManager)
         {
+            this.trickManager = trickManager;
             this.roundManager = roundManager;
             this.cardsDrawingManager = cardsDrawingManager;
         }
@@ -43,9 +45,9 @@
             };
         }
 
-        public void ManageTrick(Game game)
+        public void ManageGame(Game game)
         {
-            PlayerPosition winnerPosition = roundManager.PlayTrick(game);
+            PlayerPosition winnerPosition = trickManager.Play(game);
             Round round = roundManager.GetRoundWinner(game.Players);
 
             if (round.WinnerPosition == PlayerPosition.NoOne && game.Players.All(x => x.Cards.Any()))

@@ -6,6 +6,6 @@
     {
         Game StartGame(string username);
 
-        void ManageTrick(Game game);
+        void ManageGame(Game game);
     }
 }

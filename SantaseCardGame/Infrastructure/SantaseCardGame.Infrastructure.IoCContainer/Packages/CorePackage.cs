@@ -23,6 +23,7 @@
             services.AddTransient<IPlayerActionManager, ChangeTrumpCardManager>();
             services.AddTransient<IPlayerActionManager, CloseDeckManager>();
             services.AddTransient<IPlayerActionManager, PlayCardManager>();
+            services.AddTransient<ITrickManager, TrickManager>();
             services.AddTransient<IRoundManager, RoundManager>();
             services.AddTransient<ICardsDrawingManager, CardsDrawingManager>();
             services.AddTransient<IAnnounceCardProvider, AnnounceCardProvider>();

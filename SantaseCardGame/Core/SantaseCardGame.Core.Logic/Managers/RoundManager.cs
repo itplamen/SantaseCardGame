@@ -12,16 +12,14 @@
         private readonly IGameState gameState;
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
-        private readonly ITrickWinner trickWinner;
         private readonly ICardsDealer cardsDealer;
         private readonly IEnumerable<IRoundWinner> roundWinners;
 
-        public RoundManager(IGameState gameState, IDeckState deckState, ITrickState trickState, ITrickWinner trickWinner, ICardsDealer cardsDealer, IEnumerable<IRoundWinner> roundWinners)
+        public RoundManager(IGameState gameState, IDeckState deckState, ITrickState trickState, ICardsDealer cardsDealer, IEnumerable<IRoundWinner> roundWinners)
         {
             this.gameState = gameState;
             this.deckState = deckState;
             this.trickState = trickState;
-            this.trickWinner = trickWinner;
             this.cardsDealer = cardsDealer;
             this.roundWinners = roundWinners;
         }
@@ -68,20 +66,6 @@
             }
 
             return new Round();
-        }
-
-        public PlayerPosition PlayTrick(Game game)
-        {
-            PlayerPosition winnerPosition = trickWinner.GetWinner(trickState.Cards, game.Deck.TrumpCard.Suit);
-            Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
-
-            Hand hand = new Hand() { Cards = trickState.Cards.Select(x => x.Value) };
-            winnerPlayer.Hands.Add(hand);
-
-            trickState.PlayerTurn = winnerPosition;
-            gameState.ShowMessage(winnerPosition, "Win");
-
-            return winnerPosition;
         }
 
         private PlayerPosition GetPlayerTurn()
