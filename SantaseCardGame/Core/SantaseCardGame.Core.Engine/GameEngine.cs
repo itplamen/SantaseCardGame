@@ -9,15 +9,15 @@
 
     public class GameEngine : IGameEngine
     {
+        private readonly ICardsDealer cardsDealer;
         private readonly ITrickManager trickManager;
         private readonly IRoundManager roundManager;
-        private readonly ICardsDrawingManager cardsDrawingManager;
 
-        public GameEngine(ITrickManager trickManager, IRoundManager roundManager, ICardsDrawingManager cardsDrawingManager)
+        public GameEngine(ICardsDealer cardsDealer, ITrickManager trickManager, IRoundManager roundManager)
         {
+            this.cardsDealer = cardsDealer;
             this.trickManager = trickManager;
             this.roundManager = roundManager;
-            this.cardsDrawingManager = cardsDrawingManager;
         }
 
         public Game StartGame(string username)
@@ -54,7 +54,7 @@
                 winnerPosition != PlayerPosition.NoOne &&
                 game.Players.All(x => x.Cards.Any()))
             {
-                cardsDrawingManager.DrawCards(winnerPosition, game);
+                cardsDealer.DrawCards(winnerPosition, game);
             }
             else if (round.WinnerPosition != PlayerPosition.NoOne)
             {
