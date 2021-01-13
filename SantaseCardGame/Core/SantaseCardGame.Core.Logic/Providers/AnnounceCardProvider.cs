@@ -38,7 +38,7 @@
             return new PlayerAction(PlayerActionType.Announce, Announce.None);
         }
 
-        private CardType GetMarriageCardType(Card card)
+        public CardType GetMarriageCardType(Card card)
         {
             switch (card.Type)
             {

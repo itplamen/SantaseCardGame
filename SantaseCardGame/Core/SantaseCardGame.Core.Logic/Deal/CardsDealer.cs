@@ -14,12 +14,14 @@
         private readonly IGameState gameState;
         private readonly IDeckState deckState;
         private readonly ICardsProvider cardsProvider;
+        private readonly IAnnounceCardProvider announceCardProvider;
 
-        public CardsDealer(IGameState gameState, IDeckState deckState, ICardsProvider cardsProvider)
+        public CardsDealer(IGameState gameState, IDeckState deckState, ICardsProvider cardsProvider, IAnnounceCardProvider announceCardProvider)
         {
             this.gameState = gameState;
             this.deckState = deckState;
             this.cardsProvider = cardsProvider;
+            this.announceCardProvider = announceCardProvider;
         }
 
         public Deck Deal(Player firstPlayer, Player secondPlayer)
@@ -43,10 +45,10 @@
                 Card secondCard = game.Deck.GetNextCard();
 
                 Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
-                winnerPlayer.Cards.Add(firstCard);
+                AddCard(winnerPlayer, firstCard);
 
                 Player loserPlayer = game.Players.First(x => x.Position != winnerPosition);
-                loserPlayer.Cards.Add(secondCard);
+                AddCard(loserPlayer, secondCard);
 
                 deckState.CardsLeft = game.Deck.Cards.Count;
                 deckState.ShouldFollowSuit = !game.Deck.Cards.Any();
@@ -60,6 +62,21 @@
             for (int i = 1; i <= gameState.PlayerStartCards; i++)
             {
                 Card card = deck.GetNextCard();
+                AddCard(player, card);
+            }
+        }
+
+        private void AddCard(Player player, Card card)
+        {
+            CardType type = announceCardProvider.GetMarriageCardType(card);
+            int index = player.Cards.FindIndex(x => x.Type == type && x.Suit == card.Suit);
+
+            if (index >= 0)
+            {
+                player.Cards.Insert(index, card);
+            }
+            else
+            {
                 player.Cards.Add(card);
             }
         }
