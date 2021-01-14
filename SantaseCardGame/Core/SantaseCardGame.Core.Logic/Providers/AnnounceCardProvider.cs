@@ -7,14 +7,14 @@
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.Contracts;
 
-    public class AnnounceCardProvider : IAnnounceCardProvider
+    public class AnnounceProvider : IAnnounceProvider
     {
         private const int MARRIAGE_CARDS_COUNT = 2;
 
         private readonly IDeckState deckState;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnounceCardProvider(IDeckState deckState, IPlayerActionValidator playerActionValidator)
+        public AnnounceProvider(IDeckState deckState, IPlayerActionValidator playerActionValidator)
         {
             this.deckState = deckState;
             this.playerActionValidator = playerActionValidator;

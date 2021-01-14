@@ -14,14 +14,14 @@
         private readonly IGameState gameState;
         private readonly IDeckState deckState;
         private readonly ICardsProvider cardsProvider;
-        private readonly IAnnounceCardProvider announceCardProvider;
+        private readonly IAnnounceProvider announceProvider;
 
-        public CardsDealer(IGameState gameState, IDeckState deckState, ICardsProvider cardsProvider, IAnnounceCardProvider announceCardProvider)
+        public CardsDealer(IGameState gameState, IDeckState deckState, ICardsProvider cardsProvider, IAnnounceProvider announceProvider)
         {
             this.gameState = gameState;
             this.deckState = deckState;
             this.cardsProvider = cardsProvider;
-            this.announceCardProvider = announceCardProvider;
+            this.announceProvider = announceProvider;
         }
 
         public Deck Deal(Player firstPlayer, Player secondPlayer)
@@ -68,7 +68,7 @@
 
         private void AddCard(Player player, Card card)
         {
-            CardType type = announceCardProvider.AnnounceCardTypeToSearch(card);
+            CardType type = announceProvider.AnnounceCardTypeToSearch(card);
             int index = player.Cards.FindIndex(x => x.Type == type && x.Suit == card.Suit);
 
             if (index >= 0)

@@ -8,14 +8,14 @@
     {
         private readonly IGameState gameState;
         private readonly ITrickState trickState;
-        private readonly IAnnounceCardProvider announceCardProvider;
+        private readonly IAnnounceProvider announceProvider;
 
-        public AnnounceManager(IGameState gameState, ITrickState trickState, IAnnounceCardProvider announceCardProvider)
+        public AnnounceManager(IGameState gameState, ITrickState trickState, IAnnounceProvider announceProvider)
             : base(gameState, trickState)
         {
             this.gameState = gameState;
             this.trickState = trickState;
-            this.announceCardProvider = announceCardProvider;
+            this.announceProvider = announceProvider;
         }
 
         public override bool ShouldManage(PlayerAction playerAction, Player player)
@@ -28,7 +28,7 @@
 
         public override void Manage(PlayerAction playerAction, Player player)
         {
-            Announce announce = announceCardProvider.GetAnnounce(player, playerAction.Card).Announce;
+            Announce announce = announceProvider.GetAnnounce(player, playerAction.Card).Announce;
 
             if (announce != Announce.None)
             {

@@ -25,7 +25,7 @@
             services.AddTransient<IPlayerActionManager, PlayCardManager>();
             services.AddTransient<ITrickManager, TrickManager>();
             services.AddTransient<IRoundManager, RoundManager>();
-            services.AddTransient<IAnnounceCardProvider, AnnounceCardProvider>();
+            services.AddTransient<IAnnounceProvider, AnnounceProvider>();
             services.AddTransient<IPlayerActionValidator, PlayerActionValidator>();
             services.AddTransient<IRoundWinner, DeckClosedRoundWinner>();
             services.AddTransient<IRoundWinner, DeckNotClosedRoundWinner>();

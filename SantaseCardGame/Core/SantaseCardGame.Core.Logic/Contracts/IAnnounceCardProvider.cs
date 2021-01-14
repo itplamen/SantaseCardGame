@@ -4,7 +4,7 @@
 
     using SantaseCardGame.Data.Models;
 
-    public interface IAnnounceCardProvider
+    public interface IAnnounceProvider
     {
         PlayerAction GetAnnounce(Player player, Card card);
 

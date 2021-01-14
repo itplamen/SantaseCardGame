@@ -11,18 +11,18 @@
     public class PlayCard : BasePlayLogic
     {
         private readonly IDeckState deckState;
-        private readonly IAnnounceCardProvider announceCardProvider;
+        private readonly IAnnounceProvider announceProvider;
 
-        public PlayCard(ITrickState trickState, IDeckState deckState, IAnnounceCardProvider announceCardProvider)
+        public PlayCard(ITrickState trickState, IDeckState deckState, IAnnounceProvider announceProvider)
             : base(trickState)
         {
             this.deckState = deckState;
-            this.announceCardProvider = announceCardProvider;
+            this.announceProvider = announceProvider;
         }
 
         protected override PlayerAction PlayLogic(Player player)
         {
-            IEnumerable<Card> marriages = announceCardProvider.GetMarriages(player);
+            IEnumerable<Card> marriages = announceProvider.GetMarriages(player);
             IEnumerable<Card> playCards = player.Cards
                 .Where(x => !marriages.Contains(x))
                 .OrderBy(x => x.Type);

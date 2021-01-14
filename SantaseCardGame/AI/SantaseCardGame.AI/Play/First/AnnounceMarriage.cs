@@ -10,14 +10,14 @@
     public class AnnounceMarriage : BasePlayLogic
     {
         private readonly IDeckState deckState;
-        private readonly IAnnounceCardProvider announceCardProvider;
+        private readonly IAnnounceProvider announceProvider;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnounceMarriage(ITrickState trickState, IDeckState deckState, IAnnounceCardProvider announceCardProvider, IPlayerActionValidator playerActionValidator)
+        public AnnounceMarriage(ITrickState trickState, IDeckState deckState, IAnnounceProvider announceProvider, IPlayerActionValidator playerActionValidator)
             : base(trickState)
         {
             this.deckState = deckState;
-            this.announceCardProvider = announceCardProvider;
+            this.announceProvider = announceProvider;
             this.playerActionValidator = playerActionValidator;
         }
 
@@ -25,7 +25,7 @@
         {
             if (playerActionValidator.CanAnnounce(player))
             {
-                IEnumerable<Card> marriages = announceCardProvider.GetMarriages(player);
+                IEnumerable<Card> marriages = announceProvider.GetMarriages(player);
 
                 if (marriages.Any())
                 {

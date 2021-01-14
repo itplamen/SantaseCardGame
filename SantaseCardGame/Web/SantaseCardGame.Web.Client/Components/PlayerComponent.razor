@@ -1,6 +1,6 @@
 ﻿@inject IDeckState DeckState;
+@inject IAnnounceProvider AnnouncProvider;
 @inject IEnumerable<IPlayerActionManager> Managers;
-@inject IAnnounceCardProvider AnnounceCardProvider;
 
 <div id="@(Player.Position == PlayerPosition.First ? "FirstPlayerCards" : "SecondPlayerCards")">
     <div id="Messages-@Player.Position"></div>
@@ -50,7 +50,7 @@
 
     private PlayerAction GetPlayerAction(Card card)
     {
-        PlayerAction playerAction = AnnounceCardProvider.GetAnnounce(Player, card);
+        PlayerAction playerAction = AnnouncProvider.GetAnnounce(Player, card);
 
         if (playerAction.Announce != Announce.None)
         {
