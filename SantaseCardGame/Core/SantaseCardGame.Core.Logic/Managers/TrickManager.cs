@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Core.Logic.Managers
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using SantaseCardGame.Core.Logic.Contracts;
@@ -26,7 +27,7 @@
                 PlayerPosition winnerPosition = trickWinner.GetWinner(trickState.Cards, game.Deck.TrumpCard.Suit);
                 Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
 
-                Hand hand = new Hand() { Cards = trickState.Cards.Select(x => x.Value) };
+                IEnumerable<Card> hand = trickState.Cards.Select(x => x.Value);
                 winnerPlayer.Hands.Add(hand);
 
                 trickState.PlayerTurn = winnerPosition;

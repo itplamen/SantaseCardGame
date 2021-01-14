@@ -7,12 +7,12 @@
     {
         public Card TrumpCard { get; set; }
 
-        public List<Card> Cards { get; set; } = new List<Card>();
+        public ICollection<Card> Cards { get; set; } = new List<Card>();
 
         public Card GetNextCard()
         {
             Card card = Cards.First();
-            Cards.RemoveAt(0);
+            Cards.Remove(card);
 
             return card;
         }

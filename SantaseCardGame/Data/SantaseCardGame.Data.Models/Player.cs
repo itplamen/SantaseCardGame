@@ -15,7 +15,7 @@
 
         public List<Card> Cards { get; set; } = new List<Card>();
 
-        public List<Hand> Hands { get; set; } = new List<Hand>();
+        public ICollection<IEnumerable<Card>> Hands { get; set; } = new List<IEnumerable<Card>>();
 
         public Dictionary<CardSuit, Announce> Announcements { get; set; } = new Dictionary<CardSuit, Announce>();
 
@@ -23,7 +23,7 @@
         {
             if (Hands.Any())
             {
-                int handsSum = Hands.SelectMany(x => x.Cards).Sum(x => (int)x.Type);
+                int handsSum = Hands.SelectMany(x => x).Sum(x => (int)x.Type);
                 int announcementsSum = Announcements.Any() ? Announcements.Values.Sum(x => (int)x) : 0;
 
                 return handsSum + announcementsSum + BonusPoints;

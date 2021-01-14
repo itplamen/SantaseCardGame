@@ -55,7 +55,10 @@ else
 
     private void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard)
     {
-        Deck.Cards[Deck.Cards.Count - 1] = nineOfTrumpsCard;
+        Card trumpCard = Deck.Cards.Last();
+        Deck.Cards.Remove(trumpCard);
+        Deck.Cards.Add(nineOfTrumpsCard);
+
         Deck.TrumpCard = nineOfTrumpsCard;
         DeckState.TrumpCard = nineOfTrumpsCard;
 
