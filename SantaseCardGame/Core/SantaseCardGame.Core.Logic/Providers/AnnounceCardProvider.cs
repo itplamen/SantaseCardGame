@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Core.Logic.Providers
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using SantaseCardGame.Core.Logic.Contracts;
@@ -8,6 +9,8 @@
 
     public class AnnounceCardProvider : IAnnounceCardProvider
     {
+        private const int MARRIAGE_CARDS_COUNT = 2;
+
         private readonly IDeckState deckState;
         private readonly IPlayerActionValidator playerActionValidator;
 
@@ -21,8 +24,8 @@
         {
             if (playerActionValidator.CanAnnounce(player))
             {
-                CardType cardType = GetMarriageCardType(card);
-                bool hasMarriage = player.Cards.FirstOrDefault(x => x.Suit == card.Suit && x.Type == cardType && x.Type != CardType.None) != null;
+                bool hasMarriage = GetMarriages(player)
+                    .Any(x => x.Name == card.Name);
 
                 if (hasMarriage)
                 {
@@ -38,7 +41,16 @@
             return new PlayerAction(PlayerActionType.Announce, Announce.None);
         }
 
-        public CardType GetMarriageCardType(Card card)
+        public IEnumerable<Card> GetMarriages(Player player)
+        {
+            return player.Cards
+                .Where(x => x.Type == CardType.Queen || x.Type == CardType.King)
+                .GroupBy(x => x.Suit)
+                .Where(x => x.Count() == MARRIAGE_CARDS_COUNT)
+                .SelectMany(x => x);
+        }
+
+        public CardType AnnounceCardTypeToSearch(Card card)
         {
             switch (card.Type)
             {

@@ -68,7 +68,7 @@
 
         private void AddCard(Player player, Card card)
         {
-            CardType type = announceCardProvider.GetMarriageCardType(card);
+            CardType type = announceCardProvider.AnnounceCardTypeToSearch(card);
             int index = player.Cards.FindIndex(x => x.Type == type && x.Suit == card.Suit);
 
             if (index >= 0)
