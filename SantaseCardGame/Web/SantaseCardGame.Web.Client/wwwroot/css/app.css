@@ -189,6 +189,81 @@ app {
     }
 }
 
+.card-component {
+    cursor: pointer;
+}
+
+.trump-card {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    position: absolute;
+    left: 370px;
+    top: 320px;
+}
+
+#DeckBackCard {
+    position: absolute;
+    top: 320px;
+}
+
+#DeckCardsCount {
+    position: absolute;
+    top: 310px;
+    left: 310px;
+}
+
+#DeckCardsCount, #Points {
+    font-size: 20px;
+    width: 55px;
+    text-align: center;
+    z-index: 99 !important;
+    color: #ffffff;
+    background-color: #f4a624;
+    border-radius: 10px;
+}
+
+.card-component, .trump-card {
+    width: 110px;
+}
+
+#FirstPlayerCards, #SecondPlayerCards {
+    text-align: center;
+    position: relative;
+    border: 1px solid black;
+}
+
+#FirstPlayerCards {
+    top: -15px;
+}
+
+#SecondPlayerCards {
+    top: 350px;
+}
+
+#SecondPlayerCards .card-component:hover {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+}
+
+.first-player-trick-card, .second-player-trick-card {
+    width: 110px;
+    height: 150px;
+    left: 840px;
+    position: absolute;
+    text-align: center;
+}
+
+.first-player-trick-card {
+    top: 230px;
+}
+
+.second-player-trick-card {
+    top: 380px;
+}
+
 #Messages-First, #Messages-Second {
     width: 200px;
     height: 150px;
