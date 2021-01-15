@@ -20,6 +20,7 @@
 
     private Game Game { get; set; }
 
+
     protected override void OnInitialized()
     {
         Game = GameEngine.StartGame("Plamen");
@@ -30,7 +31,7 @@
 
         GameState.OnRenderBoard += StateHasChanged;
         GameState.OnEndRound += EndRound;
-        GameState.OnShowMessage += (position, message) => JSRuntime.InvokeVoidAsync("showMessage", position.ToString(), message);
+        GameState.OnShowMessage += async (position, message) => await JSRuntime.InvokeVoidAsync("showMessage", position.ToString(), message);
 
         GamePlayer.Play(Game.Players.First());
     }

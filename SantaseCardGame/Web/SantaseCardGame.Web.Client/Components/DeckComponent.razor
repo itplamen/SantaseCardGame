@@ -34,22 +34,23 @@ else
         };
     }
 
-    protected override void OnAfterRender(bool firstRender)
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!Deck.Cards.Any())
         {
             var coordinates = trumpSuitCoordinates.First(x => x.Item1 == DeckState.TrumpCard.Suit);
-            JSRuntime.InvokeVoidAsync("showTrumpSuit", coordinates.Item2, coordinates.Item3);
+            await JSRuntime.InvokeVoidAsync("showTrumpSuit", coordinates.Item2, coordinates.Item3);
         }
     }
 
-    private void CloseDeck()
+    private async Task CloseDeck()
     {
         DeckState.Close();
 
         if (DeckState.ClosedBy != PlayerPosition.NoOne)
         {
-            JSRuntime.InvokeVoidAsync("closeDeck");
+            await JSRuntime.InvokeVoidAsync("closeDeck");
         }
     }
 
