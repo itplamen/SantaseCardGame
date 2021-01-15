@@ -1,14 +1,16 @@
 ﻿@inject ITrickState TrickState;
 
-@if (firstPlayerCard != null)
-{
-    <img src="/images/cards/@string.Concat(firstPlayerCard.Name,".png")" class="first-player-trick-card" />
-}
+<div id="TrickCards">
+    @if (firstPlayerCard != null)
+    {
+        <img src="/images/cards/@string.Concat(firstPlayerCard.Name,".png")" class="first-player-trick-card" />
+    }
 
-@if (secondPlayerCard != null)
-{
-    <img src="/images/cards/@string.Concat(secondPlayerCard.Name,".png")" class="second-player-trick-card" />
-}
+    @if (secondPlayerCard != null)
+    {
+        <img src="/images/cards/@string.Concat(secondPlayerCard.Name,".png")" class="second-player-trick-card" />
+    }
+</div>
 
 @code {
     private Card firstPlayerCard;
