@@ -232,7 +232,7 @@ app {
 #FirstPlayerCards, #SecondPlayerCards {
     text-align: center;
     position: relative;
-    border: 1px solid black;
+    height: 150px;
 }
 
 #FirstPlayerCards {
