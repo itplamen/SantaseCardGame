@@ -10,37 +10,25 @@
     public class RoundManager : IRoundManager
     {
         private readonly IGameState gameState;
-        private readonly IDeckState deckState;
-        private readonly ITrickState trickState;
         private readonly ICardsDealer cardsDealer;
+        private readonly IStatesManager statesManager;
         private readonly IEnumerable<IRoundWinner> roundWinners;
 
-        public RoundManager(IGameState gameState, IDeckState deckState, ITrickState trickState, ICardsDealer cardsDealer, IEnumerable<IRoundWinner> roundWinners)
+        public RoundManager(IGameState gameState, ICardsDealer cardsDealer, IStatesManager statesManager, IEnumerable<IRoundWinner> roundWinners)
         {
             this.gameState = gameState;
-            this.deckState = deckState;
-            this.trickState = trickState;
             this.cardsDealer = cardsDealer;
+            this.statesManager = statesManager;
             this.roundWinners = roundWinners;
         }
 
         public Deck StartRound(IEnumerable<Player> players)
         {
-            foreach (var player in players)
-            {
-                player.Cards.Clear();
-                player.Hands.Clear();
-                player.Announcements.Clear();
-            }
+            statesManager.ResetPlayers(players);
+            PlayerPosition playerTurn = GetPlayerTurn();
 
             Deck deck = cardsDealer.Deal(players.First(), players.Last());
-
-            trickState.PlayerTurn = GetPlayerTurn();
-            deckState.ShouldFollowSuit = false;
-            deckState.TrumpCard = deck.TrumpCard;
-            deckState.CardsLeft = deck.Cards.Count;
-            deckState.ClosedBy = PlayerPosition.NoOne;
-            gameState.RoundWinner = PlayerPosition.NoOne;
+            statesManager.SetRoundStates(playerTurn, deck.Cards.Count, deck.TrumpCard);
 
             return deck;
         }

@@ -28,6 +28,7 @@
             services.AddTransient<IPlayCardValidator, PlayTrumpCardValidator>();
             services.AddTransient<ITrickManager, TrickManager>();
             services.AddTransient<IRoundManager, RoundManager>();
+            services.AddTransient<IStatesManager, StatesManager>();
             services.AddTransient<IAnnounceProvider, AnnounceProvider>();
             services.AddTransient<IPlayerActionValidator, PlayerActionValidator>();
             services.AddTransient<IRoundWinner, DeckClosedRoundWinner>();

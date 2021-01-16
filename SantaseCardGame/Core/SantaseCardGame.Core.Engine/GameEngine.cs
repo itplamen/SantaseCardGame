@@ -12,16 +12,20 @@
         private readonly ICardsDealer cardsDealer;
         private readonly ITrickManager trickManager;
         private readonly IRoundManager roundManager;
+        private readonly IStatesManager statesManager;
 
-        public GameEngine(ICardsDealer cardsDealer, ITrickManager trickManager, IRoundManager roundManager)
+        public GameEngine(ICardsDealer cardsDealer, ITrickManager trickManager, IRoundManager roundManager, IStatesManager statesManager)
         {
             this.cardsDealer = cardsDealer;
             this.trickManager = trickManager;
             this.roundManager = roundManager;
+            this.statesManager = statesManager;
         }
 
         public Game StartGame(string username)
         {
+            statesManager.ResetStates();
+
             var players = new List<Player>()
             {
                 new Player() 
