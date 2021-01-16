@@ -101,10 +101,9 @@ app {
 .content {
     padding-top: 1.1rem;
     height: 665px;
-    background-image: url("../images/common/background.jpg");
+    background-image: url("../images/common/Background.jpg");
     background-position: center center;
     background-repeat: no-repeat;
-     
     background-size: cover;
 }
 
@@ -397,4 +396,60 @@ app {
     background: url(../images/common/LockIcon.png) no-repeat center;
     background-size: 110px;
     top: 340px;
+}
+
+#Lobby {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#Lobby img {
+    height: 190px;
+}
+
+.lobby-card {
+    width: 200px;
+    height: 260px;
+    display: inline-block;
+    cursor: pointer;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+}
+
+.lobby-card:before {
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+    content: '';
+    top: 100%;
+    left: 5%;
+    height: 10px;
+    width: 90%;
+    opacity: 0;
+    background: -webkit-radial-gradient(center, ellipse, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 80%);
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 80%);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: transform, opacity;
+    transition-property: transform, opacity;
+}
+
+.lobby-card:hover, .lobby-card:focus, .lobby-card:active {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+}
+
+.lobby-card:hover:before, .lobby-card:focus:before, .lobby-card:active:before {
+    opacity: 1;
+    -webkit-transform: translateY(5px);
+    transform: translateY(5px);
 }

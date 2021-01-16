@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Web.Client"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{EA6DEA08-1AF9-42B5-BED9-BE293D755BFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Infrastructure.IoCContainer", "Infrastructure\SantaseCardGame.Infrastructure.IoCContainer\SantaseCardGame.Infrastructure.IoCContainer.csproj", "{8C5EEED6-49DF-4470-8A72-CB70E854A690}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Infrastructure.IoCContainer", "Infrastructure\SantaseCardGame.Infrastructure.IoCContainer\SantaseCardGame.Infrastructure.IoCContainer.csproj", "{8C5EEED6-49DF-4470-8A72-CB70E854A690}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Infrastructure", "Infrastructure\SantaseCardGame.Infrastructure\SantaseCardGame.Infrastructure.csproj", "{D41945A3-7176-43D0-B422-D3A8CAFADB27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Infrastructure", "Infrastructure\SantaseCardGame.Infrastructure\SantaseCardGame.Infrastructure.csproj", "{D41945A3-7176-43D0-B422-D3A8CAFADB27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
