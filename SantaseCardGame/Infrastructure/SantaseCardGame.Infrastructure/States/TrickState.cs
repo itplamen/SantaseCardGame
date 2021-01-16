@@ -10,12 +10,11 @@
     public class TrickState : ITrickState
     {
         private readonly IGameState gameState;
-        private readonly IDictionary<PlayerPosition, Card> cards;
 
         public TrickState(IGameState gameState)
         {
             this.gameState = gameState;
-            this.cards = new Dictionary<PlayerPosition, Card>(gameState.TrickCards);
+            this.Cards = new Dictionary<PlayerPosition, Card>(gameState.TrickCards);
         }
 
         public event Action OnPlay;
@@ -26,32 +25,32 @@
 
         public PlayerPosition PlayerTurn { get; set; }
 
-        public IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards => new List<KeyValuePair<PlayerPosition, Card>>(cards);
+        public IDictionary<PlayerPosition, Card> Cards { get; private set; }
 
         public async void AddCard(Card card, PlayerPosition playerPosition)
         {
-            if (cards.Count < gameState.TrickCards)
+            if (Cards.Count < gameState.TrickCards)
             {
-                cards.Add(playerPosition, card);
+                Cards.Add(playerPosition, card);
                 PlayerTurn = GetNextPlayerPosition(playerPosition);
                 OnDisplay?.Invoke();
             }
 
-            if (cards.Count == gameState.TrickCards)
+            if (Cards.Count == gameState.TrickCards)
             {
                 await Task.Delay(gameState.SimulateDelay);
             }
 
             OnPlay?.Invoke();
 
-            if (cards.Count == gameState.TrickCards || gameState.RoundWinner != PlayerPosition.NoOne)
+            if (Cards.Count == gameState.TrickCards || gameState.RoundWinner != PlayerPosition.NoOne)
             {
-                if (gameState.RoundWinner != PlayerPosition.NoOne && cards.Count < gameState.TrickCards)
+                if (gameState.RoundWinner != PlayerPosition.NoOne && Cards.Count < gameState.TrickCards)
                 {
                     await Task.Delay(gameState.SimulateDelay);
                 }
 
-                cards.Clear();
+                Cards.Clear();
                 OnDisplay?.Invoke();
             }
 
@@ -63,7 +62,7 @@
 
         private PlayerPosition GetNextPlayerPosition(PlayerPosition current)
         {
-            if (cards.Count < gameState.TrickCards)
+            if (Cards.Count < gameState.TrickCards)
             {
                 if (current == PlayerPosition.First)
                 {

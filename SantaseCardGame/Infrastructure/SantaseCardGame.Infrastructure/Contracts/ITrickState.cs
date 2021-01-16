@@ -15,7 +15,7 @@
 
         PlayerPosition PlayerTurn { get; set; }
 
-        IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards { get; }
+        IDictionary<PlayerPosition, Card> Cards { get; }
 
         void AddCard(Card card, PlayerPosition playerPosition);
     }
