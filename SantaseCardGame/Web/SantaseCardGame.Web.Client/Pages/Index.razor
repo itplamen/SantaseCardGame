@@ -1,52 +1,5 @@
 ﻿@page "/"
 
-@inject IJSRuntime JSRuntime;
-@inject IGameState GameState;
-@inject ITrickState TrickState;
-@inject IGameEngine GameEngine;
-@inject IRoundManager RoundManager; 
-@inject IGamePlayer GamePlayer;
-
-@if (Game != null)
-{
-    <RoundPointsComponent Game="Game" OnClick="StartNewRound"></RoundPointsComponent>
-    <PlayerComponent Player="Game.Players.First()"></PlayerComponent>
-    <DeckComponent Deck="Game.Deck"></DeckComponent>
-    <TrickComponent></TrickComponent>
-    <PlayerComponent Player="Game.Players.Last()"></PlayerComponent>
-}
-
 @code {
 
-    private Game Game { get; set; }
-
-
-    protected override void OnInitialized()
-    {
-        Game = GameEngine.StartGame("Plamen");
-
-        TrickState.OnPlay += () => GameEngine.ManageGame(Game);
-        TrickState.OnDisplay += StateHasChanged;
-        TrickState.OnGamePlayerTurn += () => GamePlayer.Play(Game.Players.First());
-
-        GameState.OnRenderBoard += StateHasChanged;
-        GameState.OnEndRound += EndRound;
-        GameState.OnShowMessage += async (position, message) => await JSRuntime.InvokeVoidAsync("showMessage", position.ToString(), message);
-
-        GamePlayer.Play(Game.Players.First());
-    }
-
-    private void StartNewRound()
-    {
-        Deck deck = RoundManager.StartRound(Game.Players);
-        Game.Deck = deck;
-
-        GamePlayer.Play(Game.Players.First());
-    }
-
-    private async void EndRound()
-    {
-        await Task.Delay(GameState.SimulateDelay);
-        await JSRuntime.InvokeVoidAsync("showScoreboard");
-    }
 }

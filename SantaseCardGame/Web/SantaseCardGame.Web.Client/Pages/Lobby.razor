@@ -1,21 +1,33 @@
 ﻿@page "/lobby"
 
-<div id="Lobby">
-    <div class="card lobby-card">
-        <img src="/images/common/Bot.png" class="card-img-top" alt="Bot">
-        <div class="card-body">
-            <p class="card-text">vs computer</p>
+@inject IGameState GameState;
+
+@if (GameState.GameType == GameType.None)
+{
+    <div id="Lobby">
+        <div class="card lobby-card" @onclick="() => GameState.GameType = GameType.Singleplayer">
+            <img src="/images/common/Bot.png" class="card-img-top" alt="Bot">
+            <div class="card-body">
+                <p class="card-text">vs computer</p>
+            </div>
+        </div>
+
+        <div class="card lobby-card" @onclick="() => GameState.GameType = GameType.Multiplayer">
+            <img src="/images/common/Multiplayer.png" class="card-img-top" alt="Multiplayer">
+            <div class="card-body">
+                <p class="card-text">vs players</p>
+            </div>
         </div>
     </div>
+}
+else
+{
+    <GameBoard></GameBoard>
+}
 
-    <div class="card lobby-card">
-        <img src="/images/common/Multiplayer.png" class="card-img-top" alt="Multiplayer">
-        <div class="card-body">
-            <p class="card-text">vs players</p>
-        </div>
-    </div>
-</div>
-
-@code {
-
+@code { 
+    protected override void OnInitialized()
+    {
+        GameState.GameType = GameType.None;
+    }
 }
