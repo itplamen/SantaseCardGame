@@ -24,6 +24,8 @@
 
         int SimulateDelay { get; }
 
+        GameType GameType { get; set; }
+
         PlayerPosition RoundWinner { get; set; }
 
         void EndRound();

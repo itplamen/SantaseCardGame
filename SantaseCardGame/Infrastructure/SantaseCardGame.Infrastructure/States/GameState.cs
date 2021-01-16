@@ -25,6 +25,8 @@
 
         public int SimulateDelay => 1500;
 
+        public GameType GameType { get; set; }
+
         public PlayerPosition RoundWinner { get; set; }
 
         public void EndRound()

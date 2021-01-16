@@ -4,6 +4,8 @@
 
     public class Game
     {
+        public GameType Type { get; set; }
+
         public Deck Deck { get; set; }
 
         public ICollection<Player> Players { get; set; } = new List<Player>();
