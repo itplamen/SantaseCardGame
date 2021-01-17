@@ -1,44 +1,50 @@
-﻿<div id="RoundPointsInfo">
+﻿@inject IGameState GameState;
+
+<div id="RoundPointsInfo">
     <div id="CurrentRound">Round @(Game.Rounds.Count() + 1)</div>
     <div class="game-points">@firstPlayer.Username <span>@GetTotalGamePoints(firstPlayer)</span></div>
     <div class="game-points">@secondPlayer.Username <span>@GetTotalGamePoints(secondPlayer)</span></div>
 </div>
-<div id="Scoreboard">
-    <table>
-        <thead>
-            <tr>
-                <th colspan="3">Scoreboard</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th></th>
-                <th>@firstPlayer.Username</th>
-                <th>@secondPlayer.Username</th>
-            </tr>
-            <tr>
-                <td>Announcements</td>
-                <td>@GetAnnouncements(firstPlayer)</td>
-                <td>@GetAnnouncements(secondPlayer)</td>
-            </tr>
-            <tr>
-                <td>Round Points</td>
-                <td>@GetRoundPoints(firstPlayer)</td>
-                <td>@GetRoundPoints(secondPlayer)</td>
-            </tr>
-            <tr>
-                <td>Game Points</td>
-                <td>@GetGamePoints(firstPlayer)</td>
-                <td>@GetGamePoints(secondPlayer)</td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <button type="button" class="btn btn-success" @onclick="@(() => OnClick.InvokeAsync())">Continue</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+
+@if (GameState.RoundWinner != PlayerPosition.NoOne)
+{    
+    <div id="Scoreboard">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="3">Scoreboard</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>@firstPlayer.Username</th>
+                    <th>@secondPlayer.Username</th>
+                </tr>
+                <tr>
+                    <td>Announcements</td>
+                    <td>@GetAnnouncements(firstPlayer)</td>
+                    <td>@GetAnnouncements(secondPlayer)</td>
+                </tr>
+                <tr>
+                    <td>Round Points</td>
+                    <td>@GetRoundPoints(firstPlayer)</td>
+                    <td>@GetRoundPoints(secondPlayer)</td>
+                </tr>
+                <tr>
+                    <td>Game Points</td>
+                    <td>@GetGamePoints(firstPlayer)</td>
+                    <td>@GetGamePoints(secondPlayer)</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <button type="button" class="btn btn-success" @onclick="@(() => OnClick.InvokeAsync())">Continue</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}
 
 @code {
     [Parameter]
