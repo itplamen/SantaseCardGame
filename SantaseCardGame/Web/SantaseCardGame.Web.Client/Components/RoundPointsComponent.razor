@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <button type="button" class="btn btn-success" @onclick="@OnClick.InvokeAsync">Continue</button>
+                    <button type="button" class="btn btn-success" @onclick="@(() => OnClick.InvokeAsync())">Continue</button>
                 </td>
             </tr>
         </tbody>
