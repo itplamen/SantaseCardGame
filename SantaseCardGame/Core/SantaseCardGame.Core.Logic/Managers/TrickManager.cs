@@ -27,7 +27,7 @@
                 PlayerPosition winnerPosition = trickWinner.GetWinner(trickState.Cards, game.Deck.TrumpCard.Suit);
                 Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
 
-                IEnumerable<Card> hand = trickState.Cards.Select(x => x.Value);
+                IEnumerable<Card> hand = trickState.Cards.Select(x => x.Value).ToList();
                 winnerPlayer.Hands.Add(hand);
 
                 trickState.PlayerTurn = winnerPosition;
