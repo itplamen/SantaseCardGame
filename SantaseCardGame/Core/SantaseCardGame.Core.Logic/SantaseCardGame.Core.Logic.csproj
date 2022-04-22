@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\Data\SantaseCardGame.Data\SantaseCardGame.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Winners\Round\" />
+  </ItemGroup>
+
 </Project>
