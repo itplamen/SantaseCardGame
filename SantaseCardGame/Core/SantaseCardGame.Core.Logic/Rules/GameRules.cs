@@ -8,6 +8,8 @@
 
         public int DeckMinCardsBeforeClosing => 4;
 
+        public int MarriageCardsCount => 2;
+
         public int GameWinPoints => 11;
 
         public int RoundWinPoints => 66;

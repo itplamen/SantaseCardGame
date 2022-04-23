@@ -6,6 +6,8 @@
 
         int DeckMinCardsBeforeClosing { get; }
 
+        int MarriageCardsCount { get; }
+
         int GameWinPoints { get; }
 
         int RoundWinPoints { get; }

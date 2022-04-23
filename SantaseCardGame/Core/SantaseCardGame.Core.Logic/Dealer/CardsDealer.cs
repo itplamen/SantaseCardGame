@@ -12,11 +12,13 @@
     {
         private readonly IGameRules gameRules;
         private readonly ICardsProvider cardsProvider;
+        private readonly IAnnouncementChecker announcementChecker;
 
-        public CardsDealer(IGameRules gameRules, ICardsProvider cardsProvider)
+        public CardsDealer(IGameRules gameRules, ICardsProvider cardsProvider, IAnnouncementChecker announcementChecker)
         {
             this.gameRules = gameRules;
             this.cardsProvider = cardsProvider;
+            this.announcementChecker = announcementChecker;
         }
 
         public Deck Deal(Player firstPlayer, Player secondPlayer)
@@ -43,8 +45,8 @@
 
         private void AddCard(Player player, Card card)
         {
-            CardType type = GetMarriageType(card);
-            int index = player.Cards.FindIndex(x => x.Type == type && x.Suit == card.Suit);
+            CardType searchType = announcementChecker.MarriageCardTypeToSearch(card);
+            int index = player.Cards.FindIndex(x => x.Type == searchType && x.Suit == card.Suit);
 
             if (index >= 0)
             {
@@ -53,19 +55,6 @@
             else
             {
                 player.Cards.Add(card);
-            }
-        }
-
-        private CardType GetMarriageType(Card card)
-        {
-            switch (card.Type)
-            {
-                case CardType.Queen:
-                    return CardType.King;
-                case CardType.King:
-                    return CardType.Queen;
-                default:
-                    return CardType.None;
             }
         }
 
