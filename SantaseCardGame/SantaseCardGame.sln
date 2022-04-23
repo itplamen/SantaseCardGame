@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Infrastructure.States", "Infrastructure\SantaseCardGame.Infrastructure.States\SantaseCardGame.Infrastructure.States.csproj", "{1C0E1F39-7108-4120-93C5-9FCC022C40C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.AI", "AI\SantaseCardGame.AI\SantaseCardGame.AI.csproj", "{7FAFCAD1-6C8B-4199-9012-E25BE65DD96E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.AI.Logic", "AI\SantaseCardGame.AI.Logic\SantaseCardGame.AI.Logic.csproj", "{74BD0DFF-B85B-450C-A0B6-87095AE14C9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,14 @@ Global
 		{1C0E1F39-7108-4120-93C5-9FCC022C40C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C0E1F39-7108-4120-93C5-9FCC022C40C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C0E1F39-7108-4120-93C5-9FCC022C40C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FAFCAD1-6C8B-4199-9012-E25BE65DD96E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FAFCAD1-6C8B-4199-9012-E25BE65DD96E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FAFCAD1-6C8B-4199-9012-E25BE65DD96E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FAFCAD1-6C8B-4199-9012-E25BE65DD96E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74BD0DFF-B85B-450C-A0B6-87095AE14C9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74BD0DFF-B85B-450C-A0B6-87095AE14C9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74BD0DFF-B85B-450C-A0B6-87095AE14C9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74BD0DFF-B85B-450C-A0B6-87095AE14C9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +64,8 @@ Global
 		{E6BC466A-0026-4215-9743-48C8E00DC310} = {B1D7B289-403A-478D-BABB-5B67098964A3}
 		{FDFFDE07-87DE-4264-B8BB-4C66C3981AA5} = {1F202AF4-E28F-47E1-959F-092FD2E6C8EE}
 		{1C0E1F39-7108-4120-93C5-9FCC022C40C6} = {DB8C1462-5D03-4942-89B9-03D16E6B8091}
+		{7FAFCAD1-6C8B-4199-9012-E25BE65DD96E} = {FA417537-FC98-4769-A861-8629C0633AC5}
+		{74BD0DFF-B85B-450C-A0B6-87095AE14C9B} = {FA417537-FC98-4769-A861-8629C0633AC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09D366C0-DBC8-45CE-9D3E-12541ABB7C67}
