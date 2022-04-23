@@ -10,12 +10,12 @@
 
     public class CardsDealer : ICardsDealer
     {
-        private const int INITIAL_CARDS_COUNT = 6;
-
+        private readonly IGameRules gameRules;
         private readonly ICardsProvider cardsProvider;
 
-        public CardsDealer(ICardsProvider cardsProvider)
+        public CardsDealer(IGameRules gameRules, ICardsProvider cardsProvider)
         {
+            this.gameRules = gameRules;
             this.cardsProvider = cardsProvider;
         }
 
@@ -34,7 +34,7 @@
 
         private void DealCards(Deck deck, Player player)
         {
-            for (int i = 1; i <= INITIAL_CARDS_COUNT; i++)
+            for (int i = 1; i <= gameRules.RoundInitialCardsCount; i++)
             {
                 Card card = deck.GetNextCard();
                 AddCard(player, card);
