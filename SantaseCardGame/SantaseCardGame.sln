@@ -11,11 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AI", "AI", "{FA417537-FC98-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Data.Models", "Data\SantaseCardGame.Data.Models\SantaseCardGame.Data.Models.csproj", "{59F2F456-DE74-4978-B71A-636F37D3ED49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Data", "Data\SantaseCardGame.Data\SantaseCardGame.Data.csproj", "{E6BC466A-0026-4215-9743-48C8E00DC310}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Data", "Data\SantaseCardGame.Data\SantaseCardGame.Data.csproj", "{E6BC466A-0026-4215-9743-48C8E00DC310}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1F202AF4-E28F-47E1-959F-092FD2E6C8EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Core.Logic", "Core\SantaseCardGame.Core.Logic\SantaseCardGame.Core.Logic.csproj", "{FDFFDE07-87DE-4264-B8BB-4C66C3981AA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Core.Logic", "Core\SantaseCardGame.Core.Logic\SantaseCardGame.Core.Logic.csproj", "{FDFFDE07-87DE-4264-B8BB-4C66C3981AA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DB8C1462-5D03-4942-89B9-03D16E6B8091}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Infrastructure.States", "Infrastructure\SantaseCardGame.Infrastructure.States\SantaseCardGame.Infrastructure.States.csproj", "{1C0E1F39-7108-4120-93C5-9FCC022C40C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,10 @@ Global
 		{FDFFDE07-87DE-4264-B8BB-4C66C3981AA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDFFDE07-87DE-4264-B8BB-4C66C3981AA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDFFDE07-87DE-4264-B8BB-4C66C3981AA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C0E1F39-7108-4120-93C5-9FCC022C40C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C0E1F39-7108-4120-93C5-9FCC022C40C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C0E1F39-7108-4120-93C5-9FCC022C40C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C0E1F39-7108-4120-93C5-9FCC022C40C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +51,7 @@ Global
 		{59F2F456-DE74-4978-B71A-636F37D3ED49} = {B1D7B289-403A-478D-BABB-5B67098964A3}
 		{E6BC466A-0026-4215-9743-48C8E00DC310} = {B1D7B289-403A-478D-BABB-5B67098964A3}
 		{FDFFDE07-87DE-4264-B8BB-4C66C3981AA5} = {1F202AF4-E28F-47E1-959F-092FD2E6C8EE}
+		{1C0E1F39-7108-4120-93C5-9FCC022C40C6} = {DB8C1462-5D03-4942-89B9-03D16E6B8091}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09D366C0-DBC8-45CE-9D3E-12541ABB7C67}
