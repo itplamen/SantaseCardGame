@@ -6,6 +6,8 @@
     {
         public int RoundInitialCardsCount => 6;
 
+        public int DeckMinCardsBeforeClosing => 4;
+
         public int GameWinPoints => 11;
 
         public int RoundWinPoints => 66;

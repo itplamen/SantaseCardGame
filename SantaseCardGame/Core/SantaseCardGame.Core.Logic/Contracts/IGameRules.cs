@@ -4,6 +4,8 @@
     {
         int RoundInitialCardsCount { get; }
 
+        int DeckMinCardsBeforeClosing { get; }
+
         int GameWinPoints { get; }
 
         int RoundWinPoints { get; }

@@ -8,5 +8,9 @@
         public bool ShouldFollowSuit { get; set; }
 
         public CardSuit TrumpCardSuit { get; set; }
+
+        public PlayerPosition ClosedBy { get; set; }
+
+        public int CardsLeft { get; set; }
     }
 }
