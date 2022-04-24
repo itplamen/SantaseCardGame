@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PlayLogics\" />
+    <Folder Include="PlayLogics\SecondPlayer\" />
   </ItemGroup>
 
 </Project>
