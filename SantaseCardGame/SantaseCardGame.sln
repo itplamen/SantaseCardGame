@@ -19,11 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Core.Logic"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DB8C1462-5D03-4942-89B9-03D16E6B8091}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Infrastructure.States", "Infrastructure\SantaseCardGame.Infrastructure.States\SantaseCardGame.Infrastructure.States.csproj", "{1C0E1F39-7108-4120-93C5-9FCC022C40C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Infrastructure.States", "Infrastructure\SantaseCardGame.Infrastructure.States\SantaseCardGame.Infrastructure.States.csproj", "{1C0E1F39-7108-4120-93C5-9FCC022C40C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.AI", "AI\SantaseCardGame.AI\SantaseCardGame.AI.csproj", "{7FAFCAD1-6C8B-4199-9012-E25BE65DD96E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.AI", "AI\SantaseCardGame.AI\SantaseCardGame.AI.csproj", "{7FAFCAD1-6C8B-4199-9012-E25BE65DD96E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.AI.Logic", "AI\SantaseCardGame.AI.Logic\SantaseCardGame.AI.Logic.csproj", "{74BD0DFF-B85B-450C-A0B6-87095AE14C9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.AI.Logic", "AI\SantaseCardGame.AI.Logic\SantaseCardGame.AI.Logic.csproj", "{74BD0DFF-B85B-450C-A0B6-87095AE14C9B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Client.Web", "Clients\SantaseCardGame.Client.Web\SantaseCardGame.Client.Web.csproj", "{93947446-B10A-46E5-8180-A9002B8A8A93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{74BD0DFF-B85B-450C-A0B6-87095AE14C9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74BD0DFF-B85B-450C-A0B6-87095AE14C9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74BD0DFF-B85B-450C-A0B6-87095AE14C9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93947446-B10A-46E5-8180-A9002B8A8A93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93947446-B10A-46E5-8180-A9002B8A8A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93947446-B10A-46E5-8180-A9002B8A8A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93947446-B10A-46E5-8180-A9002B8A8A93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{1C0E1F39-7108-4120-93C5-9FCC022C40C6} = {DB8C1462-5D03-4942-89B9-03D16E6B8091}
 		{7FAFCAD1-6C8B-4199-9012-E25BE65DD96E} = {FA417537-FC98-4769-A861-8629C0633AC5}
 		{74BD0DFF-B85B-450C-A0B6-87095AE14C9B} = {FA417537-FC98-4769-A861-8629C0633AC5}
+		{93947446-B10A-46E5-8180-A9002B8A8A93} = {79247925-58E4-473B-A8D3-3433C1846E5E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09D366C0-DBC8-45CE-9D3E-12541ABB7C67}
