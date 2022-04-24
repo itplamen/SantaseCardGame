@@ -11,4 +11,8 @@
     <ProjectReference Include="..\..\Infrastructure\SantaseCardGame.Infrastructure.States\SantaseCardGame.Infrastructure.States.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PlayLogics\" />
+  </ItemGroup>
+
 </Project>
