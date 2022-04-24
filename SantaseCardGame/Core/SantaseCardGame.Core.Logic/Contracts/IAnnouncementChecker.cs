@@ -8,7 +8,7 @@
     {
         PlayerAction GetAnnouncement(Player player, Card card);
 
-        IEnumerable<Card> GetMarriages(Player player);
+        IEnumerable<Card> GetMarriages(IEnumerable<Card> cards);
 
         CardType MarriageCardTypeToSearch(Card card);
     }

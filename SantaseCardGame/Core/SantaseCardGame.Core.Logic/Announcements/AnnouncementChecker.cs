@@ -24,12 +24,12 @@
         {
             if (playerActionValidator.CanAnnounce(player))
             {
-                bool hasMarriage = GetMarriages(player)
+                bool hasMarriage = GetMarriages(player.Cards)
                     .Any(x => x.Name == card.Name);
 
                 if (hasMarriage)
                 {
-                    if (card.Suit == deckState.TrumpCardSuit)
+                    if (card.Suit == deckState.TrumpCard.Suit)
                     {
                         return new PlayerAction(PlayerActionType.Announce, card, Announce.Forty);
                     }
@@ -41,10 +41,9 @@
             return new PlayerAction(PlayerActionType.Announce, Announce.None);
         }
 
-        public IEnumerable<Card> GetMarriages(Player player)
+        public IEnumerable<Card> GetMarriages(IEnumerable<Card> cards)
         {
-            return player.Cards
-                .Where(x => x.Type == CardType.Queen || x.Type == CardType.King)
+            return cards.Where(x => x.Type == CardType.Queen || x.Type == CardType.King)
                 .GroupBy(x => x.Suit)
                 .Where(x => x.Count() == gameRules.MarriageCardsCount)
                 .SelectMany(x => x);
