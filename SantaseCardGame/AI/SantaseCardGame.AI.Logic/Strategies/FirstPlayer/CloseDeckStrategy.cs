@@ -23,7 +23,7 @@
             this.playerActionValidator = playerActionValidator;
         }
 
-        protected override PlayerAction PlayStrategy(Player player)
+        protected override PlayerAction SelectStrategy(Player player)
         {
             if (playerActionValidator.CanCloseDeck(player) && ShouldClose(player))
             {

@@ -15,7 +15,7 @@
             this.deckState = deckState;
         }
 
-        protected override PlayerAction PlayStrategy(Player player)
+        protected override PlayerAction SelectStrategy(Player player)
         {
             if (player.Cards.All(x => x.Suit != OpponentCard.Suit))
             {

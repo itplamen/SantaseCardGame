@@ -15,7 +15,7 @@
             this.deckState = deckState;
         }
 
-        protected override PlayerAction PlayStrategy(Player player)
+        protected override PlayerAction SelectStrategy(Player player)
         {
             if (ShouldPlayTrumpCardWhenFollowingSuit(player, OpponentCard) ||
                 ShouldPlayTrumpCardWhenNotFollowingSuit(player, OpponentCard))

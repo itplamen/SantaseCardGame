@@ -20,7 +20,7 @@
             this.announcementChecker = announcementChecker;
         }
 
-        protected override PlayerAction PlayStrategy(Player player)
+        protected override PlayerAction SelectStrategy(Player player)
         {
             IEnumerable<Card> marriages = announcementChecker.GetMarriages(player.Cards);
             IEnumerable<Card> playCards = player.Cards

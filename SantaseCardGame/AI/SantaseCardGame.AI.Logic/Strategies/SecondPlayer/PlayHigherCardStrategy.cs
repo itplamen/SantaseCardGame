@@ -12,7 +12,7 @@
         {
         }
 
-        protected override PlayerAction PlayStrategy(Player player)
+        protected override PlayerAction SelectStrategy(Player player)
         {
             Card card = player.Cards
                 .Where(x => x.Suit == OpponentCard.Suit)

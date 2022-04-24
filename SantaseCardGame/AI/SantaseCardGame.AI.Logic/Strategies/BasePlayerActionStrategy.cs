@@ -17,12 +17,12 @@
 
         protected Card OpponentCard { get; private set; }
 
-        protected abstract PlayerAction PlayStrategy(Player player);
+        protected abstract PlayerAction SelectStrategy(Player player);
 
-        public PlayerAction Play(Player player)
+        public PlayerAction ChooseAction(Player player)
         {
             OpponentCard = trickState.Cards.FirstOrDefault(x => x.Key != player.Position).Value;
-            PlayerAction playerAction = PlayStrategy(player);
+            PlayerAction playerAction = SelectStrategy(player);
 
             if (playerAction.Type != PlayerActionType.None && playerAction.Card != null)
             {

@@ -4,6 +4,6 @@
 
     public interface IPlayerActionStrategy
     {
-        PlayerAction Play(Player player);
+        PlayerAction ChooseAction(Player player);
     }
 }
