@@ -6,7 +6,7 @@
     {
         bool ShouldFollowSuit { get; set; }
 
-        CardSuit TrumpCardSuit { get; set; }
+        Card TrumpCard { get; set; }
 
         PlayerPosition ClosedBy { get; set; }
 

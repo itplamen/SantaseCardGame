@@ -7,7 +7,7 @@
     {
         public bool ShouldFollowSuit { get; set; }
 
-        public CardSuit TrumpCardSuit { get; set; }
+        public Card TrumpCard { get; set; }
 
         public PlayerPosition ClosedBy { get; set; }
 
