@@ -31,14 +31,14 @@
                 {
                     if (card.Suit == deckState.TrumpCard.Suit)
                     {
-                        return new PlayerAction(PlayerActionType.Announce, card, Announce.Forty);
+                        return new PlayerAction(PlayerActionType.AnnounceCardMarriage, card, Announce.Forty);
                     }
 
-                    return new PlayerAction(PlayerActionType.Announce, card, Announce.Twenty);
+                    return new PlayerAction(PlayerActionType.AnnounceCardMarriage, card, Announce.Twenty);
                 }
             }
 
-            return new PlayerAction(PlayerActionType.Announce, Announce.None);
+            return new PlayerAction(PlayerActionType.AnnounceCardMarriage, Announce.None);
         }
 
         public IEnumerable<Card> GetMarriages(IEnumerable<Card> cards)

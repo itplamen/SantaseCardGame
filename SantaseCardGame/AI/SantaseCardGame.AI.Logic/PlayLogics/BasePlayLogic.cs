@@ -49,7 +49,7 @@
         {
             if (playerAction.Type == PlayerActionType.PlayCard)
             {
-                return !playerActions.Any(x => x.Type == PlayerActionType.Announce);
+                return !playerActions.Any(x => x.Type == PlayerActionType.AnnounceCardMarriage);
             }
 
             return playerAction.Type != PlayerActionType.None;

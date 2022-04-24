@@ -33,10 +33,10 @@
 
                     if (queen.Suit == deckState.TrumpCard.Suit)
                     {
-                        return new PlayerAction(PlayerActionType.Announce, queen, Announce.Forty);
+                        return new PlayerAction(PlayerActionType.AnnounceCardMarriage, queen, Announce.Forty);
                     }
 
-                    return new PlayerAction(PlayerActionType.Announce, queen, Announce.Twenty);
+                    return new PlayerAction(PlayerActionType.AnnounceCardMarriage, queen, Announce.Twenty);
                 }
             }
 

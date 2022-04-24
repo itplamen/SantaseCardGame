@@ -26,7 +26,7 @@
 
                 if (nineOfTrumps != null)
                 {
-                    return new PlayerAction(PlayerActionType.ChangeTrump, deckState.TrumpCard);
+                    return new PlayerAction(PlayerActionType.ChangeTrumpCard, deckState.TrumpCard);
                 }
             }
 

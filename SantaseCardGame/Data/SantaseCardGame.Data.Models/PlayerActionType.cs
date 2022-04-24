@@ -4,8 +4,8 @@
     {
         None = 0,
         PlayCard = 1,
-        ChangeTrump = 2,
+        ChangeTrumpCard = 2,
         CloseDeck = 3,
-        Announce = 4
+        AnnounceCardMarriage = 4
     }
 }
