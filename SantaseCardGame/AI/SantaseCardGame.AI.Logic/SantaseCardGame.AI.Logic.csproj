@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Strategies\SecondPlayer\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Core\SantaseCardGame.Core.Logic\SantaseCardGame.Core.Logic.csproj" />
     <ProjectReference Include="..\..\Data\SantaseCardGame.Data.Models\SantaseCardGame.Data.Models.csproj" />
     <ProjectReference Include="..\..\Infrastructure\SantaseCardGame.Infrastructure.States\SantaseCardGame.Infrastructure.States.csproj" />
