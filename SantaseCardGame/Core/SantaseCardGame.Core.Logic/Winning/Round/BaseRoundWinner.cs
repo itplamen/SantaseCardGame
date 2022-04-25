@@ -4,6 +4,7 @@
     using System.Linq;
 
     using SantaseCardGame.Core.Logic.Contracts;
+    using SantaseCardGame.Core.Logic.Contracts.Winning;
     using SantaseCardGame.Data.Models;
 
     public abstract class BaseRoundWinner : IRoundWinner
