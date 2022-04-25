@@ -4,6 +4,7 @@
     using System.Linq;
 
     using SantaseCardGame.Core.Logic.Contracts;
+    using SantaseCardGame.Core.Logic.Contracts.Validators;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 

@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.Core.Logic.Contracts
+﻿namespace SantaseCardGame.Core.Logic.Contracts.Validators
 {
     using SantaseCardGame.Data.Models;
 
