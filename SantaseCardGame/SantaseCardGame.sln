@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.AI.Logic", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Client.Web", "Clients\SantaseCardGame.Client.Web\SantaseCardGame.Client.Web.csproj", "{93947446-B10A-46E5-8180-A9002B8A8A93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Infrastructure.IoCContainer", "Infrastructure\SantaseCardGame.Infrastructure.IoCContainer\SantaseCardGame.Infrastructure.IoCContainer.csproj", "{AE05FE75-B6AE-4E35-A53B-1C1752223D7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{93947446-B10A-46E5-8180-A9002B8A8A93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93947446-B10A-46E5-8180-A9002B8A8A93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93947446-B10A-46E5-8180-A9002B8A8A93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE05FE75-B6AE-4E35-A53B-1C1752223D7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE05FE75-B6AE-4E35-A53B-1C1752223D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE05FE75-B6AE-4E35-A53B-1C1752223D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE05FE75-B6AE-4E35-A53B-1C1752223D7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{7FAFCAD1-6C8B-4199-9012-E25BE65DD96E} = {FA417537-FC98-4769-A861-8629C0633AC5}
 		{74BD0DFF-B85B-450C-A0B6-87095AE14C9B} = {FA417537-FC98-4769-A861-8629C0633AC5}
 		{93947446-B10A-46E5-8180-A9002B8A8A93} = {79247925-58E4-473B-A8D3-3433C1846E5E}
+		{AE05FE75-B6AE-4E35-A53B-1C1752223D7F} = {DB8C1462-5D03-4942-89B9-03D16E6B8091}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09D366C0-DBC8-45CE-9D3E-12541ABB7C67}
