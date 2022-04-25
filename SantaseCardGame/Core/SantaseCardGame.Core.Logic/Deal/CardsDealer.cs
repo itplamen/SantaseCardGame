@@ -7,16 +7,19 @@
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class CardsDealer : ICardsDealer
     {
         private readonly IGameRules gameRules;
+        private readonly IDeckState deckState;
         private readonly ICardsProvider cardsProvider;
         private readonly IAnnouncementChecker announcementChecker;
 
-        public CardsDealer(IGameRules gameRules, ICardsProvider cardsProvider, IAnnouncementChecker announcementChecker)
+        public CardsDealer(IGameRules gameRules, IDeckState deckState, ICardsProvider cardsProvider, IAnnouncementChecker announcementChecker)
         {
             this.gameRules = gameRules;
+            this.deckState = deckState;
             this.cardsProvider = cardsProvider;
             this.announcementChecker = announcementChecker;
         }
@@ -30,6 +33,24 @@
             DealCards(deck, secondPlayer);
 
             return deck;
+        }
+
+        public void DrawCards(Deck deck, PlayerPosition winnerPosition, IEnumerable<Player> players)
+        {
+            if (deckState.ClosedBy == PlayerPosition.None && deck.Cards.Any())
+            {
+                Card firstCard = deck.GetNextCard();
+                Card secondCard = deck.GetNextCard();
+
+                Player winnerPlayer = players.First(x => x.Position == winnerPosition);
+                AddCard(winnerPlayer, firstCard);
+
+                Player loserPlayer = players.First(x => x.Position != winnerPosition);
+                AddCard(loserPlayer, secondCard);
+
+                deckState.CardsLeft = deck.Cards.Count();
+                deckState.ShouldFollowSuit = !deck.Cards.Any();
+            }
         }
 
         private void DealCards(Deck deck, Player player)
