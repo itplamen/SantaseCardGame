@@ -45,17 +45,11 @@
 
         private void AddCard(Player player, Card card)
         {
+            // Add marriage cards close to each other
             CardType searchType = announcementChecker.MarriageCardTypeToSearch(card);
-            int index = player.Cards.FindIndex(x => x.Type == searchType && x.Suit == card.Suit);
+            int index = player.GetCardPosition(searchType, card.Suit);
 
-            if (index >= 0)
-            {
-                player.Cards.Insert(index, card);
-            }
-            else
-            {
-                player.Cards.Add(card);
-            }
+            player.AddCard(card, index);
         }
 
         // Fisher–Yates algorithm
