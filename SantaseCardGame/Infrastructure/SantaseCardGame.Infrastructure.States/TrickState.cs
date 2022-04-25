@@ -15,6 +15,11 @@
 
         public IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards => cards;
 
+        public void SetPlayerTurn(PlayerPosition playerPosition)
+        {
+            PlayerTurn = playerPosition;
+        }
+
         public void AddCard(Card card, PlayerPosition playerPosition)
         {
             if (cards.Count < TRICK_CARDS)
@@ -27,7 +32,7 @@
                 cards.Clear();
             }
         }
-
+        
         private PlayerPosition GetNextPlayerPosition(PlayerPosition current)
         {
             if (cards.Count < TRICK_CARDS)

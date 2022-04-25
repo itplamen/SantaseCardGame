@@ -10,6 +10,8 @@
 
         public int MarriageCardsCount => 2;
 
+        public int TrickCardsCount => 2;
+
         public int GameWinPoints => 11;
 
         public int RoundWinPoints => 66;

@@ -10,6 +10,8 @@
 
         IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards { get; }
 
+        void SetPlayerTurn(PlayerPosition playerPosition);
+
         void AddCard(Card card, PlayerPosition playerPosition);
     }
 }

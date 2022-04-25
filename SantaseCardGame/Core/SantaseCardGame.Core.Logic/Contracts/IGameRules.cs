@@ -8,6 +8,8 @@
 
         int MarriageCardsCount { get; }
 
+        int TrickCardsCount { get; }
+
         int GameWinPoints { get; }
 
         int RoundWinPoints { get; }
