@@ -29,8 +29,6 @@
             DealCards(deck, firstPlayer);
             DealCards(deck, secondPlayer);
 
-            deck.TrumpCard = deck.Cards.Last();
-
             return deck;
         }
 
@@ -52,29 +50,25 @@
             player.AddCard(card, index);
         }
 
-        // Fisher–Yates algorithm
         private Deck Shuffle(IEnumerable<Card> cards)
         {
-            if (cards == null)
+            if (cards == null || !cards.Any())
             {
                 throw new ArgumentNullException("There are no cards to shuffle!");
             }
 
+            Deck deck = new Deck();
             List<Card> list = cards.ToList();
 
             for (var i = 0; i < list.Count; i++)
             {
                 int index = i + RandomGenerator.Next(0, list.Count - i);
+                Card card = list[i];
 
-                Card temp = list[i];
-                list[i] = list[index];
-                list[index] = temp;
+                deck.AddCard(card, index);
             }
 
-            return new Deck()
-            {
-                Cards = list
-            };
+            return deck;
         }
     }
 }

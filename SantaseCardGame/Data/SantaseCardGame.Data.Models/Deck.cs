@@ -5,14 +5,33 @@
 
     public class Deck
     {
-        public Card TrumpCard { get; set; }
+        private readonly List<Card> cards = new List<Card>();
 
-        public ICollection<Card> Cards { get; set; } = new List<Card>();
+        public Card TrumpCard => cards.Last();
+
+        public IEnumerable<Card> Cards => cards;
+
+        public void AddCard(Card card, int? index = null)
+        {
+            if (index.HasValue && index.Value >= 0)
+            {
+                cards.Insert(index.Value, card);
+            }
+            else
+            {
+                cards.Add(card);
+            }
+        }
+
+        public void RemoveCard(Card card)
+        {
+            cards.Remove(card);
+        }
 
         public Card GetNextCard()
         {
-            Card card = Cards.First();
-            Cards.Remove(card);
+            Card card = cards.First();
+            RemoveCard(card);
 
             return card;
         }
