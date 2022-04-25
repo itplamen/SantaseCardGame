@@ -13,13 +13,15 @@
     {
         private readonly IGameRules gameRules;
         private readonly IDeckState deckState;
+        private readonly ITrickState trickState;
         private readonly ICardsProvider cardsProvider;
         private readonly IAnnouncementChecker announcementChecker;
 
-        public CardsDealer(IGameRules gameRules, IDeckState deckState, ICardsProvider cardsProvider, IAnnouncementChecker announcementChecker)
+        public CardsDealer(IGameRules gameRules, IDeckState deckState, ITrickState trickState, ICardsProvider cardsProvider, IAnnouncementChecker announcementChecker)
         {
             this.gameRules = gameRules;
             this.deckState = deckState;
+            this.trickState = trickState;
             this.cardsProvider = cardsProvider;
             this.announcementChecker = announcementChecker;
         }
@@ -35,17 +37,17 @@
             return deck;
         }
 
-        public void DrawCards(Deck deck, PlayerPosition winnerPosition, IEnumerable<Player> players)
+        public void DrawCards(Deck deck, IEnumerable<Player> players)
         {
             if (deckState.ClosedBy == PlayerPosition.None && deck.Cards.Any())
             {
                 Card firstCard = deck.GetNextCard();
                 Card secondCard = deck.GetNextCard();
 
-                Player winnerPlayer = players.First(x => x.Position == winnerPosition);
+                Player winnerPlayer = players.First(x => x.Position == trickState.PlayerTurn);
                 AddCard(winnerPlayer, firstCard);
 
-                Player loserPlayer = players.First(x => x.Position != winnerPosition);
+                Player loserPlayer = players.First(x => x.Position != trickState.PlayerTurn);
                 AddCard(loserPlayer, secondCard);
 
                 deckState.CardsLeft = deck.Cards.Count();
