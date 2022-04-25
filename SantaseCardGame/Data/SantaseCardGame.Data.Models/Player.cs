@@ -7,6 +7,8 @@
     {
         private readonly List<Card> cards = new List<Card>();
 
+        private readonly Dictionary<CardSuit, Announce> announcements = new Dictionary<CardSuit, Announce>();
+
         public int Points => CalculatePoints();
 
         public int BonusPoints { get; set; }
@@ -19,7 +21,7 @@
 
         public ICollection<IEnumerable<Card>> Hands { get; set; } = new List<IEnumerable<Card>>();
 
-        public Dictionary<CardSuit, Announce> Announcements { get; set; } = new Dictionary<CardSuit, Announce>();
+        public IEnumerable<KeyValuePair<CardSuit, Announce>> Announcements => announcements;
 
         public void AddCard(Card card, int? index = null)
         {
@@ -43,12 +45,17 @@
             return cards.FindIndex(x => x.Type == type && x.Suit == suit);
         }
 
+        public void AddAnnouncement(CardSuit suit, Announce announcement)
+        {
+            announcements.Add(suit, announcement);
+        }
+
         private int CalculatePoints()
         {
             if (Hands.Any())
             {
                 int handsSum = Hands.SelectMany(x => x).Sum(x => (int)x.Type);
-                int announcementsSum = Announcements.Any() ? Announcements.Values.Sum(x => (int)x) : 0;
+                int announcementsSum = announcements.Any() ? announcements.Values.Sum(x => (int)x) : 0;
 
                 return handsSum + announcementsSum + BonusPoints;
             }

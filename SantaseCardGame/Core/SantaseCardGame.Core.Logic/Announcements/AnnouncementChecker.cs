@@ -21,7 +21,7 @@
             this.playerActionValidator = playerActionValidator;
         }
 
-        public PlayerAction GetAnnouncement(Player player, Card card)
+        public Announce GetAnnouncement(Player player, Card card)
         {
             if (playerActionValidator.CanAnnounce(player))
             {
@@ -32,14 +32,14 @@
                 {
                     if (card.Suit == deckState.TrumpCard.Suit)
                     {
-                        return new PlayerAction(PlayerActionType.AnnounceCardMarriage, card, Announce.Forty);
+                        return Announce.Forty;
                     }
 
-                    return new PlayerAction(PlayerActionType.AnnounceCardMarriage, card, Announce.Twenty);
+                    return Announce.Twenty;
                 }
             }
 
-            return new PlayerAction(PlayerActionType.AnnounceCardMarriage, Announce.None);
+            return Announce.None;
         }
 
         public IEnumerable<Card> GetMarriages(IEnumerable<Card> cards)

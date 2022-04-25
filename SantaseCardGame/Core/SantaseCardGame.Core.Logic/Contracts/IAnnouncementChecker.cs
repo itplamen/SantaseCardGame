@@ -6,7 +6,7 @@
 
     public interface IAnnouncementChecker
     {
-        PlayerAction GetAnnouncement(Player player, Card card);
+        Announce GetAnnouncement(Player player, Card card);
 
         IEnumerable<Card> GetMarriages(IEnumerable<Card> cards);
 
