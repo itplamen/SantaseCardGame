@@ -1,7 +1,7 @@
 ﻿<img id="@Card.Name"
      alt="@Card.Name"
      src="/images/cards/@string.Concat(Card.Name,".png")"
-     class="card-component @(PlayerActionType == PlayerActionType.ChangeTrump ? "trump-card" : string.Empty)" 
+     class="card-component @(PlayerActionType == PlayerActionType.ChangeTrumpCard ? "trump-card" : string.Empty)" 
      @onclick="@(() => OnClick.InvokeAsync(new PlayerAction(PlayerActionType, Card)))" />
 
 @code {
