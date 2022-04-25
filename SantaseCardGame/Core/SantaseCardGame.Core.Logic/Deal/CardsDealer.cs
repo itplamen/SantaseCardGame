@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.Core.Logic.Dealer
+﻿namespace SantaseCardGame.Core.Logic.Deal
 {
     using System;
     using System.Collections.Generic;
