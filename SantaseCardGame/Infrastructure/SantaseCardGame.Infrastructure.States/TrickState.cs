@@ -32,6 +32,11 @@
                 cards.Clear();
             }
         }
+
+        public void Clear()
+        {
+            cards.Clear();
+        }
         
         private PlayerPosition GetNextPlayerPosition(PlayerPosition current)
         {

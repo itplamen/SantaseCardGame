@@ -13,5 +13,7 @@
         void SetPlayerTurn(PlayerPosition playerPosition);
 
         void AddCard(Card card, PlayerPosition playerPosition);
+
+        void Clear();
     }
 }

@@ -57,6 +57,13 @@
             announcements.Add(suit, announcement);
         }
 
+        public void Clear()
+        {
+            cards.Clear();
+            hands.Clear();
+            announcements.Clear();
+        }
+
         private int CalculatePoints()
         {
             if (Hands.Any())
