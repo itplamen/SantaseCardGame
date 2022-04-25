@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.Core.Logic.Winners.Round
+﻿namespace SantaseCardGame.Core.Logic.Winning.Round
 {
     using System.Collections.Generic;
     using System.Linq;

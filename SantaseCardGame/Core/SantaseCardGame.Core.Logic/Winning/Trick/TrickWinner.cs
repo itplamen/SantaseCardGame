@@ -1,4 +1,4 @@
-﻿namespace SantaseCardGame.Core.Logic.Winners.Trick
+﻿namespace SantaseCardGame.Core.Logic.Winning.Trick
 {
     using System.Collections.Generic;
     using System.Linq;
