@@ -1,7 +1,9 @@
 ﻿namespace SantaseCardGame.Infrastructure.States.Contracts
 {
-    using SantaseCardGame.Data.Models;
+    using System;
 
+    using SantaseCardGame.Data.Models;
+    
     public interface IDeckState
     {
         bool ShouldFollowSuit { get; set; }
@@ -11,5 +13,13 @@
         PlayerPosition ClosedBy { get; set; }
 
         int CardsLeft { get; set; }
+
+        event Action<PlayerAction> OnChangeTrumpCard;
+
+        event Action<Card> OnExchangeTrumpCardForNineOfTrumps;
+
+        void ChangeTrumpCard(PlayerAction playerAction);
+
+        void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard);
     }
 }
