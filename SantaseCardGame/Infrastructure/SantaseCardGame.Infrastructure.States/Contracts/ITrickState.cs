@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Infrastructure.States.Contracts
 {
+    using System;
     using System.Collections.Generic;
 
     using SantaseCardGame.Data.Models;
@@ -9,6 +10,8 @@
         PlayerPosition PlayerTurn { get; }
 
         IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards { get; }
+
+        event Action OnDisplayTrick;
 
         void SetPlayerTurn(PlayerPosition playerPosition);
 

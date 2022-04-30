@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Infrastructure.States
 {
+    using System;
     using System.Collections.Generic;
 
     using SantaseCardGame.Data.Models;
@@ -14,6 +15,8 @@
         public PlayerPosition PlayerTurn { get; private set; }
 
         public IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards => cards;
+
+        public event Action OnDisplayTrick;
 
         public void SetPlayerTurn(PlayerPosition playerPosition)
         {
@@ -31,6 +34,8 @@
             {
                 cards.Clear();
             }
+
+            OnDisplayTrick?.Invoke();
         }
 
         public void Clear()

@@ -1,0 +1,41 @@
+﻿@implements IDisposable;
+
+@inject ITrickState TrickState;
+
+<div id="TrickCards">
+    @if (currentPlayerCard != null)
+    {
+        <img src="/images/cards/@string.Concat(currentPlayerCard.Name,".png")" class="current-player-trick-card" />
+    }
+
+    @if (opponentPlayerCard != null)
+    {
+        <img src="/images/cards/@string.Concat(opponentPlayerCard.Name,".png")" class="opponent-player-trick-card" />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public PlayerPosition CurrentPlayerPosition { get; set; }
+
+    private Card currentPlayerCard;
+    private Card opponentPlayerCard;
+
+    protected override void OnInitialized()
+    {
+        TrickState.OnDisplayTrick += DisplayTrick;
+    }
+
+    public void Dispose()
+    {
+        TrickState.OnDisplayTrick -= DisplayTrick;
+    }
+
+    private void DisplayTrick()
+    {
+        currentPlayerCard = TrickState.Cards.FirstOrDefault(x => x.Key == CurrentPlayerPosition).Value;
+        opponentPlayerCard = TrickState.Cards.FirstOrDefault(x => x.Key != CurrentPlayerPosition).Value;
+
+        StateHasChanged();
+    }
+}
