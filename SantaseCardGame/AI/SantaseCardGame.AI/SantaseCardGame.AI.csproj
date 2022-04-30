@@ -5,4 +5,9 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\SantaseCardGame.Data.Models\SantaseCardGame.Data.Models.csproj" />
+    <ProjectReference Include="..\SantaseCardGame.AI.Logic\SantaseCardGame.AI.Logic.csproj" />
+  </ItemGroup>
+
 </Project>

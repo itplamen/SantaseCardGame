@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.Core.Engine.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Contracts;
@@ -11,17 +12,20 @@
 
     public class GameEngine : IGameEngine
     {
+        private readonly IGamePlayer gamePlayer;
         private readonly IInMemoryGameStorage gameStorage;
         private readonly IAnnouncementChecker announcementChecker;
         private readonly IEnumerable<IActionPlaying> actionsPlaying;
         private readonly IEnumerable<IGameStateHandler> gameStateHandlers;
 
         public GameEngine(
+            IGamePlayer gamePlayer,
             IInMemoryGameStorage gameStorage, 
             IAnnouncementChecker announcementChecker, 
             IEnumerable<IActionPlaying> actionsPlaying, 
             IEnumerable<IGameStateHandler> gameStateHandlers)
         {
+            this.gamePlayer = gamePlayer;
             this.gameStorage = gameStorage;
             this.announcementChecker = announcementChecker;
             this.actionsPlaying = actionsPlaying;
@@ -53,6 +57,13 @@
             };
 
             game.AddPlayer(player);
+        }
+
+        public void StartGame(Game game)
+        {
+            gameStateHandlers.ToList().ForEach(x => x.Handle(game));
+
+            gamePlayer.Play(game.Players.First());
         }
 
         public void EndGame(string gameId)

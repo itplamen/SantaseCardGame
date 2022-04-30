@@ -21,32 +21,34 @@
 
         public void Handle(Game game)
         {
-            game.Players.ToList().ForEach(x => x.Clear());
-            game.Deck = cardsDealer.Deal(game.Players.First(), game.Players.Last()); 
+            if (game.Deck == null && game.Players.All(x => !x.Cards.Any()))
+            {
+                game.Players.ToList().ForEach(x => x.Clear());
+                game.Deck = cardsDealer.Deal(game.Players.First(), game.Players.Last());
 
-            PlayerPosition playerTurn = PlayerPosition.None;
+                PlayerPosition playerTurn = GetPlayerTurn(game);
+                trickState.SetPlayerTurn(playerTurn);
+                trickState.Clear();
 
+                deckState.CardsLeft = game.Deck.Cards.Count();
+                deckState.TrumpCard = game.Deck.TrumpCard;
+
+                deckState.ClosedBy = PlayerPosition.None;
+                deckState.ShouldFollowSuit = false;
+            }
+        }
+
+        private PlayerPosition GetPlayerTurn(Game game)
+        {
             switch (game.Rounds.LastOrDefault()?.WinnerPosition)
             {
                 case PlayerPosition.First:
-                    playerTurn = PlayerPosition.Second;
-                    break;
+                    return PlayerPosition.Second;
                 case PlayerPosition.Second:
-                    playerTurn = PlayerPosition.First;
-                    break;
+                    return PlayerPosition.First;
                 default:
-                    playerTurn = PlayerPosition.First;
-                    break;
+                    return PlayerPosition.First;
             }
-
-            trickState.SetPlayerTurn(playerTurn);
-            trickState.Clear();
-
-            deckState.CardsLeft = game.Deck.Cards.Count();
-            deckState.TrumpCard = game.Deck.TrumpCard;
-
-            deckState.ClosedBy = PlayerPosition.None;
-            deckState.ShouldFollowSuit = false;
         }
     }
 }
