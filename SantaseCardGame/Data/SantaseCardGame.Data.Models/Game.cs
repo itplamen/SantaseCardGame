@@ -6,6 +6,8 @@
     {
         private readonly List<Player> players = new List<Player>();
 
+        private readonly List<Round> rounds = new List<Round>();
+
         public string Id { get; set; }
 
         public GameType Type { get; set; }
@@ -14,11 +16,16 @@
 
         public IEnumerable<Player> Players => players;
 
-        public ICollection<Round> Rounds { get; set; } = new List<Round>();
+        public IEnumerable<Round> Rounds => rounds;
 
         public void AddPlayer(Player player)
         {
             players.Add(player);
+        }
+
+        public void AddRound(Round round)
+        {
+            rounds.Add(round);
         }
     }
 }
