@@ -12,12 +12,18 @@
     public class GameEngine : IGameEngine
     {
         private readonly IInMemoryGameStorage gameStorage;
+        private readonly IAnnouncementChecker announcementChecker;
         private readonly IEnumerable<IActionPlaying> actionsPlaying;
         private readonly IEnumerable<IGameStateHandler> gameStateHandlers;
 
-        public GameEngine(IInMemoryGameStorage gameStorage, IEnumerable<IActionPlaying> actionsPlaying, IEnumerable<IGameStateHandler> gameStateHandlers)
+        public GameEngine(
+            IInMemoryGameStorage gameStorage, 
+            IAnnouncementChecker announcementChecker, 
+            IEnumerable<IActionPlaying> actionsPlaying, 
+            IEnumerable<IGameStateHandler> gameStateHandlers)
         {
             this.gameStorage = gameStorage;
+            this.announcementChecker = announcementChecker;
             this.actionsPlaying = actionsPlaying;
             this.gameStateHandlers = gameStateHandlers;
         }
@@ -56,6 +62,16 @@
 
         public void Play(PlayerAction playerAction, Player player)
         {
+            if (playerAction.Type == PlayerActionType.PlayCard)
+            {
+                Announce announce = announcementChecker.GetAnnouncement(player, playerAction.Card);
+
+                if (announce != Announce.None)
+                {
+                    playerAction.Announce = announce;
+                }
+            }
+
             actionsPlaying.ToList().ForEach(x => x.Play(playerAction, player));
 
             Game game = gameStorage.GetByPlayerId(player.Id);

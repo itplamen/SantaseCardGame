@@ -1,0 +1,58 @@
+﻿@implements IDisposable;
+
+@inject IDeckState DeckState;
+@inject ITrickState TrickState;
+@inject IGameEngine GameEngine;
+
+@if (IsCurrentPlayer)
+{
+    <div id="PlayerInfo">
+        <img src="/images/common/player.png" alt="PlayerImage" id="PlayerImage" />
+        <div id="Username">@Player.Username</div>
+        <div id="Points">@Player.Points</div>
+    </div>
+}
+
+<div id="@(IsCurrentPlayer ? "CurrentPlayer" : "Opponent")">
+    @foreach (var card in Player.Cards)
+    {
+        if (IsCurrentPlayer)
+        {
+            <CardComponent Card="card" PlayerActionType="PlayerActionType.PlayCard" OnClick="PlayCard"></CardComponent>
+        }
+        else
+        {
+            <CardComponent Card="card" PlayerActionType="PlayerActionType.None"></CardComponent>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Player Player { get; set; }
+
+    [Parameter]
+    public bool IsCurrentPlayer { get; set; }
+
+    protected override void OnInitialized()
+    {
+        DeckState.OnCloseDeck += PlayCard;
+        DeckState.OnChangeTrumpCard += PlayCard;
+    }
+
+    public void Dispose()
+    {
+        DeckState.OnCloseDeck -= PlayCard;
+        DeckState.OnChangeTrumpCard -= PlayCard;
+    }
+
+    private void PlayCard(PlayerAction playerAction)
+    {
+        if (IsCurrentPlayer && TrickState.PlayerTurn == Player.Position)
+        {
+            GameEngine.Play(playerAction, Player);
+
+            StateHasChanged();
+        }
+    }
+}
