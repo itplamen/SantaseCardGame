@@ -5,4 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SantaseCardGame.Core.Logic\SantaseCardGame.Core.Logic.csproj" />
+  </ItemGroup>
+
 </Project>

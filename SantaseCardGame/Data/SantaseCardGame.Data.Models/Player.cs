@@ -11,6 +11,8 @@
 
         private readonly Dictionary<CardSuit, Announce> announcements = new Dictionary<CardSuit, Announce>();
 
+        public string Id { get; set; }
+
         public int Points => CalculatePoints();
 
         public int BonusPoints { get; set; }
