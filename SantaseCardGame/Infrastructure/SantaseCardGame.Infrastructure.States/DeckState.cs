@@ -15,9 +15,19 @@
 
         public int CardsLeft { get; set; }
 
+        public event Action<PlayerAction> OnCloseDeck;
+
         public event Action<PlayerAction> OnChangeTrumpCard;
 
         public event Action<Card> OnExchangeTrumpCardForNineOfTrumps;
+
+        public void CloseDeck()
+        {
+            if (ClosedBy == PlayerPosition.None)
+            {
+                OnCloseDeck?.Invoke(new PlayerAction(PlayerActionType.CloseDeck));
+            }
+        }
 
         public void ChangeTrumpCard(PlayerAction playerAction)
         {

@@ -14,9 +14,13 @@
 
         int CardsLeft { get; set; }
 
+        event Action<PlayerAction> OnCloseDeck;
+
         event Action<PlayerAction> OnChangeTrumpCard;
 
         event Action<Card> OnExchangeTrumpCardForNineOfTrumps;
+
+        void CloseDeck();
 
         void ChangeTrumpCard(PlayerAction playerAction);
 

@@ -1,0 +1,39 @@
+﻿@implements IDisposable;
+
+@inject IDeckState DeckState;
+
+@if (Deck.Cards.Any())
+{
+    <CardComponent Card="Deck.TrumpCard" PlayerActionType="PlayerActionType.ChangeTrumpCard" OnClick="DeckState.ChangeTrumpCard"></CardComponent>
+
+    <div id="DeckCards" class="deck-component" @onclick="DeckState.CloseDeck">
+        <div id="DeckCardsCount">@(Deck.Cards.Count())</div>
+        <img src="/images/cards/Back.png" id="DeckBackCard" alt="DeckBackCard" class="card-component" />
+    </div>
+
+    <div id="ClosedDeck"></div>
+}
+else
+{
+    <div id="TrumpSuit"></div>
+}
+
+@code {
+    [Parameter]
+    public Deck Deck { get; set; }
+
+    public void Dispose()
+    {
+        DeckState.OnExchangeTrumpCardForNineOfTrumps -= ExchangeTrumpCardForNineOfTrumps;
+    }
+
+    private void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard)
+    {
+        Deck.RemoveCard(Deck.TrumpCard);
+        Deck.AddCard(nineOfTrumpsCard);
+
+        DeckState.TrumpCard = nineOfTrumpsCard;
+
+        StateHasChanged();
+    }
+}
