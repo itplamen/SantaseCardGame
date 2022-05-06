@@ -73,6 +73,7 @@
             player.AddCard(card, index);
         }
 
+        // Fisher–Yates algorithm
         private Deck Shuffle(IEnumerable<Card> cards)
         {
             if (cards == null || !cards.Any())
@@ -86,10 +87,13 @@
             for (var i = 0; i < list.Count; i++)
             {
                 int index = i + RandomGenerator.Next(0, list.Count - i);
-                Card card = list[i];
 
-                deck.AddCard(card, index);
+                Card temp = list[i];
+                list[i] = list[index];
+                list[index] = temp;
             }
+
+            list.ForEach(x => deck.AddCard(x));
 
             return deck;
         }

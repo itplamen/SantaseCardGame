@@ -20,7 +20,9 @@
 
         protected bool HasRoundEnded(IEnumerable<Player> players)
         {
-            return players.Any(x => x.Points >= gameRules.RoundWinPoints) || players.All(x => !x.Cards.Any());
+            return players.Any(x => x.Hands.Any()) &&
+                (players.Any(x => x.Points >= gameRules.RoundWinPoints) || 
+                players.All(x => !x.Cards.Any()));
         }
 
         protected int GetWinnerPoints(Player loser)

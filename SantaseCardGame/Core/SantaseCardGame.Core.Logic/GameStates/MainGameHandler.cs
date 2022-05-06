@@ -26,20 +26,27 @@
 
         public void Handle(Game game)
         {
+            Round round = new Round();
+
             foreach (var roundWinner in roundWinners)
             {
-                Round round = roundWinner.GetWinner(deckState.ClosedBy, game.Players);
+                round = roundWinner.GetWinner(deckState.ClosedBy, game.Players);
 
-                if (trickValidator.HasEnded() && 
-                    game.Players.All(x => x.Cards.Any()) &&
-                    round.WinnerPosition == PlayerPosition.None)
+                if (round.WinnerPosition != PlayerPosition.None)
                 {
-                    dealer.DrawCards(game.Deck, game.Players);
+                    break;
                 }
-                else if (round.WinnerPosition != PlayerPosition.None)
-                {
-                    game.AddRound(round);
-                }
+            }
+
+            if (trickValidator.HasEnded() &&
+                game.Players.All(x => x.Cards.Any()) &&
+                round.WinnerPosition == PlayerPosition.None)
+            {
+                dealer.DrawCards(game.Deck, game.Players);
+            }
+            else if (round.WinnerPosition != PlayerPosition.None)
+            {
+                game.AddRound(round);
             }
         }
     }
