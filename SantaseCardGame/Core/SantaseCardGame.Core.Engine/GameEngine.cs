@@ -63,7 +63,14 @@
         {
             gameStateHandlers.ToList().ForEach(x => x.Handle(game));
 
-            gamePlayer.Play(game.Players.First());
+            ManageGamePlayer(game.Players.First());
+        }
+
+        public async void ManageGamePlayer(Player player)
+        {
+            var playerAction = await gamePlayer.Play(player);
+
+            Play(playerAction, player);
         }
 
         public void EndGame(string gameId)

@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Client.Web"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Infrastructure.IoCContainer", "Infrastructure\SantaseCardGame.Infrastructure.IoCContainer\SantaseCardGame.Infrastructure.IoCContainer.csproj", "{AE05FE75-B6AE-4E35-A53B-1C1752223D7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Core.Engine", "Core\SantaseCardGame.Core.Engine\SantaseCardGame.Core.Engine.csproj", "{DFAD9130-4A96-423E-9F9F-58B59756D78B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Core.Engine", "Core\SantaseCardGame.Core.Engine\SantaseCardGame.Core.Engine.csproj", "{DFAD9130-4A96-423E-9F9F-58B59756D78B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

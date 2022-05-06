@@ -10,6 +10,8 @@
 
         void StartGame(Game game);
 
+        void ManageGamePlayer(Player player);
+
         void EndGame(string gameId);
 
         void Play(PlayerAction playerAction, Player player);
