@@ -1,0 +1,35 @@
+﻿@page "/singleplayer"
+
+@inject ITrickState TrickState;
+@inject IGameEngine GameEngine;
+
+@if (game != null)
+{
+    <div id="GameBoard">
+        <PlayerComponent IsCurrentPlayer="false" Player="game.Players.First()"></PlayerComponent>
+        <DeckComponent Deck="game.Deck"></DeckComponent>
+        <TrickComponent CurrentPlayerPosition="game.Players.Last().Position"></TrickComponent>
+        <PlayerComponent IsCurrentPlayer="true" Player="game.Players.Last()"></PlayerComponent>
+    </div>
+}
+
+@code {
+    private Game game;
+
+    protected override void OnInitialized()
+    {
+        TrickState.OnDisplay += StateHasChanged;
+
+        game = GameEngine.CreateGame(GameType.Singleplayer);
+
+        GameEngine.JoinGame(game.Id, "Bot");
+        GameEngine.JoinGame(game.Id, "Player");
+
+        GameEngine.StartGame(game);
+    }
+
+    public void Dispose()
+    {
+        TrickState.OnDisplay -= StateHasChanged;
+    }
+}
