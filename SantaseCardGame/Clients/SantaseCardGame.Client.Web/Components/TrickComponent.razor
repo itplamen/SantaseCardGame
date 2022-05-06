@@ -23,12 +23,12 @@
 
     protected override void OnInitialized()
     {
-        TrickState.OnDisplayTrick += DisplayTrick;
+        TrickState.OnDisplay += DisplayTrick;
     }
 
     public void Dispose()
     {
-        TrickState.OnDisplayTrick -= DisplayTrick;
+        TrickState.OnDisplay -= DisplayTrick;
     }
 
     private void DisplayTrick()

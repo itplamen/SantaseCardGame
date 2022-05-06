@@ -11,7 +11,7 @@
 
         IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards { get; }
 
-        event Action OnDisplayTrick;
+        event Action OnDisplay;
 
         void SetPlayerTurn(PlayerPosition playerPosition);
 

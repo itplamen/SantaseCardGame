@@ -16,7 +16,7 @@
 
         public IEnumerable<KeyValuePair<PlayerPosition, Card>> Cards => cards;
 
-        public event Action OnDisplayTrick;
+        public event Action OnDisplay;
 
         public void SetPlayerTurn(PlayerPosition playerPosition)
         {
@@ -29,13 +29,9 @@
             {
                 cards.Add(playerPosition, card);
                 PlayerTurn = GetNextPlayerPosition(playerPosition);
-            }
-            else
-            {
-                cards.Clear();
-            }
 
-            OnDisplayTrick?.Invoke();
+                OnDisplay?.Invoke();
+            }
         }
 
         public void Clear()
