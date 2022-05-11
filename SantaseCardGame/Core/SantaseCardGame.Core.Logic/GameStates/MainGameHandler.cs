@@ -37,9 +37,10 @@
                 }
             }
 
-            if (!trickState.Cards.Any() &&
-                game.Players.Any(x => x.Points > 0) &&
-                game.Players.All(x => x.Cards.Any()) &&
+            if (game.Deck != null &&
+                game.Deck.Cards.Any() &&
+                game.Players.Any(x => x.Hands.Any()) &&
+                game.Players.All(x => x.Cards.Count() < 6) &&
                 round.WinnerPosition == PlayerPosition.None)
             {
                 dealer.DrawCards(game.Deck, game.Players);

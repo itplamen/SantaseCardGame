@@ -8,8 +8,6 @@
 
         void JoinGame(string gameId, string username);
 
-        void StartGame(Game game);
-
         void EndGame(string gameId);
 
         void ManageGame(Game game);

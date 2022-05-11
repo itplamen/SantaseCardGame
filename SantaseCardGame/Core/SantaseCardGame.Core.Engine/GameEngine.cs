@@ -10,9 +10,11 @@
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class GameEngine : IGameEngine
     {
+        private readonly ITrickState trickState;
         private readonly IGamePlayer gamePlayer;
         private readonly IInMemoryGameStorage gameStorage;
         private readonly IAnnouncementChecker announcementChecker;
@@ -20,12 +22,14 @@
         private readonly IEnumerable<IGameStateHandler> gameStateHandlers;
 
         public GameEngine(
+            ITrickState trickState,
             IGamePlayer gamePlayer,
             IInMemoryGameStorage gameStorage, 
             IAnnouncementChecker announcementChecker, 
             IEnumerable<IActionPlaying> actionsPlaying, 
             IEnumerable<IGameStateHandler> gameStateHandlers)
         {
+            this.trickState = trickState;
             this.gamePlayer = gamePlayer;
             this.gameStorage = gameStorage;
             this.announcementChecker = announcementChecker;
@@ -60,16 +64,6 @@
             game.AddPlayer(player);
         }
 
-        public void StartGame(Game game)
-        {
-            ManageGame(game);
-
-            var botPlayer = game.Players.First();
-            var playerAction = gamePlayer.Play(botPlayer);
-
-            Play(playerAction, botPlayer);
-        }
-
         public void EndGame(string gameId)
         {
             gameStorage.Remove(gameId);
@@ -77,7 +71,7 @@
 
         public async void ManageGame(Game game)
         {
-            if (!(game.Deck == null && game.Players.All(x => !x.Cards.Any())))
+            if (game.Deck != null && trickState.Cards.Any(x => x.Key == PlayerPosition.First))
             {
                 await SimulateThinking();
             }
@@ -86,9 +80,14 @@
             {
                 stateHandler.Handle(game);
             }
+
+            if (trickState.PlayerTurn == PlayerPosition.First)
+            {
+                ManageGamePlayerTurn(game.Players.First());
+            }
         }
 
-        public async void Play(PlayerAction playerAction, Player player)
+        public void Play(PlayerAction playerAction, Player player)
         {
             if (playerAction.Type == PlayerActionType.PlayCard)
             {
@@ -100,14 +99,23 @@
                 }
             }
 
-            if (player.Position == PlayerPosition.First)
-            {
-                await SimulateThinking();
-            }
-            
             foreach (var playAction in actionsPlaying)
             {
                 playAction.Play(playerAction, player);
+            }
+        }
+
+        private async void ManageGamePlayerTurn(Player player)
+        {
+            await SimulateThinking();
+
+            var playerAction = gamePlayer.Play(player);
+            Play(playerAction, player);
+
+            if (playerAction.Type == PlayerActionType.CloseDeck ||
+                playerAction.Type == PlayerActionType.ChangeTrumpCard)
+            {
+                ManageGamePlayerTurn(player);
             }
         }
 
