@@ -1,8 +1,8 @@
-﻿using SantaseCardGame.Core.Logic.Contracts;
-namespace SantaseCardGame.Core.Logic.Validators.TrickPlaying
+﻿namespace SantaseCardGame.Core.Logic.Validators.TrickPlaying
 {
     using System.Linq;
 
+    using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Contracts.Validators;
     using SantaseCardGame.Infrastructure.States.Contracts;
 

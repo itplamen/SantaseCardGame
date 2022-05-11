@@ -8,8 +8,6 @@ namespace SantaseCardGame.Data.Contracts
 
         Game Get(string id);
 
-        Game GetByPlayerId(string playerId);
-
         void Remove(string id);
     }
 }
