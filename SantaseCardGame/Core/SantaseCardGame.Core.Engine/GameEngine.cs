@@ -3,15 +3,18 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.Core.Engine.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class GameEngine : IGameEngine
     {
+        private readonly ITrickState trickState;
         private readonly IGamePlayer gamePlayer;
         private readonly IInMemoryGameStorage gameStorage;
         private readonly IAnnouncementChecker announcementChecker;
@@ -19,12 +22,14 @@
         private readonly IEnumerable<IGameStateHandler> gameStateHandlers;
 
         public GameEngine(
+            ITrickState trickState,
             IGamePlayer gamePlayer,
             IInMemoryGameStorage gameStorage, 
             IAnnouncementChecker announcementChecker, 
             IEnumerable<IActionPlaying> actionsPlaying, 
             IEnumerable<IGameStateHandler> gameStateHandlers)
         {
+            this.trickState = trickState;
             this.gamePlayer = gamePlayer;
             this.gameStorage = gameStorage;
             this.announcementChecker = announcementChecker;
@@ -61,16 +66,12 @@
 
         public void StartGame(Game game)
         {
-            gameStateHandlers.ToList().ForEach(x => x.Handle(game));
+            ManageGame(game);
 
-            ManageGamePlayer(game.Players.First());
-        }
+            var botPlayer = game.Players.First();
+            var playerAction = gamePlayer.Play(botPlayer);
 
-        public async void ManageGamePlayer(Player player)
-        {
-            var playerAction = await gamePlayer.Play(player);
-
-            Play(playerAction, player);
+            Play(playerAction, botPlayer);
         }
 
         public void EndGame(string gameId)
@@ -78,7 +79,26 @@
             gameStorage.Remove(gameId);
         }
 
-        public void Play(PlayerAction playerAction, Player player)
+        public async void ManageGame(Game game)
+        {
+            if (!(game.Deck == null && game.Players.All(x => !x.Cards.Any())))
+            {
+                await SimulateThinking();
+            }
+
+            foreach (var stateHandler in gameStateHandlers)
+            {
+                stateHandler.Handle(game);
+            }
+
+            if (!(game.Deck == null && game.Players.All(x => !x.Cards.Any())))
+            {
+                trickState.Clear();
+                trickState.Display();
+            }
+        }
+
+        public async void Play(PlayerAction playerAction, Player player)
         {
             if (playerAction.Type == PlayerActionType.PlayCard)
             {
@@ -90,10 +110,20 @@
                 }
             }
 
-            actionsPlaying.ToList().ForEach(x => x.Play(playerAction, player));
+            if (player.Position == PlayerPosition.First)
+            {
+                await SimulateThinking();
+            }
+            
+            foreach (var playAction in actionsPlaying)
+            {
+                playAction.Play(playerAction, player);
+            }
+        }
 
-            Game game = gameStorage.GetByPlayerId(player.Id);
-            gameStateHandlers.ToList().ForEach(x => x.Handle(game));
+        private async Task SimulateThinking()
+        {
+            await Task.Delay(1500);
         }
     }
 }

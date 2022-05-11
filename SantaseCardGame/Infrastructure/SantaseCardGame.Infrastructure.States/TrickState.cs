@@ -18,6 +18,8 @@
 
         public event Action OnDisplay;
 
+        public event Action OnEnded;
+
         public void SetPlayerTurn(PlayerPosition playerPosition)
         {
             PlayerTurn = playerPosition;
@@ -30,7 +32,12 @@
                 cards.Add(playerPosition, card);
                 PlayerTurn = GetNextPlayerPosition(playerPosition);
 
-                OnDisplay?.Invoke();
+                Display();
+            }
+
+            if (cards.Count == TRICK_CARDS)
+            {
+                OnEnded?.Invoke();
             }
         }
 
@@ -38,7 +45,12 @@
         {
             cards.Clear();
         }
-        
+
+        public void Display()
+        {
+            OnDisplay?.Invoke();
+        }
+
         private PlayerPosition GetNextPlayerPosition(PlayerPosition current)
         {
             if (cards.Count < TRICK_CARDS)

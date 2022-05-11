@@ -13,10 +13,14 @@
 
         event Action OnDisplay;
 
+        event Action OnEnded;
+
         void SetPlayerTurn(PlayerPosition playerPosition);
 
         void AddCard(Card card, PlayerPosition playerPosition);
 
         void Clear();
+
+        void Display();
     }
 }
