@@ -13,7 +13,7 @@
 
         event Action OnDisplay;
 
-        event Action OnEnded;
+        event Action OnManage;
 
         void SetPlayerTurn(PlayerPosition playerPosition);
 

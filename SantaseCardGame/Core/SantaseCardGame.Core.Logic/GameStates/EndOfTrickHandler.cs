@@ -33,6 +33,7 @@
                 winnerPlayer.AddHand(hand);
 
                 trickState.SetPlayerTurn(winnerPosition);
+                trickState.Clear();
             }
         }
     }

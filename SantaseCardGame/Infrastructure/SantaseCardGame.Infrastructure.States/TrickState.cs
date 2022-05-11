@@ -18,7 +18,7 @@
 
         public event Action OnDisplay;
 
-        public event Action OnEnded;
+        public event Action OnManage;
 
         public void SetPlayerTurn(PlayerPosition playerPosition)
         {
@@ -35,10 +35,7 @@
                 Display();
             }
 
-            if (cards.Count == TRICK_CARDS)
-            {
-                OnEnded?.Invoke();
-            }
+            OnManage?.Invoke();
         }
 
         public void Clear()

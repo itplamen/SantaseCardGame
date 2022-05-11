@@ -4,7 +4,6 @@
     using System.Linq;
 
     using SantaseCardGame.Core.Logic.Contracts;
-    using SantaseCardGame.Core.Logic.Contracts.Validators;
     using SantaseCardGame.Core.Logic.Contracts.Winning;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
@@ -13,14 +12,14 @@
     {
         private readonly ICardsDealer dealer;
         private readonly IDeckState deckState;
-        private readonly ITrickEndedValidator trickValidator;
+        private readonly ITrickState trickState;
         private readonly IEnumerable<IRoundWinner> roundWinners;
 
-        public MainGameHandler(ICardsDealer dealer, IDeckState deckState, ITrickEndedValidator trickValidator, IEnumerable<IRoundWinner> roundWinners)
+        public MainGameHandler(ICardsDealer dealer, IDeckState deckState, ITrickState trickState, IEnumerable<IRoundWinner> roundWinners)
         {
             this.dealer = dealer;
             this.deckState = deckState;
-            this.trickValidator = trickValidator;
+            this.trickState = trickState;
             this.roundWinners = roundWinners;
         }
 
@@ -38,11 +37,14 @@
                 }
             }
 
-            if (trickValidator.HasEnded() &&
+            if (!trickState.Cards.Any() &&
+                game.Players.Any(x => x.Points > 0) &&
                 game.Players.All(x => x.Cards.Any()) &&
                 round.WinnerPosition == PlayerPosition.None)
             {
                 dealer.DrawCards(game.Deck, game.Players);
+
+                trickState.Display();
             }
             else if (round.WinnerPosition != PlayerPosition.None)
             {

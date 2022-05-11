@@ -19,7 +19,7 @@
     protected override void OnInitialized()
     {
         TrickState.OnDisplay += StateHasChanged;
-        TrickState.OnEnded += () => GameEngine.ManageGame(game);
+        TrickState.OnManage += () => GameEngine.ManageGame(game);
 
         game = GameEngine.CreateGame(GameType.Singleplayer);
 
@@ -32,6 +32,6 @@
     public void Dispose()
     {
         TrickState.OnDisplay -= StateHasChanged;
-        TrickState.OnEnded -= () => GameEngine.ManageGame(game);
+        TrickState.OnManage -= () => GameEngine.ManageGame(game);
     }
 }

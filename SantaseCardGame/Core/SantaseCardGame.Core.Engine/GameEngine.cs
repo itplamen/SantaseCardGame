@@ -10,11 +10,9 @@
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
-    using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class GameEngine : IGameEngine
     {
-        private readonly ITrickState trickState;
         private readonly IGamePlayer gamePlayer;
         private readonly IInMemoryGameStorage gameStorage;
         private readonly IAnnouncementChecker announcementChecker;
@@ -22,14 +20,12 @@
         private readonly IEnumerable<IGameStateHandler> gameStateHandlers;
 
         public GameEngine(
-            ITrickState trickState,
             IGamePlayer gamePlayer,
             IInMemoryGameStorage gameStorage, 
             IAnnouncementChecker announcementChecker, 
             IEnumerable<IActionPlaying> actionsPlaying, 
             IEnumerable<IGameStateHandler> gameStateHandlers)
         {
-            this.trickState = trickState;
             this.gamePlayer = gamePlayer;
             this.gameStorage = gameStorage;
             this.announcementChecker = announcementChecker;
@@ -89,12 +85,6 @@
             foreach (var stateHandler in gameStateHandlers)
             {
                 stateHandler.Handle(game);
-            }
-
-            if (!(game.Deck == null && game.Players.All(x => !x.Cards.Any())))
-            {
-                trickState.Clear();
-                trickState.Display();
             }
         }
 
