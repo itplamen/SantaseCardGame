@@ -15,7 +15,6 @@
     using SantaseCardGame.Core.Logic.Rules;
     using SantaseCardGame.Core.Logic.Validators.CardPlaying;
     using SantaseCardGame.Core.Logic.Validators.PlayerActions;
-    using SantaseCardGame.Core.Logic.Validators.TrickPlaying;
     using SantaseCardGame.Core.Logic.Winning.Round;
     using SantaseCardGame.Core.Logic.Winning.Trick;
     using SantaseCardGame.Infrastructure.IoCContainer.Contracts;
@@ -46,7 +45,6 @@
             services.AddSingleton<ICardPlayableValidator, PlayTrumpCardValidator>();
 
             services.AddSingleton<IPlayerActionValidator, PlayerActionValidator>();
-            services.AddSingleton<ITrickEndedValidator, TrickEndedValidator>();
 
             services.AddSingleton<IRoundWinner, DeckClosedRoundWinner>();
             services.AddSingleton<IRoundWinner, DeckNotClosedRoundWinner>();
