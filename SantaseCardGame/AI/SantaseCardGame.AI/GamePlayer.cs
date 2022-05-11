@@ -2,29 +2,27 @@
 {
     using System;
     using System.Collections.Generic;
-
+    
     using SantaseCardGame.AI.Contracts;
     using SantaseCardGame.AI.Logic.Contracts;
     using SantaseCardGame.Data.Models;
 
     public class GamePlayer : IGamePlayer
     {
-        private readonly IEnumerable<IPlayerActionStrategy> strategies;
+        private readonly IEnumerable<IPlayLogic> playLogics;
 
-        public GamePlayer(IEnumerable<IPlayerActionStrategy> strategies)
+        public GamePlayer(IEnumerable<IPlayLogic> playLogics)
         {
-            this.strategies = strategies;
+            this.playLogics = playLogics;
         }
 
-        public PlayerAction Play(Player player)
+        public IEnumerable<PlayerAction> Play(Player player)
         {
-            foreach (var strategy in strategies)
+            foreach (var playLogic in playLogics)
             {
-                PlayerAction playerAction = strategy.ChooseAction(player);
-
-                if (playerAction.Type != PlayerActionType.None)
+                if (playLogic.ShouldPlay(player))
                 {
-                    return playerAction;
+                    return playLogic.Play(player);
                 }
             }
 

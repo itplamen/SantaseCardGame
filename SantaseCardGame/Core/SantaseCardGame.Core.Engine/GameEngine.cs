@@ -109,13 +109,11 @@
         {
             await SimulateThinking();
 
-            var playerAction = gamePlayer.Play(player);
-            Play(playerAction, player);
+            var playerActions = gamePlayer.Play(player);
 
-            if (playerAction.Type == PlayerActionType.CloseDeck ||
-                playerAction.Type == PlayerActionType.ChangeTrumpCard)
+            foreach (var playerAction in playerActions)
             {
-                ManageGamePlayerTurn(player);
+                Play(playerAction, player);
             }
         }
 

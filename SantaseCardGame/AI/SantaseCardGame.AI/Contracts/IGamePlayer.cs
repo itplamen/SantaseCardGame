@@ -1,9 +1,11 @@
 ﻿namespace SantaseCardGame.AI.Contracts
 {
-    using SantaseCardGame.Data.Models;
+    using System.Collections.Generic;
 
+    using SantaseCardGame.Data.Models;
+    
     public interface IGamePlayer
     {
-        PlayerAction Play(Player player);
+        IEnumerable<PlayerAction> Play(Player player);
     }
 }

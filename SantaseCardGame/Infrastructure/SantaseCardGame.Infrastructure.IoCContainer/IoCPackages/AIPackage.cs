@@ -27,15 +27,15 @@
             services.AddSingleton<IPlayerActionStrategy, ChangeTrumpCardStrategy>();
             services.AddSingleton<IPlayerActionStrategy, CloseDeckStrategy>();
             services.AddSingleton<IPlayerActionStrategy, PlayCardStrategy>();
-            services.AddSingleton<IPlayerActionStrategy, PlayDifferentCardStrategy>();
             services.AddSingleton<IPlayerActionStrategy, PlayHigherCardStrategy>();
             services.AddSingleton<IPlayerActionStrategy, PlayLowerCardStrategy>();
             services.AddSingleton<IPlayerActionStrategy, PlayTrumpCardStrategy>();
+            services.AddSingleton<IPlayerActionStrategy, PlayDifferentCardStrategy>();
 
-            RegisterPlayingLogic(services, RegisterPlayFirstFollowingSuitLogic);
             RegisterPlayingLogic(services, RegisterPlayFirstNotFollowingSuitLogic);
-            RegisterPlayingLogic(services, RegisterPlaySecondFollowingSuitLogic);
+            RegisterPlayingLogic(services, RegisterPlayFirstFollowingSuitLogic);
             RegisterPlayingLogic(services, RegisterPlaySecondNotFollowingSuitLogic);
+            RegisterPlayingLogic(services, RegisterPlaySecondFollowingSuitLogic);
         }
 
         private PlayFirstFollowingSuitLogic RegisterPlayFirstFollowingSuitLogic(ITrickState trickState, IDeckState deckState, IEnumerable<IPlayerActionStrategy> strategies)
