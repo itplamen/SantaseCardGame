@@ -62,3 +62,84 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+#GameBoard {
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+}
+
+#DeckBackCard {
+    z-index: 99;
+    position: relative;
+}
+
+#Deck, #DeckCards {
+    border: 1px solid black;
+    height: 195px;
+    width: 260px;
+}
+
+#DeckCardsCount {
+    position: absolute;
+    top: 370px;
+    left: 78px;
+}
+
+#DeckCardsCount, #Points {
+    font-size: 20px;
+    width: 55px;
+    text-align: center;
+    z-index: 100 !important;
+    color: #ffffff;
+    background-color: #f4a624;
+    border-radius: 10px;
+}
+
+.card-component {
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.trump-card {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    position: absolute;
+    left: 120px;
+    top: 380px;
+}
+
+
+#Opponent {
+    margin-bottom: 120px;
+}
+
+#CurrentPlayer {
+    margin-top: 120px;
+}
+
+#TrickCards {
+    border: 1px solid black;
+    position: absolute;
+    top: 270px;
+    left: 400px;
+    right: 0;
+    height: 425px;
+    width: 144px;
+    
+}
+
+.opponent-player-trick-card {
+    position: absolute;
+    top: 10px;
+    border: 1px solid black;
+}
+
+.current-player-trick-card {
+    position: absolute;
+    top: 220px;
+    border: 1px solid black;
+}
