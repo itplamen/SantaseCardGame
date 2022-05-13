@@ -3,17 +3,17 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class DeckClosedRoundWinner : BaseRoundWinner
     {
-        private readonly IGameRules gameRules;
+        private readonly IGameState gameState;
 
-        public DeckClosedRoundWinner(IGameRules gameRules)
-            : base(gameRules)
+        public DeckClosedRoundWinner(IGameState gameState)
+            : base(gameState)
         {
-            this.gameRules = gameRules;
+            this.gameState = gameState;
         }
 
         public override Round GetWinner(PlayerPosition closedBy, IEnumerable<Player> players)
@@ -25,7 +25,7 @@
                 Player winner = players.First(x => x.Position == closedBy);
                 Player loser = players.First(x => x.Position != winner.Position);
 
-                if (winner.Points >= gameRules.RoundWinPoints)
+                if (winner.Points >= gameState.RoundWinPoints)
                 {
                     round.WinnerPosition = winner.Position;
                     round.Points = GetWinnerPoints(loser);
@@ -33,7 +33,7 @@
                 else
                 {
                     round.WinnerPosition = loser.Position;
-                    round.Points = loser.Hands.Any() ? gameRules.PlayerWinHalfRoundPoints : gameRules.PlayerWinMaxRoundPoints;
+                    round.Points = loser.Hands.Any() ? gameState.PlayerWinHalfRoundPoints : gameState.PlayerWinMaxRoundPoints;
                 }
             }
 

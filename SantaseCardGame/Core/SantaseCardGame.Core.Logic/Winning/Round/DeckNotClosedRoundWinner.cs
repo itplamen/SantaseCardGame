@@ -3,19 +3,18 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class DeckNotClosedRoundWinner : BaseRoundWinner
     {
-        private readonly IGameRules gameRules;
+        private readonly IGameState gameState;
         private readonly ITrickState trickState;
 
-        public DeckNotClosedRoundWinner(IGameRules gameRules, ITrickState trickState)
-            : base(gameRules)
+        public DeckNotClosedRoundWinner(IGameState gameState, ITrickState trickState)
+            : base(gameState)
         {
-            this.gameRules = gameRules;
+            this.gameState = gameState;
             this.trickState = trickState;
         }
 
@@ -23,7 +22,7 @@
         {
             if (closedBy == PlayerPosition.None && HasRoundEnded(players))
             {
-                Player winner = players.FirstOrDefault(x => x.Points >= gameRules.RoundWinPoints);
+                Player winner = players.FirstOrDefault(x => x.Points >= gameState.RoundWinPoints);
 
                 if (winner != null)
                 {
@@ -32,9 +31,9 @@
                 else
                 {
                     Player lastTrickWinner = players.First(x => x.Position == trickState.PlayerTurn);
-                    lastTrickWinner.BonusPoints = gameRules.LastTrickWinnerBonusPoints;
+                    lastTrickWinner.BonusPoints = gameState.LastTrickWinnerBonusPoints;
 
-                    if (lastTrickWinner.Points >= gameRules.RoundWinPoints)
+                    if (lastTrickWinner.Points >= gameState.RoundWinPoints)
                     {
                         return GetRound(players, lastTrickWinner.Position);
                     }

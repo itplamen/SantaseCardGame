@@ -2,20 +2,19 @@
 {
     using System.Linq;
 
-    using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Contracts.Validators;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class PlayerActionValidator : IPlayerActionValidator
     {
-        private readonly IGameRules gameRules;
+        private readonly IGameState gameState;
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
 
-        public PlayerActionValidator(IGameRules gameRules, IDeckState deckState, ITrickState trickState)
+        public PlayerActionValidator(IGameState gameState, IDeckState deckState, ITrickState trickState)
         {
-            this.gameRules = gameRules;
+            this.gameState = gameState;
             this.deckState = deckState;
             this.trickState = trickState;
         }
@@ -39,7 +38,7 @@
 
         private bool CanPerformAction(Player player)
         {
-            return deckState.CardsLeft >= gameRules.DeckMinCardsBeforeClosing &&
+            return deckState.CardsLeft >= gameState.DeckMinCardsBeforeClosing &&
                 deckState.ClosedBy == PlayerPosition.None &&
                 !deckState.ShouldFollowSuit &&
                 player.Position == trickState.PlayerTurn &&

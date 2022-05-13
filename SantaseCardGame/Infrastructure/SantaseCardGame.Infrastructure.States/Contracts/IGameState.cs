@@ -1,6 +1,8 @@
-﻿namespace SantaseCardGame.Core.Logic.Contracts
+﻿namespace SantaseCardGame.Infrastructure.States.Contracts
 {
-    public interface IGameRules
+    using SantaseCardGame.Data.Models;
+
+    public interface IGameState
     {
         int RoundInitialCardsCount { get; }
 
@@ -23,5 +25,7 @@
         int PlayerWinMinRoundPoints { get; }
 
         int LastTrickWinnerBonusPoints { get; }
+
+        PlayerPosition RoundWinner { get; set; }
     }
 }

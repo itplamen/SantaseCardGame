@@ -1,8 +1,9 @@
-﻿namespace SantaseCardGame.Core.Logic.Rules
+﻿namespace SantaseCardGame.Infrastructure.States
 {
-    using SantaseCardGame.Core.Logic.Contracts;
+    using SantaseCardGame.Data.Models;
+    using SantaseCardGame.Infrastructure.States.Contracts;
 
-    public class GameRules : IGameRules
+    public class GameState : IGameState
     {
         public int RoundInitialCardsCount => 6;
 
@@ -25,5 +26,7 @@
         public int PlayerWinMinRoundPoints => 1;
 
         public int LastTrickWinnerBonusPoints => 10;
+
+        public PlayerPosition RoundWinner { get; set; }
     }
 }

@@ -10,13 +10,13 @@
 
     public class AnnouncementChecker : IAnnouncementChecker
     {
-        private readonly IGameRules gameRules;
+        private readonly IGameState gameState;
         private readonly IDeckState deckState;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnouncementChecker(IGameRules gameRules, IDeckState deckState, IPlayerActionValidator playerActionValidator)
+        public AnnouncementChecker(IGameState gameState, IDeckState deckState, IPlayerActionValidator playerActionValidator)
         {
-            this.gameRules = gameRules;
+            this.gameState = gameState;
             this.deckState = deckState;
             this.playerActionValidator = playerActionValidator;
         }
@@ -46,7 +46,7 @@
         {
             return cards.Where(x => x.Type == CardType.Queen || x.Type == CardType.King)
                 .GroupBy(x => x.Suit)
-                .Where(x => x.Count() == gameRules.MarriageCardsCount)
+                .Where(x => x.Count() == gameState.MarriageCardsCount)
                 .SelectMany(x => x);
         }
 

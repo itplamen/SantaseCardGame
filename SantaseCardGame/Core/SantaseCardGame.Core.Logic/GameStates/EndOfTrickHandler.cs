@@ -10,20 +10,20 @@
 
     public class EndOfTrickHandler : IGameStateHandler
     {
-        private readonly IGameRules gameRules;
+        private readonly IGameState gameState;
         private readonly ITrickState trickState;
         private readonly ITrickWinner trickWinner;
 
-        public EndOfTrickHandler(IGameRules gameRules, ITrickState trickState, ITrickWinner trickWinner)
+        public EndOfTrickHandler(IGameState gameState, ITrickState trickState, ITrickWinner trickWinner)
         {
-            this.gameRules = gameRules;
+            this.gameState = gameState;
             this.trickState = trickState;
             this.trickWinner = trickWinner;
         }
 
         public void Handle(Game game)
         {
-            if (trickState.Cards.Count() == gameRules.TrickCardsCount)
+            if (trickState.Cards.Count() == gameState.TrickCardsCount)
             {
                 PlayerPosition winnerPosition = trickWinner.GetWinner(trickState.Cards, game.Deck.TrumpCard.Suit);
                 Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);

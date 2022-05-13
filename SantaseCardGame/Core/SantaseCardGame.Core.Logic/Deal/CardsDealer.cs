@@ -11,15 +11,15 @@
 
     public class CardsDealer : ICardsDealer
     {
-        private readonly IGameRules gameRules;
+        private readonly IGameState gameState;
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
         private readonly ICardsProvider cardsProvider;
         private readonly IAnnouncementChecker announcementChecker;
 
-        public CardsDealer(IGameRules gameRules, IDeckState deckState, ITrickState trickState, ICardsProvider cardsProvider, IAnnouncementChecker announcementChecker)
+        public CardsDealer(IGameState gameState, IDeckState deckState, ITrickState trickState, ICardsProvider cardsProvider, IAnnouncementChecker announcementChecker)
         {
-            this.gameRules = gameRules;
+            this.gameState = gameState;
             this.deckState = deckState;
             this.trickState = trickState;
             this.cardsProvider = cardsProvider;
@@ -57,7 +57,7 @@
 
         private void DealCards(Deck deck, Player player)
         {
-            for (int i = 1; i <= gameRules.RoundInitialCardsCount; i++)
+            for (int i = 1; i <= gameState.RoundInitialCardsCount; i++)
             {
                 Card card = deck.GetNextCard();
                 AddCard(player, card);

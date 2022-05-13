@@ -8,9 +8,14 @@
 
     public class TrickState : ITrickState
     {
-        private const int TRICK_CARDS = 2;
+        private readonly IGameState gameState;
+        private readonly IDictionary<PlayerPosition, Card> cards;
 
-        private readonly IDictionary<PlayerPosition, Card> cards = new Dictionary<PlayerPosition, Card>(TRICK_CARDS);
+        public TrickState(IGameState gameState)
+        {
+            this.gameState = gameState;
+            this.cards = new Dictionary<PlayerPosition, Card>(gameState.TrickCardsCount);
+        }
 
         public PlayerPosition PlayerTurn { get; private set; }
 
@@ -27,7 +32,7 @@
 
         public void AddCard(Card card, PlayerPosition playerPosition)
         {
-            if (cards.Count < TRICK_CARDS)
+            if (cards.Count < gameState.TrickCardsCount)
             {
                 cards.Add(playerPosition, card);
                 PlayerTurn = GetNextPlayerPosition(playerPosition);
@@ -50,7 +55,7 @@
 
         private PlayerPosition GetNextPlayerPosition(PlayerPosition current)
         {
-            if (cards.Count < TRICK_CARDS)
+            if (cards.Count < gameState.TrickCardsCount)
             {
                 if (current == PlayerPosition.First)
                 {

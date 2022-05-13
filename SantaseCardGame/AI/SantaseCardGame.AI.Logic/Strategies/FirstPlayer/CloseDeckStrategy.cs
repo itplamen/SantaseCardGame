@@ -12,14 +12,14 @@
         private const int ENOUGH_POINTS_REQUIRED_FOR_CLOSING = 50;
         private const int REMAINING_POINTS_REQUIRED_FOR_CLOSING = 20;
 
-        private readonly IGameRules gameRules;
+        private readonly IGameState gameState;
         private readonly IAnnouncementChecker announcementChecker;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public CloseDeckStrategy(ITrickState trickState, IGameRules gameRules, IAnnouncementChecker announcementChecker, IPlayerActionValidator playerActionValidator)
+        public CloseDeckStrategy(ITrickState trickState, IGameState gameState, IAnnouncementChecker announcementChecker, IPlayerActionValidator playerActionValidator)
             : base(trickState)
         {
-            this.gameRules = gameRules;
+            this.gameState = gameState;
             this.announcementChecker = announcementChecker;
             this.playerActionValidator = playerActionValidator;
         }
@@ -43,13 +43,13 @@
 
         private bool HasEnoughPointsWithExistingCards(Player player)
         {
-            return player.Points >= gameRules.RoundHalfPoints && 
+            return player.Points >= gameState.RoundHalfPoints && 
                 player.Cards.Sum(x => (int)x.Type) >= REMAINING_POINTS_REQUIRED_FOR_CLOSING;
         }
 
         private bool HasEnoughPointsWithExistingAnnouncements(Player player)
         {
-            return player.Points >= gameRules.RoundHalfPoints && 
+            return player.Points >= gameState.RoundHalfPoints && 
                 announcementChecker.GetMarriages(player.Cards).Any();
         }
     }

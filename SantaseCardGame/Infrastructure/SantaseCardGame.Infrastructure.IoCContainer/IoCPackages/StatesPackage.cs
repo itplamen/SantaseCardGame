@@ -12,6 +12,7 @@
         {
             services.AddSingleton<IDeckState, DeckState>();
             services.AddSingleton<ITrickState, TrickState>();
+            services.AddSingleton<IGameState, GameState>();
         }
     }
 }

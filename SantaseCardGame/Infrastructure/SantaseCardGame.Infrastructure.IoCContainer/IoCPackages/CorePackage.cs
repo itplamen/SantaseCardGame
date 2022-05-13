@@ -12,7 +12,6 @@
     using SantaseCardGame.Core.Logic.Exchanging;
     using SantaseCardGame.Core.Logic.GameStates;
     using SantaseCardGame.Core.Logic.Play;
-    using SantaseCardGame.Core.Logic.Rules;
     using SantaseCardGame.Core.Logic.Validators.CardPlaying;
     using SantaseCardGame.Core.Logic.Validators.PlayerActions;
     using SantaseCardGame.Core.Logic.Winning.Round;
@@ -37,8 +36,6 @@
             services.AddSingleton<IActionPlaying, ChangeTrumpCard>();
             services.AddSingleton<IActionPlaying, CloseDeck>();
             services.AddSingleton<IActionPlaying, PlayCard>();
-
-            services.AddSingleton<IGameRules, GameRules>();
 
             services.AddSingleton<ICardPlayableValidator, PlayHigherCardValidator>();
             services.AddSingleton<ICardPlayableValidator, PlaySameSuitCardValidator>();
