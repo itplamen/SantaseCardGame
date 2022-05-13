@@ -1,0 +1,147 @@
+﻿@inject IGameState GameState;
+
+<div id="RoundPointsInfo">
+    <div id="CurrentRound">Round @(Game.Rounds.Count() + 1)</div>
+    <div class="game-points">@firstPlayer.Username <span>@GetTotalGamePoints(firstPlayer)</span></div>
+    <div class="game-points">@secondPlayer.Username <span>@GetTotalGamePoints(secondPlayer)</span></div>
+</div>
+
+@if (GameState.RoundWinner == PlayerPosition.None)
+{
+    if (GetGameWinnerPoints(firstPlayer) >= GameState.GameWinPoints ||
+        GetGameWinnerPoints(secondPlayer) >= GameState.GameWinPoints)
+    {
+        <div id="GameWinner" class="rounds-info">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="3">Game Winner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>@firstPlayer.Username</th>
+                        <th>@secondPlayer.Username</th>
+                    </tr>
+                    <tr>
+                        <td>@GetGameWinnerPoints(firstPlayer)</td>
+                        <td>@GetGameWinnerPoints(secondPlayer)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div id="Scoreboard" class="rounds-info">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="3">Scoreboard</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th>@firstPlayer.Username</th>
+                        <th>@secondPlayer.Username</th>
+                    </tr>
+                    <tr>
+                        <td>Announcements</td>
+                        <td>@GetAnnouncements(firstPlayer)</td>
+                        <td>@GetAnnouncements(secondPlayer)</td>
+                    </tr>
+                    <tr>
+                        <td>Round Points</td>
+                        <td>@GetRoundPoints(firstPlayer)</td>
+                        <td>@GetRoundPoints(secondPlayer)</td>
+                    </tr>
+                    <tr>
+                        <td>Game Points</td>
+                        <td>@GetGamePoints(firstPlayer)</td>
+                        <td>@GetGamePoints(secondPlayer)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <button type="button" class="btn btn-success" @onclick="@(() => OnClick.InvokeAsync())">Continue</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+}
+
+@code {
+    [Parameter]
+    public Game Game { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    private Player firstPlayer;
+    private Player secondPlayer;
+
+    protected override void OnInitialized()
+    {
+        firstPlayer = Game.Players.First();
+        secondPlayer = Game.Players.Last();
+    }
+
+    private int GetTotalGamePoints(Player player)
+    {
+        return Game.Rounds
+            .Where(x => x.WinnerPosition == player.Position)
+            .Sum(x => x.Points);
+    }
+
+    private string GetAnnouncements(Player player)
+    {
+        return string.Join(" ", player.Announcements.Select(x => $"{(int)x.Value}{GetSuitSymbol(x.Key)}")); ;
+    }
+
+    private string GetSuitSymbol(CardSuit suit)
+    {
+        var memberInfo = suit.GetType()
+            .GetMember(suit.ToString())
+            .First();
+
+        var attribute = memberInfo.CustomAttributes
+            .First()
+            .NamedArguments
+            .First();
+
+        return attribute.TypedValue
+            .Value
+            .ToString();
+    }
+
+    private string GetRoundPoints(Player player)
+    {
+        if (player.BonusPoints > 0)
+        {
+            return $"{player.Points} (+{player.BonusPoints})";
+        }
+
+        return player.Points.ToString();
+    }
+
+    private int GetGamePoints(Player player)
+    {
+        Round lastRound = Game.Rounds.LastOrDefault();
+
+        if (lastRound != null && lastRound.WinnerPosition == player.Position)
+        {
+            return lastRound.Points;
+        }
+
+        return 0;
+    }
+
+    private int GetGameWinnerPoints(Player player)
+    {
+        return Game.Rounds
+            .Where(x => x.WinnerPosition == player.Position)
+            .Sum(x => x.Points);
+    }
+}

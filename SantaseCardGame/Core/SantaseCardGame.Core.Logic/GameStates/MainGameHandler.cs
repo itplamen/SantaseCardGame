@@ -13,13 +13,15 @@
         private readonly ICardsDealer dealer;
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
+        private readonly IGameState gameState;
         private readonly IEnumerable<IRoundWinner> roundWinners;
 
-        public MainGameHandler(ICardsDealer dealer, IDeckState deckState, ITrickState trickState, IEnumerable<IRoundWinner> roundWinners)
+        public MainGameHandler(ICardsDealer dealer, IDeckState deckState, ITrickState trickState, IGameState gameState, IEnumerable<IRoundWinner> roundWinners)
         {
             this.dealer = dealer;
             this.deckState = deckState;
             this.trickState = trickState;
+            this.gameState = gameState;
             this.roundWinners = roundWinners;
         }
 
@@ -40,7 +42,7 @@
             if (game.Deck != null &&
                 game.Deck.Cards.Any() &&
                 game.Players.Any(x => x.Hands.Any()) &&
-                game.Players.All(x => x.Cards.Count() < 6) &&
+                game.Players.All(x => x.Cards.Count() < gameState.RoundInitialCardsCount) &&
                 round.WinnerPosition == PlayerPosition.None)
             {
                 dealer.DrawCards(game.Deck, game.Players);
@@ -50,6 +52,8 @@
             else if (round.WinnerPosition != PlayerPosition.None)
             {
                 game.AddRound(round);
+
+                gameState.RoundWinner = round.WinnerPosition;
             }
         }
     }
