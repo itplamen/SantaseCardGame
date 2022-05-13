@@ -2,6 +2,8 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: 100%;
+    overflow: hidden;
 }
 
 h1:focus {
@@ -18,8 +20,18 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
+#app, .page {
+    height: 100%;
+}
+
 .content {
     padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
+    height: 100%;
+    background-image: url('../images/common/GameBoard.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -64,7 +76,6 @@ a, .btn-link {
     }
 
 #GameBoard {
-    border: 1px solid black;
     width: 100%;
     height: 100%;
 }
@@ -75,15 +86,16 @@ a, .btn-link {
 }
 
 #Deck, #DeckCards {
-    border: 1px solid black;
-    height: 195px;
-    width: 260px;
+    height: 150px;
+    width: 110px;
+    position: fixed;
+    top: 45%;
 }
 
 #DeckCardsCount {
-    position: absolute;
-    top: 370px;
-    left: 78px;
+    position: fixed;
+    top: 45%;
+    left: 65px;
 }
 
 #DeckCardsCount, #Points {
@@ -97,8 +109,8 @@ a, .btn-link {
 }
 
 .card-component {
+    width: 110px;
     cursor: pointer;
-    border: 1px solid black;
 }
 
 .trump-card {
@@ -107,39 +119,142 @@ a, .btn-link {
     -o-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
-    position: absolute;
+    position: fixed;
+    top: 45%;
     left: 120px;
-    top: 380px;
 }
 
-
-#Opponent {
-    margin-bottom: 120px;
+#Opponent, #CurrentPlayer {
+    text-align: center;
 }
 
 #CurrentPlayer {
-    margin-top: 120px;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
 }
 
 #TrickCards {
-    border: 1px solid black;
-    position: absolute;
-    top: 270px;
-    left: 400px;
-    right: 0;
-    height: 425px;
-    width: 144px;
-    
+    position: fixed;
+    top: 52%;
+    left: 50%;
+    transform: translate(-20%, -42%);
+    height: 320px;
+    width: 110px;
 }
 
 .opponent-player-trick-card {
     position: absolute;
-    top: 10px;
-    border: 1px solid black;
+    top: 1%;
 }
 
 .current-player-trick-card {
     position: absolute;
-    top: 220px;
-    border: 1px solid black;
+    top: 50%;
 }
+
+.current-player-trick-card, .opponent-player-trick-card {
+    width: 110px;
+    height: 150px;
+}
+
+#PlayerInfo, #RoundPointsInfo {
+    border: 3px solid #823d05;
+    border-radius: 20px;
+    width: 200px;
+    padding: 10px;
+    position: absolute;
+}
+
+#PlayerInfo {
+    bottom: 8%;
+}
+
+    #PlayerInfo img {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        left: 10px;
+        border-radius: 10px;
+    }
+
+#Username, #CurrentRound {
+    color: #fff;
+    position: relative;
+    font-size: 28px;
+}
+
+#CurrentRound {
+    left: 35px;
+}
+
+#Username {
+    left: 90px;
+    bottom: 5px;
+}
+
+#Points {
+    position: relative;
+    left: 100px;
+}
+
+.game-points {
+    font-size: 20px;
+    padding-left: 20px;
+    margin-top: 5px;
+    z-index: 99 !important;
+    color: #ffffff;
+    background-color: #f4a624;
+    border-radius: 10px;
+}
+
+    .game-points span {
+        float: right;
+        padding-right: 20px;
+    }
+
+#Scoreboard {
+    display: none;
+}
+
+.rounds-info table {
+    width: 400px;
+    height: 350px;
+    background-color: #f4a624;
+    border-collapse: collapse;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -42%);
+    z-index: 1;
+}
+
+    .rounds-info table thead th {
+        height: 100px;
+        font-size: 30px;
+        border-bottom: 0;
+    }
+
+    .rounds-info table th, .rounds-info table td {
+        width: 100px;
+        border: 1px solid red;
+    }
+
+    .rounds-info table tr:first-child td, .rounds-info table tr:first-child th {
+        border-top: 0;
+    }
+
+    .rounds-info table tr td:first-child, .rounds-info table tr th:first-child {
+        border-left: 0;
+    }
+
+    .rounds-info table tr td:last-child, .rounds-info table tr th:last-child {
+        border-right: 0;
+    }
+
+    .rounds-info table tr:last-child td {
+        border-bottom: 0;
+    }

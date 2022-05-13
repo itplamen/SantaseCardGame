@@ -6,6 +6,7 @@
 @if (game != null)
 {
     <div id="GameBoard">
+        <RoundPointsComponent Game="game"></RoundPointsComponent>
         <PlayerComponent IsCurrentPlayer="false" Player="game.Players.First()"></PlayerComponent>
         <DeckComponent Deck="game.Deck"></DeckComponent>
         <TrickComponent CurrentPlayerPosition="game.Players.Last().Position"></TrickComponent>
