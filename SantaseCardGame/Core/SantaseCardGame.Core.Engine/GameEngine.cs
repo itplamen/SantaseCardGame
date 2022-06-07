@@ -96,6 +96,7 @@
                 if (announce != Announce.None)
                 {
                     playerAction.Announce = announce;
+                    playerAction.Type = PlayerActionType.AnnounceCardMarriage;
                 }
             }
 
@@ -107,12 +108,12 @@
 
         private async void ManageGamePlayerTurn(Player player)
         {
-            await SimulateThinking();
-
             var playerActions = gamePlayer.Play(player);
 
             foreach (var playerAction in playerActions)
             {
+                await SimulateThinking();
+
                 Play(playerAction, player);
             }
         }
