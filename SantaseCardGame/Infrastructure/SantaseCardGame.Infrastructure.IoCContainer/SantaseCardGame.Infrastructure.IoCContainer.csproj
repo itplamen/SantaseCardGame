@@ -13,6 +13,7 @@
     <ProjectReference Include="..\..\AI\SantaseCardGame.AI.Logic\SantaseCardGame.AI.Logic.csproj" />
     <ProjectReference Include="..\..\AI\SantaseCardGame.AI\SantaseCardGame.AI.csproj" />
     <ProjectReference Include="..\..\Core\SantaseCardGame.Core.Engine\SantaseCardGame.Core.Engine.csproj" />
+    <ProjectReference Include="..\..\Core\SantaseCardGame.Core.Utils\SantaseCardGame.Core.Utils.csproj" />
     <ProjectReference Include="..\..\Data\SantaseCardGame.Data\SantaseCardGame.Data.csproj" />
     <ProjectReference Include="..\SantaseCardGame.Infrastructure.States\SantaseCardGame.Infrastructure.States.csproj" />
   </ItemGroup>

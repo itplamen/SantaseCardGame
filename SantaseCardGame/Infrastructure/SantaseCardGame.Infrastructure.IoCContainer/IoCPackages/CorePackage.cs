@@ -16,6 +16,8 @@
     using SantaseCardGame.Core.Logic.Validators.PlayerActions;
     using SantaseCardGame.Core.Logic.Winning.Round;
     using SantaseCardGame.Core.Logic.Winning.Trick;
+    using SantaseCardGame.Core.Utils;
+    using SantaseCardGame.Core.Utils.Contracts;
     using SantaseCardGame.Infrastructure.IoCContainer.Contracts;
 
     public sealed class CorePackage : IPackage
@@ -46,6 +48,8 @@
             services.AddSingleton<IRoundWinner, DeckClosedRoundWinner>();
             services.AddSingleton<IRoundWinner, DeckNotClosedRoundWinner>();
             services.AddSingleton<ITrickWinner, TrickWinner>();
+
+            services.AddSingleton<ISuitFormatter, SuitFormatter>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@inject IGameState GameState;
+@inject ISuitFormatter SuitFormatter;
 
 <div id="RoundPointsInfo">
     <div id="CurrentRound">Round @(Game.Rounds.Count() + 1)</div>
@@ -97,23 +98,7 @@
 
     private string GetAnnouncements(Player player)
     {
-        return string.Join(" ", player.Announcements.Select(x => $"{(int)x.Value}{GetSuitSymbol(x.Key)}")); ;
-    }
-
-    private string GetSuitSymbol(CardSuit suit)
-    {
-        var memberInfo = suit.GetType()
-            .GetMember(suit.ToString())
-            .First();
-
-        var attribute = memberInfo.CustomAttributes
-            .First()
-            .NamedArguments
-            .First();
-
-        return attribute.TypedValue
-            .Value
-            .ToString();
+        return string.Join(" ", player.Announcements.Select(x => $"{(int)x.Value}{SuitFormatter.FormatSuit(x.Key)}")); ;
     }
 
     private string GetRoundPoints(Player player)
