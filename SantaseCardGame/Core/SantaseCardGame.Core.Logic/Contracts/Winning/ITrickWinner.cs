@@ -6,6 +6,6 @@
 
     public interface ITrickWinner
     {
-        PlayerPosition GetWinner(IEnumerable<KeyValuePair<PlayerPosition, Card>> cards, CardSuit trumpSuit);
+        PlayerPosition GetWinner(IEnumerable<KeyValuePair<PlayerPosition, Card>> cards);
     }
 }

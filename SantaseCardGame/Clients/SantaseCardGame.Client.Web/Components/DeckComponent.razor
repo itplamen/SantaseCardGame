@@ -1,13 +1,14 @@
 ﻿@implements IDisposable;
 
 @inject IDeckState DeckState;
+@inject IJSRuntime JSRuntime;
 
 <div id="Deck">
     @if (Deck.Cards.Any())
     {
         <CardComponent Card="Deck.TrumpCard" PlayerActionType="PlayerActionType.ChangeTrumpCard" OnClick="DeckState.ChangeTrumpCard"></CardComponent>
 
-        <div id="DeckCards" class="deck-component" @onclick="DeckState.CloseDeck">
+        <div id="DeckCards" class="deck-component" @onclick="CloseDeck">
             <div id="DeckCardsCount">@(Deck.Cards.Count())</div>
             <img src="/images/cards/Back.png" id="DeckBackCard" alt="DeckBackCard" class="card-component" />
         </div>
@@ -21,17 +22,46 @@
 </div>
 
 @code {
+    private IEnumerable<Tuple<CardSuit, int, int>> trumpSuitCoordinates;
+
     [Parameter]
     public Deck Deck { get; set; }
 
     protected override void OnInitialized()
     {
         DeckState.OnExchangeTrumpCardForNineOfTrumps += ExchangeTrumpCardForNineOfTrumps;
+        
+        trumpSuitCoordinates = new List<Tuple<CardSuit, int, int>>()
+        {
+            new Tuple<CardSuit, int, int>(CardSuit.Spade, 10, 20),
+            new Tuple<CardSuit, int, int>(CardSuit.Heart, -130, 20),
+            new Tuple<CardSuit, int, int>(CardSuit.Diamond, 10, -120),
+            new Tuple<CardSuit, int, int>(CardSuit.Club, -130, -120)
+        };
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!Deck.Cards.Any())
+        {
+            var coordinates = trumpSuitCoordinates.First(x => x.Item1 == DeckState.TrumpCard.Suit);
+            await JSRuntime.InvokeVoidAsync("showTrumpSuit", coordinates.Item2, coordinates.Item3);
+        }
     }
 
     public void Dispose()
     {
         DeckState.OnExchangeTrumpCardForNineOfTrumps -= ExchangeTrumpCardForNineOfTrumps;
+    }
+
+    private async Task CloseDeck()
+    {
+        DeckState.CloseDeck();
+
+        if (DeckState.ClosedBy != PlayerPosition.None)
+        {
+            await JSRuntime.InvokeVoidAsync("closeDeck");
+        }
     }
 
     private void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard)

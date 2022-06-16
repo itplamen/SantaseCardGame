@@ -25,7 +25,7 @@
         {
             if (trickState.Cards.Count() == gameState.TrickCardsCount)
             {
-                PlayerPosition winnerPosition = trickWinner.GetWinner(trickState.Cards, game.Deck.TrumpCard.Suit);
+                PlayerPosition winnerPosition = trickWinner.GetWinner(trickState.Cards);
                 Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
 
                 IEnumerable<Card> hand = trickState.Cards.Select(x => x.Value).ToList();

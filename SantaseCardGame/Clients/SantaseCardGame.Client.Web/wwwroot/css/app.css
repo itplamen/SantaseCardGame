@@ -108,6 +108,26 @@ a, .btn-link {
     border-radius: 10px;
 }
 
+#ClosedDeck {
+    display: none;
+    position: fixed;
+    top: 45%;
+    width: 110px;
+    height: 150px;
+    background: url(../images/common/LockIcon.png) no-repeat center;
+    background-size: 110px;
+}
+
+#TrumpSuit {
+    position: fixed;
+    top: 45%;
+    width: 110px;
+    height: 150px;
+    background: url(../images/common/CardSuits.png) no-repeat center;
+    background-size: 240px;
+}
+
+
 .card-component {
     width: 110px;
     cursor: pointer;
@@ -132,6 +152,15 @@ a, .btn-link {
     position: absolute;
     width: 100%;
     bottom: 0px;
+}
+
+#Opponent .card-component, #CurrentPlayer .card-component {
+    margin-left: 2px;
+}
+
+#CurrentPlayer .card-component:hover {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
 }
 
 #TrickCards {

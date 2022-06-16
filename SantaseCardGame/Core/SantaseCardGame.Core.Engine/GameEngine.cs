@@ -84,6 +84,8 @@
                 stateHandler.Handle(game);
             }
 
+            trickState.Display();
+
             if (trickState.PlayerTurn == PlayerPosition.First)
             {
                 ManageGamePlayerTurn(game.Players.First());
