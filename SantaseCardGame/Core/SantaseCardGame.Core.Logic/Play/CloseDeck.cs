@@ -23,7 +23,7 @@
                 deckState.ShouldFollowSuit = true;
                 deckState.ClosedBy = player.Position;
 
-                return new PlayerActionResult(true);
+                return new PlayerActionResult(true, "Deck closed");
             }
 
             return new PlayerActionResult(false);

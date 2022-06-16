@@ -27,11 +27,14 @@
 
                 if (opponentCard != null)
                 {
-                    var canPlay = playCardValidators.All(x => x.CanPlay(player, playerAction.Card, opponentCard));
-
-                    if (!canPlay)
+                    foreach (var validator in playCardValidators)
                     {
-                        return new PlayerActionResult(false);
+                        bool canPlay = validator.CanPlay(player, playerAction.Card, opponentCard);
+
+                        if (!canPlay)
+                        {
+                            return new PlayerActionResult(false, validator.Message);
+                        }
                     }
                 }
 

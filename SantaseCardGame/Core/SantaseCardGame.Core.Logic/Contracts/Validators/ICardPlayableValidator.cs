@@ -4,6 +4,8 @@
 
     public interface ICardPlayableValidator
     {
+        string Message { get; }
+
         bool CanPlay(Player player, Card card, Card opponentCard);
     }
 }

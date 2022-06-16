@@ -15,6 +15,8 @@
             this.deckState = deckState;
         }
 
+        public string Message => "You must play higher card!";
+
         public bool CanPlay(Player player, Card card, Card opponentCard)
         {
             if (deckState.ShouldFollowSuit && 

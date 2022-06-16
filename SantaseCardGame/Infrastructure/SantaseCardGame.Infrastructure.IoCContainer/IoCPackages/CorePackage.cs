@@ -39,8 +39,8 @@
             services.AddSingleton<IActionPlaying, CloseDeck>();
             services.AddSingleton<IActionPlaying, PlayCard>();
 
-            services.AddSingleton<ICardPlayableValidator, PlayHigherCardValidator>();
             services.AddSingleton<ICardPlayableValidator, PlaySameSuitCardValidator>();
+            services.AddSingleton<ICardPlayableValidator, PlayHigherCardValidator>();          
             services.AddSingleton<ICardPlayableValidator, PlayTrumpCardValidator>();
 
             services.AddSingleton<IPlayerActionValidator, PlayerActionValidator>();

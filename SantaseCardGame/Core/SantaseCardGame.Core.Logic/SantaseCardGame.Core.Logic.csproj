@@ -9,6 +9,7 @@
     <ProjectReference Include="..\..\Data\SantaseCardGame.Data.Models\SantaseCardGame.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\SantaseCardGame.Data\SantaseCardGame.Data.csproj" />
     <ProjectReference Include="..\..\Infrastructure\SantaseCardGame.Infrastructure.States\SantaseCardGame.Infrastructure.States.csproj" />
+    <ProjectReference Include="..\SantaseCardGame.Core.Utils\SantaseCardGame.Core.Utils.csproj" />
   </ItemGroup>
 
 </Project>

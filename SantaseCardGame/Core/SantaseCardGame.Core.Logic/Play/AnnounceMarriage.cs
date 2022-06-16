@@ -1,18 +1,21 @@
 ﻿namespace SantaseCardGame.Core.Logic.Play
 {
     using SantaseCardGame.Core.Logic.Contracts;
+    using SantaseCardGame.Core.Utils.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class AnnounceMarriage : BaseActionPlaying
     {
         private readonly ITrickState trickState;
+        private readonly ISuitFormatter suitFormatter;
         private readonly IAnnouncementChecker announcementChecker;
 
-        public AnnounceMarriage(ITrickState trickState, IAnnouncementChecker announcementChecker)
+        public AnnounceMarriage(ITrickState trickState, ISuitFormatter suitFormatter, IAnnouncementChecker announcementChecker)
             : base(trickState)
         {
             this.trickState = trickState;
+            this.suitFormatter = suitFormatter;
             this.announcementChecker = announcementChecker;
         }
 
@@ -26,7 +29,8 @@
                 player.RemoveCard(playerAction.Card);
                 trickState.AddCard(playerAction.Card, player.Position);
 
-                return new PlayerActionResult(true);
+                string message = $"Announced {(int)announcement}{suitFormatter.FormatSuit(playerAction.Card.Suit)}";
+                return new PlayerActionResult(true, message);
             }
 
             return new PlayerActionResult(false);

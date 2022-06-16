@@ -33,7 +33,7 @@
 
                     deckState.ExchangeTrumpCardForNineOfTrumps(nineOfTrumpsCard);
 
-                    return new PlayerActionResult(true);
+                    return new PlayerActionResult(true, "Trump card changed");
                 }
             }
 
