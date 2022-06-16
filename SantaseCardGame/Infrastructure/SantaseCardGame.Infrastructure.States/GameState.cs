@@ -1,5 +1,7 @@
 ﻿namespace SantaseCardGame.Infrastructure.States
 {
+    using System;
+
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
@@ -28,5 +30,10 @@
         public int LastTrickWinnerBonusPoints => 10;
 
         public PlayerPosition RoundWinner { get; set; }
+
+        public event Action<PlayerPosition, string> OnShowMessage;
+
+        public void ShowMessage(PlayerPosition position, string message) =>
+            OnShowMessage?.Invoke(position, message);
     }
 }

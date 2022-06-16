@@ -258,3 +258,29 @@ a, .btn-link {
     .rounds-info table tr:last-child td {
         border-bottom: 0;
     }
+
+.message-component {
+    text-align: center;
+    width: 200px;
+    height: 150px;
+    position: fixed;
+    right: 1%;
+}
+
+    .message-component div {
+        background-color: #f4a624;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 16px;
+        text-align: center;
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+
+#Message-Player-First {
+    top: 10%;
+}
+
+#Message-Player-Second {
+    bottom: 1%;
+}

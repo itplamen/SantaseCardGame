@@ -33,6 +33,8 @@
 
                 trickState.SetPlayerTurn(winnerPosition);
                 trickState.Clear();
+
+                gameState.ShowMessage(winnerPosition, "Win");
             }
         }
     }

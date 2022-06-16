@@ -14,6 +14,7 @@
 
     public class GameEngine : IGameEngine
     {
+        private readonly IGameState gameState;
         private readonly ITrickState trickState;
         private readonly IGamePlayer gamePlayer;
         private readonly IInMemoryGameStorage gameStorage;
@@ -22,6 +23,7 @@
         private readonly IEnumerable<IGameStateHandler> gameStateHandlers;
 
         public GameEngine(
+            IGameState gameState,
             ITrickState trickState,
             IGamePlayer gamePlayer,
             IInMemoryGameStorage gameStorage, 
@@ -29,6 +31,7 @@
             IEnumerable<IActionPlaying> actionsPlaying, 
             IEnumerable<IGameStateHandler> gameStateHandlers)
         {
+            this.gameState = gameState;
             this.trickState = trickState;
             this.gamePlayer = gamePlayer;
             this.gameStorage = gameStorage;
@@ -102,7 +105,12 @@
 
             foreach (var playAction in actionsPlaying)
             {
-                playAction.Play(playerAction, player);
+                var result = playAction.Play(playerAction, player);
+
+                if (!string.IsNullOrEmpty(result.Message))
+                {
+                    gameState.ShowMessage(player.Position, result.Message);
+                }
             }
         }
 

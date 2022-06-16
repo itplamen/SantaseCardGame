@@ -1,5 +1,7 @@
 ﻿@page "/singleplayer"
 
+@inject IJSRuntime JSRuntime;
+@inject IGameState GameState;
 @inject ITrickState TrickState;
 @inject IGameEngine GameEngine;
 
@@ -21,6 +23,7 @@
     {
         TrickState.OnDisplay += StateHasChanged;
         TrickState.OnManage += () => GameEngine.ManageGame(game);
+        GameState.OnShowMessage += OnShowMessage;
 
         game = GameEngine.CreateGame(GameType.Singleplayer);
 
@@ -35,4 +38,7 @@
         TrickState.OnDisplay -= StateHasChanged;
         TrickState.OnManage -= () => GameEngine.ManageGame(game);
     }
+
+    private async void OnShowMessage(PlayerPosition position, string message) =>
+        await JSRuntime.InvokeVoidAsync("showMessage", position.ToString(), message);
 }
