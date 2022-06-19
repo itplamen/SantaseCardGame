@@ -8,7 +8,7 @@
 @if (game != null)
 {
     <div id="GameBoard">
-        <RoundPointsComponent Game="game"></RoundPointsComponent>
+        <RoundPointsComponent Game="game" OnClick="StartNewRound"></RoundPointsComponent>
         <PlayerComponent IsCurrentPlayer="false" Player="game.Players.First()"></PlayerComponent>
         <DeckComponent Deck="game.Deck"></DeckComponent>
         <TrickComponent CurrentPlayerPosition="game.Players.Last().Position"></TrickComponent>
@@ -23,7 +23,9 @@
     {
         TrickState.OnDisplay += StateHasChanged;
         TrickState.OnManage += () => GameEngine.ManageGame(game);
+
         GameState.OnShowMessage += OnShowMessage;
+        GameState.OnEndRound += EndRound;
 
         game = GameEngine.CreateGame(GameType.Singleplayer);
 
@@ -37,6 +39,18 @@
     {
         TrickState.OnDisplay -= StateHasChanged;
         TrickState.OnManage -= () => GameEngine.ManageGame(game);
+
+        GameState.OnShowMessage -= OnShowMessage;
+        GameState.OnEndRound -= EndRound;
+    }
+
+    private void StartNewRound() =>
+        GameEngine.ManageGame(game);
+
+    private async void EndRound()
+    {
+        await Task.Delay(1500);
+        await JSRuntime.InvokeVoidAsync("showScoreboard");
     }
 
     private async void OnShowMessage(PlayerPosition position, string message) =>

@@ -11,8 +11,8 @@
         private readonly ISuitFormatter suitFormatter;
         private readonly IAnnouncementChecker announcementChecker;
 
-        public AnnounceMarriage(ITrickState trickState, ISuitFormatter suitFormatter, IAnnouncementChecker announcementChecker)
-            : base(trickState)
+        public AnnounceMarriage(IGameState gameState, ITrickState trickState, ISuitFormatter suitFormatter, IAnnouncementChecker announcementChecker)
+            : base(gameState, trickState)
         {
             this.trickState = trickState;
             this.suitFormatter = suitFormatter;

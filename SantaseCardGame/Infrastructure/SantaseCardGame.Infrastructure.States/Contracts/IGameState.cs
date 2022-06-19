@@ -32,6 +32,10 @@
 
         event Action<PlayerPosition, string> OnShowMessage;
 
+        event Action OnEndRound;
+
         void ShowMessage(PlayerPosition position, string message);
+
+        void EndRound();
     }
 }

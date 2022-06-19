@@ -30,9 +30,9 @@
             services.AddSingleton<ICardsDealer, CardsDealer>();
             services.AddSingleton<ITrumpCardExchanger, TrumpCardExchanger>();
 
+            services.AddSingleton<IGameStateHandler, StartOfRound>();
             services.AddSingleton<IGameStateHandler, EndOfTrickHandler>();
             services.AddSingleton<IGameStateHandler, MainGameHandler>();
-            services.AddSingleton<IGameStateHandler, StartOfRound>();
 
             services.AddSingleton<IActionPlaying, AnnounceMarriage>();
             services.AddSingleton<IActionPlaying, ChangeTrumpCard>();

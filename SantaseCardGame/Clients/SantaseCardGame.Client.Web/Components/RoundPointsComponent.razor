@@ -7,7 +7,7 @@
     <div class="game-points">@secondPlayer.Username <span>@GetTotalGamePoints(secondPlayer)</span></div>
 </div>
 
-@if (GameState.RoundWinner == PlayerPosition.None)
+@if (GameState.RoundWinner != PlayerPosition.None)
 {
     if (GetGameWinnerPoints(firstPlayer) >= GameState.GameWinPoints ||
         GetGameWinnerPoints(secondPlayer) >= GameState.GameWinPoints)

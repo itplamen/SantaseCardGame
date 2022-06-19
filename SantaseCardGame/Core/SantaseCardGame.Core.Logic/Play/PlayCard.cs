@@ -12,8 +12,8 @@
         private readonly ITrickState trickState;
         private readonly IEnumerable<ICardPlayableValidator> playCardValidators;
 
-        public PlayCard(ITrickState trickState, IEnumerable<ICardPlayableValidator> playCardValidators)
-            : base(trickState)
+        public PlayCard(IGameState gameState, ITrickState trickState, IEnumerable<ICardPlayableValidator> playCardValidators)
+            : base(gameState, trickState)
         {
             this.trickState = trickState;
             this.playCardValidators = playCardValidators;

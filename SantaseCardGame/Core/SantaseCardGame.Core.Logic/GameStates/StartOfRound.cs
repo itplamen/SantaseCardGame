@@ -8,12 +8,14 @@
 
     public class StartOfRound : IGameStateHandler
     {
+        private readonly IGameState gameState;
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
         private readonly ICardsDealer cardsDealer;
 
-        public StartOfRound(IDeckState deckState, ITrickState trickState, ICardsDealer cardsDealer)
+        public StartOfRound(IGameState gameState, IDeckState deckState, ITrickState trickState, ICardsDealer cardsDealer)
         {
+            this.gameState = gameState;
             this.deckState = deckState;
             this.trickState = trickState;
             this.cardsDealer = cardsDealer;
@@ -21,7 +23,7 @@
 
         public void Handle(Game game)
         {
-            if (game.Deck == null && game.Players.All(x => !x.Cards.Any()))
+            if (ShouldStartRound(game))
             {
                 game.Players.ToList().ForEach(x => x.Clear());
                 game.Deck = cardsDealer.Deal(game.Players.First(), game.Players.Last());
@@ -35,6 +37,8 @@
 
                 deckState.ClosedBy = PlayerPosition.None;
                 deckState.ShouldFollowSuit = false;
+
+                gameState.RoundWinner = PlayerPosition.None;
             }
         }
 
@@ -49,6 +53,25 @@
                 default:
                     return PlayerPosition.First;
             }
+        }
+
+        private bool ShouldStartRound(Game game)
+        {
+            return IsBeginningOfGame(game) ||
+                IsNewRound(game);
+        }
+
+        private bool IsBeginningOfGame(Game game)
+        {
+            return gameState.RoundWinner == PlayerPosition.None &&
+                game.Players.All(x => !x.Cards.Any()) &&
+                game.Deck == null;
+        }
+
+        private bool IsNewRound(Game game)
+        {
+            return gameState.RoundWinner != PlayerPosition.None &&
+                game.Rounds.Any();
         }
     }
 }

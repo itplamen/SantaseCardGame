@@ -38,6 +38,15 @@
         function closeDeck() {
             $('#ClosedDeck').show();
         }
+
+        function showScoreboard() {
+            $('#Scoreboard').show();
+        }
+
+        $(document).on('click', '#Scoreboard button', function () {
+            $('#Scoreboard').hide();
+            $('#ClosedDeck').hide();
+        });
     </script>
 </body>
 

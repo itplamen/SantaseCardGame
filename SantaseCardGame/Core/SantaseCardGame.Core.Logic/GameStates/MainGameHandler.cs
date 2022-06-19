@@ -30,7 +30,6 @@
             foreach (var roundWinner in roundWinners)
             {
                 round = roundWinner.GetWinner(deckState.ClosedBy, game.Players);
-
                 if (round.WinnerPosition != PlayerPosition.None)
                 {
                     break;
@@ -41,7 +40,8 @@
                 game.Deck.Cards.Any() &&
                 game.Players.Any(x => x.Hands.Any()) &&
                 game.Players.All(x => x.Cards.Count() < gameState.RoundInitialCardsCount) &&
-                round.WinnerPosition == PlayerPosition.None)
+                round.WinnerPosition == PlayerPosition.None &&
+                deckState.ClosedBy == PlayerPosition.None)
             {
                 dealer.DrawCards(game.Deck, game.Players);
             }
@@ -50,6 +50,7 @@
                 game.AddRound(round);
 
                 gameState.RoundWinner = round.WinnerPosition;
+                gameState.EndRound();
             }
         }
     }

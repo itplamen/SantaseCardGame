@@ -33,7 +33,12 @@
 
         public event Action<PlayerPosition, string> OnShowMessage;
 
+        public event Action OnEndRound;
+
         public void ShowMessage(PlayerPosition position, string message) =>
             OnShowMessage?.Invoke(position, message);
+
+        public void EndRound() =>
+            OnEndRound?.Invoke();
     }
 }

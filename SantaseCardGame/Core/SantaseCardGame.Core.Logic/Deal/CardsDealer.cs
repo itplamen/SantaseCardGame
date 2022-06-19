@@ -39,20 +39,17 @@
 
         public void DrawCards(Deck deck, IEnumerable<Player> players)
         {
-            if (deckState.ClosedBy == PlayerPosition.None && deck.Cards.Any())
-            {
-                Card firstCard = deck.GetNextCard();
-                Card secondCard = deck.GetNextCard();
+            Card firstCard = deck.GetNextCard();
+            Card secondCard = deck.GetNextCard();
 
-                Player winnerPlayer = players.First(x => x.Position == trickState.PlayerTurn);
-                AddCard(winnerPlayer, firstCard);
+            Player winnerPlayer = players.First(x => x.Position == trickState.PlayerTurn);
+            AddCard(winnerPlayer, firstCard);
 
-                Player loserPlayer = players.First(x => x.Position != trickState.PlayerTurn);
-                AddCard(loserPlayer, secondCard);
+            Player loserPlayer = players.First(x => x.Position != trickState.PlayerTurn);
+            AddCard(loserPlayer, secondCard);
 
-                deckState.CardsLeft = deck.Cards.Count();
-                deckState.ShouldFollowSuit = !deck.Cards.Any();
-            }
+            deckState.CardsLeft = deck.Cards.Count();
+            deckState.ShouldFollowSuit = !deck.Cards.Any();
         }
 
         private void DealCards(Deck deck, Player player)

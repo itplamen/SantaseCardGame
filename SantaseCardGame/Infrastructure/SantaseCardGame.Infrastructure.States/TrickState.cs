@@ -41,6 +41,11 @@
             }
 
             OnManage?.Invoke();
+
+            if (gameState.RoundWinner != PlayerPosition.None && cards.Count < gameState.TrickCardsCount)
+            {
+                Display();
+            }
         }
 
         public void Clear()

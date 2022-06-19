@@ -74,7 +74,7 @@
 
         public async void ManageGame(Game game)
         {
-            if (game.Deck != null && trickState.Cards.Any(x => x.Key == PlayerPosition.First))
+            if (trickState.Cards.Count() == gameState.TrickCardsCount)
             {
                 await SimulateThinking();
             }
@@ -86,7 +86,7 @@
 
             trickState.Display();
 
-            if (trickState.PlayerTurn == PlayerPosition.First)
+            if (trickState.PlayerTurn == PlayerPosition.First && gameState.RoundWinner == PlayerPosition.None)
             {
                 ManageGamePlayerTurn(game.Players.First());
             }

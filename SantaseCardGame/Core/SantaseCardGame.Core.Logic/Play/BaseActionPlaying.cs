@@ -8,10 +8,12 @@
 
     public abstract class BaseActionPlaying : IActionPlaying
     {
+        private readonly IGameState gameState;
         private readonly ITrickState trickState;
 
-        protected BaseActionPlaying(ITrickState trickState)
+        protected BaseActionPlaying(IGameState gameState, ITrickState trickState)
         {
+            this.gameState = gameState;
             this.trickState = trickState;
         }
 
@@ -19,7 +21,7 @@
         {
             return playerAction != null &&
                 player.Position == trickState.PlayerTurn &&
-                // TODO: check if round was not won
+                gameState.RoundWinner == PlayerPosition.None &&
                 !trickState.Cards.Any(x => x.Key == player.Position);
         }
 
