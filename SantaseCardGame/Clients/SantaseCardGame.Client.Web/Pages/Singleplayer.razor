@@ -10,7 +10,7 @@
 @if (game != null)
 {
     <div id="GameBoard">
-        <RoundPointsComponent Game="game" OnClick="StartNewRound"></RoundPointsComponent>
+        <RoundPointsComponent Game="game" OnClick="ManageGame"></RoundPointsComponent>
         <PlayerComponent IsCurrentPlayer="false" Player="game.Players.First()"></PlayerComponent>
         <DeckComponent Deck="game.Deck"></DeckComponent>
         <TrickComponent CurrentPlayerPosition="game.Players.Last().Position"></TrickComponent>
@@ -24,7 +24,7 @@
     protected override void OnInitialized()
     {
         TrickState.OnDisplay += StateHasChanged;
-        TrickState.OnManage += () => GameEngine.ManageGame(game);
+        TrickState.OnManage += ManageGame;
 
         GameState.OnShowMessage += OnShowMessage;
         GameState.OnEndRound += EndRound;
@@ -40,13 +40,13 @@
     public void Dispose()
     {
         TrickState.OnDisplay -= StateHasChanged;
-        TrickState.OnManage -= () => GameEngine.ManageGame(game);
+        TrickState.OnManage -= ManageGame;
 
         GameState.OnShowMessage -= OnShowMessage;
         GameState.OnEndRound -= EndRound;
     }
 
-    private void StartNewRound() =>
+    private void ManageGame() =>
         GameEngine.ManageGame(game);
 
     private async void EndRound()
