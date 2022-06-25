@@ -9,8 +9,7 @@
 
 @if (GameState.RoundWinner != PlayerPosition.None)
 {
-    if (GetGameWinnerPoints(firstPlayer) >= GameState.GameWinPoints ||
-        GetGameWinnerPoints(secondPlayer) >= GameState.GameWinPoints)
+    if (IsGameWon())
     {
         <div id="GameWinner" class="game-info">
             <table>
@@ -64,7 +63,7 @@
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <button type="button" class="btn btn-success" @onclick="@(() => OnClick.InvokeAsync())">Continue</button>
+                            <button type="button" class="btn btn-success" @onclick="@(() => OnContinueGame.InvokeAsync())">Continue</button>
                         </td>
                     </tr>
                 </tbody>
@@ -74,19 +73,33 @@
 }
 
 @code {
+    private bool hasGameEnded;
+
     [Parameter]
     public Game Game { get; set; }
 
     [Parameter]
-    public EventCallback OnClick { get; set; }
+    public EventCallback OnContinueGame { get; set; }
+
+    [Parameter] 
+    public EventCallback OnGameEnded { get; set; }
 
     private Player firstPlayer;
     private Player secondPlayer;
 
     protected override void OnInitialized()
-    {
+    { 
         firstPlayer = Game.Players.First();
         secondPlayer = Game.Players.Last();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (IsGameWon() && !hasGameEnded)
+        {
+            hasGameEnded = true;
+            await OnGameEnded.InvokeAsync();
+        }
     }
 
     private int GetTotalGamePoints(Player player)
@@ -121,6 +134,13 @@
         }
 
         return 0;
+    }
+
+    private bool IsGameWon()
+    {
+        return GameState.RoundWinner != PlayerPosition.None &&
+            (GetGameWinnerPoints(firstPlayer) >= GameState.GameWinPoints ||
+            GetGameWinnerPoints(secondPlayer) >= GameState.GameWinPoints);
     }
 
     private int GetGameWinnerPoints(Player player)

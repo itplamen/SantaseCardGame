@@ -13,7 +13,7 @@
 @if (game != null)
 {
     <div id="GameBoard">
-        <RoundPointsComponent Game="game" OnClick="ManageGame"></RoundPointsComponent>
+        <RoundPointsComponent Game="game" OnContinueGame="ManageGame" OnGameEnded="EndGame"></RoundPointsComponent>
         <PlayerComponent IsCurrentPlayer="false" Player="game.Players.First()"></PlayerComponent>
         <DeckComponent Deck="game.Deck"></DeckComponent>
         <TrickComponent CurrentPlayerPosition="game.Players.Last().Position"></TrickComponent>
@@ -55,7 +55,7 @@
 
         GameEngine.ManageGame(game);
 
-        DateTime expiration = DateTime.Now.AddSeconds(int.Parse(Configuration["gameExpiration"]));
+        DateTime expiration = DateTime.UtcNow.AddSeconds(int.Parse(Configuration["gameExpiration"]));
         string name = Configuration["saveKey"];
         await JSRuntime.InvokeVoidAsync("saveGame", name, game.Id, expiration);
     }
@@ -71,6 +71,16 @@
 
     private void ManageGame() =>
         GameEngine.ManageGame(game);
+
+    private async void EndGame()
+    {
+        GameEngine.EndGame(game.Id);
+
+        DateTime expiration = DateTime.UtcNow.AddDays(-1);
+        string name = Configuration["saveKey"];
+
+        await JSRuntime.InvokeVoidAsync("saveGame", name, string.Empty, expiration);
+    }
 
     private async void EndRound()
     {

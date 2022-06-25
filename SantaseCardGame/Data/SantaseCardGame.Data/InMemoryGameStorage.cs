@@ -15,7 +15,7 @@
         public InMemoryGameStorage(IMemoryCache memoryCache, int expiration)
         {
             this.memoryCache = memoryCache;
-            this.options = new MemoryCacheEntryOptions() { AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(expiration) };
+            this.options = new MemoryCacheEntryOptions() { AbsoluteExpiration = DateTimeOffset.UtcNow.AddSeconds(expiration) };
         }
 
         public void Add(string id, Game game)
