@@ -313,3 +313,7 @@ a, .btn-link {
 #Message-Player-Second {
     bottom: 1%;
 }
+
+#Rules a {
+    color: inherit;
+}
