@@ -45,6 +45,7 @@
             var game = new Game()
             {
                 Id = Guid.NewGuid().ToString(),
+                Date = DateTime.Now,
                 Type = gameType
             };
 
@@ -67,10 +68,11 @@
             game.AddPlayer(player);
         }
 
-        public void EndGame(string gameId)
-        {
+        public Game LoadGame(string gameId) =>
+            gameStorage.Get(gameId);
+
+        public void EndGame(string gameId) =>
             gameStorage.Remove(gameId);
-        }
 
         public async void ManageGame(Game game)
         {

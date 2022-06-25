@@ -246,7 +246,7 @@ a, .btn-link {
     display: none;
 }
 
-.rounds-info table {
+.game-info table {
     width: 400px;
     height: 350px;
     background-color: #f4a624;
@@ -261,30 +261,30 @@ a, .btn-link {
     z-index: 1;
 }
 
-    .rounds-info table thead th {
+    .game-info table thead th {
         height: 100px;
         font-size: 30px;
         border-bottom: 0;
     }
 
-    .rounds-info table th, .rounds-info table td {
+    .game-info table th, .game-info table td {
         width: 100px;
         border: 1px solid red;
     }
 
-    .rounds-info table tr:first-child td, .rounds-info table tr:first-child th {
+    .game-info table tr:first-child td, .game-info table tr:first-child th {
         border-top: 0;
     }
 
-    .rounds-info table tr td:first-child, .rounds-info table tr th:first-child {
+    .game-info table tr td:first-child, .game-info table tr th:first-child {
         border-left: 0;
     }
 
-    .rounds-info table tr td:last-child, .rounds-info table tr th:last-child {
+    .game-info table tr td:last-child, .game-info table tr th:last-child {
         border-right: 0;
     }
 
-    .rounds-info table tr:last-child td {
+    .game-info table tr:last-child td {
         border-bottom: 0;
     }
 

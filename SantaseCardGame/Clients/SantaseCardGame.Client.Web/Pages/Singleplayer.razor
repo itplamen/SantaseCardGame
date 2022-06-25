@@ -1,4 +1,5 @@
 ﻿@page "/singleplayer"
+@page "/singleplayer/{gameId}"
 
 @implements IDisposable;
 
@@ -6,6 +7,8 @@
 @inject IGameState GameState;
 @inject ITrickState TrickState;
 @inject IGameEngine GameEngine;
+@inject IConfiguration Configuration;
+@inject NavigationManager NavManager;
 
 @if (game != null)
 {
@@ -21,7 +24,10 @@
 @code {
     private Game game;
 
-    protected override void OnInitialized()
+    [Parameter]
+    public string GameId { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
         TrickState.OnDisplay += StateHasChanged;
         TrickState.OnManage += ManageGame;
@@ -29,12 +35,29 @@
         GameState.OnShowMessage += OnShowMessage;
         GameState.OnEndRound += EndRound;
 
-        game = GameEngine.CreateGame(GameType.Singleplayer);
+        if (!string.IsNullOrEmpty(GameId))
+        {
+            game = GameEngine.LoadGame(GameId);
 
-        GameEngine.JoinGame(game.Id, "Bot");
-        GameEngine.JoinGame(game.Id, "Player");
+            if (game == null)
+            {
+                NavManager.NavigateTo($"/singleplayer");
+            }
+        }
+
+        if (game == null)
+        {
+            game = GameEngine.CreateGame(GameType.Singleplayer);
+
+            GameEngine.JoinGame(game.Id, "Bot");
+            GameEngine.JoinGame(game.Id, "Player");
+        }
 
         GameEngine.ManageGame(game);
+
+        DateTime expiration = DateTime.Now.AddSeconds(int.Parse(Configuration["gameExpiration"]));
+        string name = Configuration["saveKey"];
+        await JSRuntime.InvokeVoidAsync("saveGame", name, game.Id, expiration);
     }
 
     public void Dispose()

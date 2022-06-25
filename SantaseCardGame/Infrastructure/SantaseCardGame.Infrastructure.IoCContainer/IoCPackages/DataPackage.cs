@@ -9,7 +9,12 @@
 
     public sealed class DataPackage : IPackage
     {
-        private int absoluteExpiration = 14400; // 60 * 60 * 4
+        private int absoluteExpiration;
+
+        public DataPackage(int absoluteExpiration)
+        {
+            this.absoluteExpiration = absoluteExpiration;
+        }
 
         public void RegisterServices(IServiceCollection services)
         {

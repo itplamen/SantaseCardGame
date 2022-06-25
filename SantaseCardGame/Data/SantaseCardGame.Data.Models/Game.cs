@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Data.Models
 {
+    using System;
     using System.Collections.Generic;
 
     public class Game
@@ -9,6 +10,8 @@
         private readonly List<Round> rounds = new List<Round>();
 
         public string Id { get; set; }
+
+        public DateTime Date { get; set; }
 
         public GameType Type { get; set; }
 
