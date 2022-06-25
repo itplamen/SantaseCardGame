@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Infrastruct
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Core.Engine", "Core\SantaseCardGame.Core.Engine\SantaseCardGame.Core.Engine.csproj", "{DFAD9130-4A96-423E-9F9F-58B59756D78B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SantaseCardGame.Core.Utils", "Core\SantaseCardGame.Core.Utils\SantaseCardGame.Core.Utils.csproj", "{7DF5B93D-A076-4B55-9700-5AADD7EE164D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SantaseCardGame.Core.Utils", "Core\SantaseCardGame.Core.Utils\SantaseCardGame.Core.Utils.csproj", "{7DF5B93D-A076-4B55-9700-5AADD7EE164D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
