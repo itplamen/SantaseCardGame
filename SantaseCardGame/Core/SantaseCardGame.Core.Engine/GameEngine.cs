@@ -17,7 +17,7 @@
         private readonly IGameState gameState;
         private readonly ITrickState trickState;
         private readonly IGamePlayer gamePlayer;
-        private readonly IInMemoryGameStorage gameStorage;
+        private readonly IGameStorage gameStorage;
         private readonly IAnnouncementChecker announcementChecker;
         private readonly IEnumerable<IActionPlaying> actionsPlaying;
         private readonly IEnumerable<IGameStateHandler> gameStateHandlers;
@@ -26,7 +26,7 @@
             IGameState gameState,
             ITrickState trickState,
             IGamePlayer gamePlayer,
-            IInMemoryGameStorage gameStorage, 
+            IGameStorage gameStorage, 
             IAnnouncementChecker announcementChecker, 
             IEnumerable<IActionPlaying> actionsPlaying, 
             IEnumerable<IGameStateHandler> gameStateHandlers)

@@ -7,7 +7,7 @@
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class InMemoryGameStorage: IInMemoryGameStorage
+    public class InMemoryGameStorage: IGameStorage
     {
         private readonly IMemoryCache memoryCache;
         private readonly MemoryCacheEntryOptions options;

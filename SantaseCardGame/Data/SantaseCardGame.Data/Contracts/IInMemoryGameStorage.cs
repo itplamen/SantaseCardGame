@@ -2,7 +2,7 @@
 
 namespace SantaseCardGame.Data.Contracts
 {
-    public interface IInMemoryGameStorage
+    public interface IGameStorage
     {
         void Add(string id, Game game);
 
