@@ -49,7 +49,7 @@
                 Type = gameType
             };
 
-            gameStorage.Add(game.Id, game);
+            gameStorage.Add(game);
 
             return game;
         }

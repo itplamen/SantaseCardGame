@@ -4,9 +4,11 @@ namespace SantaseCardGame.Data.Contracts
 {
     public interface IGameStorage
     {
-        void Add(string id, Game game);
+        void Add(Game game);
 
         Game Get(string id);
+
+        void Update(Game game);
 
         void Remove(string id);
     }
