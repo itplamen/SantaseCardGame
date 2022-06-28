@@ -6,6 +6,8 @@
 
     public interface IGameState
     {
+        string CurrentGameId { get; set; }
+
         int RoundInitialCardsCount { get; }
 
         int DeckMinCardsBeforeClosing { get; }

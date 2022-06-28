@@ -50,6 +50,7 @@
             };
 
             gameStorage.Add(game);
+            gameState.CurrentGameId = game.Id;
 
             return game;
         }
@@ -71,8 +72,11 @@
         public Game LoadGame(string gameId) =>
             gameStorage.Get(gameId);
 
-        public void EndGame(string gameId) =>
+        public void EndGame(string gameId)
+        {
             gameStorage.Remove(gameId);
+            gameState.CurrentGameId = string.Empty;
+        }
 
         public async void ManageGame(Game game)
         {

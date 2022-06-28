@@ -7,6 +7,8 @@
 
     public class GameState : IGameState
     {
+        public string CurrentGameId { get; set; }
+
         public int RoundInitialCardsCount => 6;
 
         public int DeckMinCardsBeforeClosing => 4;
