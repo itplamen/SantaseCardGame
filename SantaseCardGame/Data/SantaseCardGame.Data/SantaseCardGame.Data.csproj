@@ -8,6 +8,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
   </ItemGroup>
+  
+  <ItemGroup>
+	<PackageReference Include="Microsoft.JSInterop" Version="6.0.6" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SantaseCardGame.Data.Models\SantaseCardGame.Data.Models.csproj" />
