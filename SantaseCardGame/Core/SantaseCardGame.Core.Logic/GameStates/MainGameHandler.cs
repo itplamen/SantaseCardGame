@@ -25,14 +25,20 @@
 
         public void Handle(Game game)
         {
-            Round round = new Round();
-
             foreach (var roundWinner in roundWinners)
             {
-                round = roundWinner.GetWinner(deckState.ClosedBy, game.Players);
-                if (round.WinnerPosition != PlayerPosition.None)
+                var winner = roundWinner.GetWinner(deckState.ClosedBy, game.Players);
+                
+                if (winner.position != PlayerPosition.None)
                 {
-                    break;
+                    Round currentRound = game.Rounds.Last();
+                    currentRound.WinnerPosition = winner.position;
+                    currentRound.Points = winner.points;
+
+                    gameState.RoundWinner = winner.position;
+                    gameState.EndRound();
+
+                    return;
                 }
             }
 
@@ -40,17 +46,9 @@
                 game.Deck.Cards.Any() &&
                 game.Players.Any(x => x.Hands.Any()) &&
                 game.Players.All(x => x.Cards.Count() < gameState.RoundInitialCardsCount) &&
-                round.WinnerPosition == PlayerPosition.None &&
                 deckState.ClosedBy == PlayerPosition.None)
             {
                 dealer.DrawCards(game.Deck, game.Players);
-            }
-            else if (round.WinnerPosition != PlayerPosition.None)
-            {
-                game.AddRound(round);
-
-                gameState.RoundWinner = round.WinnerPosition;
-                gameState.EndRound();
             }
         }
     }

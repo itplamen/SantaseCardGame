@@ -18,15 +18,20 @@
             this.trickState = trickState;
         }
 
-        public override Round GetWinner(PlayerPosition closedBy, IEnumerable<Player> players)
+        public override (PlayerPosition position, int points) GetWinner(PlayerPosition closedBy, IEnumerable<Player> players)
         {
+            PlayerPosition winnerPosition = PlayerPosition.None;
+            int points = 0;
+
             if (closedBy == PlayerPosition.None && HasRoundEnded(players))
             {
                 Player winner = players.FirstOrDefault(x => x.Points >= gameState.RoundWinPoints);
 
                 if (winner != null)
                 {
-                    return GetRound(players, winner.Position);
+                    Player loser = players.First(x => x.Position != winner.Position);
+                    winnerPosition = winner.Position;
+                    points = CalculateWinnerPoints(loser);
                 }
                 else
                 {
@@ -35,24 +40,14 @@
 
                     if (lastTrickWinner.Points >= gameState.RoundWinPoints)
                     {
-                        return GetRound(players, lastTrickWinner.Position);
+                        Player loser = players.First(X => X.Position != lastTrickWinner.Position);
+                        winnerPosition = lastTrickWinner.Position;
+                        points = CalculateWinnerPoints(loser);
                     }
                 }
             }
 
-            return new Round();
-        }
-
-        private Round GetRound(IEnumerable<Player> players, PlayerPosition winnerPosition)
-        {
-            Player winner = players.First(x => x.Position == winnerPosition);
-            Player loser = players.First(x => x.Position != winnerPosition);
-
-            return new Round()
-            {
-                WinnerPosition = winner.Position,
-                Points = GetWinnerPoints(loser)
-            };
+            return (winnerPosition, points);
         }
     }
 }

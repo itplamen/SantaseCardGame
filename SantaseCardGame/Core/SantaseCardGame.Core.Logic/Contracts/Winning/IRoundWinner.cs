@@ -6,6 +6,6 @@
 
     public interface IRoundWinner
     {
-        Round GetWinner(PlayerPosition closedBy, IEnumerable<Player> players);
+        (PlayerPosition position, int points) GetWinner(PlayerPosition closedBy, IEnumerable<Player> players);
     }
 }

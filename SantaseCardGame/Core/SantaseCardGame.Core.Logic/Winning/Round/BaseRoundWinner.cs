@@ -16,7 +16,7 @@
             this.gameState = gameState;
         }
 
-        public abstract Round GetWinner(PlayerPosition closedBy, IEnumerable<Player> players);
+        public abstract (PlayerPosition position, int points) GetWinner(PlayerPosition closedBy, IEnumerable<Player> players);
 
         protected bool HasRoundEnded(IEnumerable<Player> players)
         {
@@ -25,7 +25,7 @@
                 players.All(x => !x.Cards.Any()));
         }
 
-        protected int GetWinnerPoints(Player loser)
+        protected int CalculateWinnerPoints(Player loser)
         {
             if (loser.Points >= gameState.RoundHalfPoints)
             {

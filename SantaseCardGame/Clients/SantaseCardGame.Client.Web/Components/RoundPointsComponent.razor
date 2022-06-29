@@ -2,7 +2,7 @@
 @inject ISuitFormatter SuitFormatter;
 
 <div id="RoundPointsInfo">
-    <div id="CurrentRound">Round @(Game.Rounds.Count() + 1)</div>
+    <div id="CurrentRound">Round @(Game.Rounds.Count())</div>
     <div class="game-points">@firstPlayer.Username <span>@GetTotalGamePoints(firstPlayer)</span></div>
     <div class="game-points">@secondPlayer.Username <span>@GetTotalGamePoints(secondPlayer)</span></div>
 </div>

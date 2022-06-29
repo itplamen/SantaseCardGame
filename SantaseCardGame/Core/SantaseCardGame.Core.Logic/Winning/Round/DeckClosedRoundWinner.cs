@@ -16,9 +16,10 @@
             this.gameState = gameState;
         }
 
-        public override Round GetWinner(PlayerPosition closedBy, IEnumerable<Player> players)
+        public override (PlayerPosition position, int points) GetWinner(PlayerPosition closedBy, IEnumerable<Player> players)
         {
-            Round round = new Round();
+            PlayerPosition winnerPosition = PlayerPosition.None;
+            int points = 0;
 
             if (closedBy != PlayerPosition.None && HasRoundEnded(players))
             {
@@ -27,17 +28,17 @@
 
                 if (winner.Points >= gameState.RoundWinPoints)
                 {
-                    round.WinnerPosition = winner.Position;
-                    round.Points = GetWinnerPoints(loser);
+                    winnerPosition = winner.Position;
+                    points = CalculateWinnerPoints(loser);
                 }
                 else
                 {
-                    round.WinnerPosition = loser.Position;
-                    round.Points = loser.Hands.Any() ? gameState.PlayerWinHalfRoundPoints : gameState.PlayerWinMaxRoundPoints;
+                    winnerPosition = loser.Position;
+                    points = loser.Hands.Any() ? gameState.PlayerWinHalfRoundPoints : gameState.PlayerWinMaxRoundPoints;
                 }
             }
 
-            return round;
+            return (winnerPosition, points);
         }
     }
 }
