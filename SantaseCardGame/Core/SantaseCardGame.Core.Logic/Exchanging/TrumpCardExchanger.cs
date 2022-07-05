@@ -4,17 +4,9 @@
 
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Models;
-    using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class TrumpCardExchanger : ITrumpCardExchanger
     {
-        private readonly IDeckState deckState;
-
-        public TrumpCardExchanger(IDeckState deckState)
-        {
-            this.deckState = deckState;
-        }
-
         public void Exchange(Card trumpCard, Deck deck, Player player)
         {
             Card nineOfTrumpsCard = player.Cards.First(x => x.Type == CardType.Nine && x.Suit == trumpCard.Suit);
@@ -25,8 +17,6 @@
 
             deck.RemoveCard(trumpCard);
             deck.AddCard(nineOfTrumpsCard);
-
-            deckState.TrumpCard = nineOfTrumpsCard;
         }
     }
 }

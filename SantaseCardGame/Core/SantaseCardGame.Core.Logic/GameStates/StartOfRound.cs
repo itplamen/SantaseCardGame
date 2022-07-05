@@ -34,7 +34,6 @@
                 trickState.Clear();
 
                 deckState.CardsLeft = game.Deck.Cards.Count();
-                deckState.TrumpCard = game.Deck.TrumpCard;
 
                 deckState.ClosedBy = PlayerPosition.None;
                 deckState.ShouldFollowSuit = false;

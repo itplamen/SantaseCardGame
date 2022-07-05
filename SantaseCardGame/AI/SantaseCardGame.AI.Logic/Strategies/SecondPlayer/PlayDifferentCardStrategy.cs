@@ -1,19 +1,21 @@
 ﻿namespace SantaseCardGame.AI.Logic.Strategies.SecondPlayer
 {
     using System.Linq;
-
+    using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class PlayDifferentCardStrategy : BasePlayerActionStrategy
     {
-        private readonly IDeckState deckState;
+        private readonly IGameState gameState;
         private readonly ITrickState trickState;
+        private readonly IGameStorage gameStorage;
 
-        public PlayDifferentCardStrategy(IDeckState deckState, ITrickState trickState)
+        public PlayDifferentCardStrategy(IGameState gameState, ITrickState trickState, IGameStorage gameStorage)
         {
-            this.deckState = deckState;
+            this.gameState = gameState;
             this.trickState = trickState;
+            this.gameStorage = gameStorage;
         }
 
         protected override PlayerAction SelectStrategy(Player player)
@@ -22,8 +24,10 @@
 
             if (player.Cards.All(x => x.Suit != opponentCard.Suit))
             {
+                Game game = gameStorage.Get(gameState.CurrentGameId);
+
                 Card card = player.Cards
-                    .Where(x => x.Suit != deckState.TrumpCard.Suit)
+                    .Where(x => x.Suit != game.Deck.TrumpCard.Suit)
                     .OrderBy(x => x.Type)
                     .FirstOrDefault();
 

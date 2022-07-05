@@ -3,17 +3,20 @@
     using System.Linq;
 
     using SantaseCardGame.Core.Logic.Contracts.Validators;
+    using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class ChangeTrumpCardStrategy : BasePlayerActionStrategy
     {
-        private readonly IDeckState deckState;
+        private readonly IGameState gameState;
+        private readonly IGameStorage gameStorage;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public ChangeTrumpCardStrategy(IDeckState deckState, IPlayerActionValidator playerActionValidator)
+        public ChangeTrumpCardStrategy(IGameState gameState, IGameStorage gameStorage, IPlayerActionValidator playerActionValidator)
         {
-            this.deckState = deckState;
+            this.gameState = gameState;
+            this.gameStorage = gameStorage;
             this.playerActionValidator = playerActionValidator;
         }
 
@@ -21,11 +24,12 @@
         {
             if (playerActionValidator.CanChangeTrump(player))
             {
-                Card nineOfTrumps = player.Cards.FirstOrDefault(x => x.Type == CardType.Nine && x.Suit == deckState.TrumpCard.Suit);
+                Game game = gameStorage.Get(gameState.CurrentGameId);
+                Card nineOfTrumps = player.Cards.FirstOrDefault(x => x.Type == CardType.Nine && x.Suit == game.Deck.TrumpCard.Suit);
 
                 if (nineOfTrumps != null)
                 {
-                    return new PlayerAction(PlayerActionType.ChangeTrumpCard, deckState.TrumpCard);
+                    return new PlayerAction(PlayerActionType.ChangeTrumpCard, game.Deck.TrumpCard);
                 }
             }
 

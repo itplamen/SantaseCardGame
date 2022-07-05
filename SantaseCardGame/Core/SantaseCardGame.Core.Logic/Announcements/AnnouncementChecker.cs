@@ -5,19 +5,20 @@
 
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Contracts.Validators;
+    using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class AnnouncementChecker : IAnnouncementChecker
     {
         private readonly IGameState gameState;
-        private readonly IDeckState deckState;
+        private readonly IGameStorage gameStorage;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnouncementChecker(IGameState gameState, IDeckState deckState, IPlayerActionValidator playerActionValidator)
+        public AnnouncementChecker(IGameState gameState, IGameStorage gameStorage, IPlayerActionValidator playerActionValidator)
         {
             this.gameState = gameState;
-            this.deckState = deckState;
+            this.gameStorage = gameStorage;
             this.playerActionValidator = playerActionValidator;
         }
 
@@ -30,7 +31,9 @@
 
                 if (hasMarriage)
                 {
-                    if (card.Suit == deckState.TrumpCard.Suit)
+                    Game game = gameStorage.Get(gameState.CurrentGameId);
+
+                    if (card.Suit == game.Deck.TrumpCard.Suit)
                     {
                         return Announce.Forty;
                     }

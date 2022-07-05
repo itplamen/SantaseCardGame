@@ -5,18 +5,21 @@
 
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Contracts.Validators;
+    using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
     public class AnnounceMarriageStrategy : BasePlayerActionStrategy
     {
-        private readonly IDeckState deckState;
+        private readonly IGameState gameState;
+        private readonly IGameStorage gameStorage;
         private readonly IAnnouncementChecker announcementChecker;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnounceMarriageStrategy(IDeckState deckState, IAnnouncementChecker announcementChecker, IPlayerActionValidator playerActionValidator)
+        public AnnounceMarriageStrategy(IGameState gameState, IGameStorage gameStorage, IAnnouncementChecker announcementChecker, IPlayerActionValidator playerActionValidator)
         {
-            this.deckState = deckState;
+            this.gameState = gameState;
+            this.gameStorage = gameStorage;
             this.announcementChecker = announcementChecker;
             this.playerActionValidator = playerActionValidator;
         }
@@ -30,8 +33,9 @@
                 if (marriages.Any())
                 {
                     Card queen = marriages.First(x => x.Type == CardType.Queen);
+                    Game game = gameStorage.Get(gameState.CurrentGameId);
 
-                    if (queen.Suit == deckState.TrumpCard.Suit)
+                    if (queen.Suit == game.Deck.TrumpCard.Suit)
                     {
                         return new PlayerAction(PlayerActionType.AnnounceCardMarriage, queen, Announce.Forty);
                     }

@@ -8,8 +8,6 @@
     {
         bool ShouldFollowSuit { get; set; }
 
-        Card TrumpCard { get; set; }
-
         PlayerPosition ClosedBy { get; set; }
 
         int CardsLeft { get; set; }

@@ -57,7 +57,7 @@
 
         public void JoinGame(string gameId, string username)
         {
-            var game = gameStorage.Get(gameId);
+            Game game = gameStorage.Get(gameId);
 
             var player = new Player()
             {

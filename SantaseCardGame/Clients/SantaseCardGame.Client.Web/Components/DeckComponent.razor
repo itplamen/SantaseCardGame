@@ -44,7 +44,7 @@
     {
         if (!Deck.Cards.Any())
         {
-            var coordinates = trumpSuitCoordinates.First(x => x.Item1 == DeckState.TrumpCard.Suit);
+            var coordinates = trumpSuitCoordinates.First(x => x.Item1 == Deck.TrumpCard.Suit);
             await JSRuntime.InvokeVoidAsync("showTrumpSuit", coordinates.Item2, coordinates.Item3);
         }
     }
@@ -68,8 +68,6 @@
     {
         Deck.RemoveCard(Deck.TrumpCard);
         Deck.AddCard(nineOfTrumpsCard);
-
-        DeckState.TrumpCard = nineOfTrumpsCard;
 
         StateHasChanged();
     }
