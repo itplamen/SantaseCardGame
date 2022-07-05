@@ -11,6 +11,8 @@
 
         public IEnumerable<Card> Cards => cards;
 
+        public PlayerPosition ClosedBy { get; set; }
+
         public void AddCard(Card card, int? index = null)
         {
             if (index.HasValue && index.Value >= 0)

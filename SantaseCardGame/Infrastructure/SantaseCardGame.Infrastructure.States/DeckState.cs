@@ -9,33 +9,19 @@
     {
         public bool ShouldFollowSuit { get; set; }
 
-        public PlayerPosition ClosedBy { get; set; }
-
         public event Action<PlayerAction> OnCloseDeck;
 
         public event Action<PlayerAction> OnChangeTrumpCard;
 
         public event Action<Card> OnExchangeTrumpCardForNineOfTrumps;
 
-        public void CloseDeck()
-        {
-            if (ClosedBy == PlayerPosition.None)
-            {
-                OnCloseDeck?.Invoke(new PlayerAction(PlayerActionType.CloseDeck));
-            }
-        }
+        public void CloseDeck() =>
+            OnCloseDeck?.Invoke(new PlayerAction(PlayerActionType.CloseDeck));
 
-        public void ChangeTrumpCard(PlayerAction playerAction)
-        {
-            if (ClosedBy == PlayerPosition.None)
-            {
-                OnChangeTrumpCard?.Invoke(playerAction);
-            }
-        }
+        public void ChangeTrumpCard(PlayerAction playerAction) =>
+            OnChangeTrumpCard?.Invoke(playerAction);
 
-        public void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard)
-        {
+        public void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard) => 
             OnExchangeTrumpCardForNineOfTrumps?.Invoke(nineOfTrumpsCard);
-        }
     }
 }

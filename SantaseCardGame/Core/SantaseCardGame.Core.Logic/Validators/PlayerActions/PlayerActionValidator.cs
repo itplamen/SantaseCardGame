@@ -44,7 +44,7 @@
             Game game = gameStorage.Get(gameState.CurrentGameId);
 
             return game.Deck.Cards.Count() >= gameState.DeckMinCardsBeforeClosing &&
-                deckState.ClosedBy == PlayerPosition.None &&
+                game.Deck.ClosedBy == PlayerPosition.None &&
                 !deckState.ShouldFollowSuit &&
                 player.Position == trickState.PlayerTurn &&
                 !trickState.Cards.Any() &&

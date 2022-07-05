@@ -30,7 +30,7 @@
     protected override void OnInitialized()
     {
         DeckState.OnExchangeTrumpCardForNineOfTrumps += ExchangeTrumpCardForNineOfTrumps;
-        
+
         trumpSuitCoordinates = new List<Tuple<CardSuit, int, int>>()
         {
             new Tuple<CardSuit, int, int>(CardSuit.Spade, 10, 20),
@@ -56,10 +56,9 @@
 
     private async Task CloseDeck()
     {
-        DeckState.CloseDeck();
-
-        if (DeckState.ClosedBy != PlayerPosition.None)
+        if (Deck.ClosedBy == PlayerPosition.None)
         {
+            DeckState.CloseDeck();
             await JSRuntime.InvokeVoidAsync("closeDeck");
         }
     }

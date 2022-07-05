@@ -8,8 +8,6 @@
     {
         bool ShouldFollowSuit { get; set; }
 
-        PlayerPosition ClosedBy { get; set; }
-
         event Action<PlayerAction> OnCloseDeck;
 
         event Action<PlayerAction> OnChangeTrumpCard;

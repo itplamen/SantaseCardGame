@@ -28,14 +28,13 @@
                 game.AddRound(new Round());
                 game.Players.ToList().ForEach(x => x.Clear());
                 game.Deck = cardsDealer.Deal(game.Players.First(), game.Players.Last());
+                game.Deck.ClosedBy = PlayerPosition.None;
 
                 PlayerPosition playerTurn = GetPlayerTurn(game);
                 trickState.SetPlayerTurn(playerTurn);
                 trickState.Clear();
 
-                deckState.ClosedBy = PlayerPosition.None;
                 deckState.ShouldFollowSuit = false;
-
                 gameState.RoundWinner = PlayerPosition.None;
             }
         }
