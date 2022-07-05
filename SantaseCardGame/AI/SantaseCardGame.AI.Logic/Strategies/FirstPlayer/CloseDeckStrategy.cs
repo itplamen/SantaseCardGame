@@ -16,8 +16,7 @@
         private readonly IAnnouncementChecker announcementChecker;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public CloseDeckStrategy(ITrickState trickState, IGameState gameState, IAnnouncementChecker announcementChecker, IPlayerActionValidator playerActionValidator)
-            : base(trickState)
+        public CloseDeckStrategy(IGameState gameState, IAnnouncementChecker announcementChecker, IPlayerActionValidator playerActionValidator)
         {
             this.gameState = gameState;
             this.announcementChecker = announcementChecker;

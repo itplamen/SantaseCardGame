@@ -14,8 +14,7 @@
         private readonly IAnnouncementChecker announcementChecker;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnounceMarriageStrategy(ITrickState trickState, IDeckState deckState, IAnnouncementChecker announcementChecker, IPlayerActionValidator playerActionValidator)
-            : base(trickState)
+        public AnnounceMarriageStrategy(IDeckState deckState, IAnnouncementChecker announcementChecker, IPlayerActionValidator playerActionValidator)
         {
             this.deckState = deckState;
             this.announcementChecker = announcementChecker;

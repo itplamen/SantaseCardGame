@@ -11,8 +11,7 @@
         private readonly IDeckState deckState;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public ChangeTrumpCardStrategy(ITrickState trickState, IDeckState deckState, IPlayerActionValidator playerActionValidator)
-            : base(trickState)
+        public ChangeTrumpCardStrategy(IDeckState deckState, IPlayerActionValidator playerActionValidator)
         {
             this.deckState = deckState;
             this.playerActionValidator = playerActionValidator;

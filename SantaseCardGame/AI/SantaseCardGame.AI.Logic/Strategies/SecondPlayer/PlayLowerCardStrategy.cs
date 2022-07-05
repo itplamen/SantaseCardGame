@@ -7,17 +7,21 @@
 
     public class PlayLowerCardStrategy : BasePlayerActionStrategy
     {
+        private readonly ITrickState trickState;
+
         public PlayLowerCardStrategy(ITrickState trickState)
-            : base(trickState)
         {
+            this.trickState = trickState;
         }
 
         protected override PlayerAction SelectStrategy(Player player)
         {
+            var opponentCard = trickState.Cards.First(x => x.Key != player.Position).Value;
+
             Card card = player.Cards
-                .Where(x => x.Suit == OpponentCard.Suit)
+                .Where(x => x.Suit == opponentCard.Suit)
                 .OrderBy(x => x.Type)
-                .FirstOrDefault(x => x.Type < OpponentCard.Type);
+                .FirstOrDefault(x => x.Type < opponentCard.Type);
 
             return new PlayerAction(PlayerActionType.PlayCard, card);
         }

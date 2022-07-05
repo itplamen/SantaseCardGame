@@ -13,8 +13,7 @@
         private readonly IDeckState deckState;
         private readonly IAnnouncementChecker announcementChecker;
 
-        public PlayCardStrategy(ITrickState trickState, IDeckState deckState, IAnnouncementChecker announcementChecker)
-            : base(trickState)
+        public PlayCardStrategy(IDeckState deckState, IAnnouncementChecker announcementChecker)
         {
             this.deckState = deckState;
             this.announcementChecker = announcementChecker;

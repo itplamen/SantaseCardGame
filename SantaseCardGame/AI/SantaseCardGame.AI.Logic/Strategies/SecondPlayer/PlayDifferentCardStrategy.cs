@@ -8,16 +8,19 @@
     public class PlayDifferentCardStrategy : BasePlayerActionStrategy
     {
         private readonly IDeckState deckState;
+        private readonly ITrickState trickState;
 
-        public PlayDifferentCardStrategy(ITrickState trickState, IDeckState deckState)
-            : base(trickState)
+        public PlayDifferentCardStrategy(IDeckState deckState, ITrickState trickState)
         {
             this.deckState = deckState;
+            this.trickState = trickState;
         }
 
         protected override PlayerAction SelectStrategy(Player player)
         {
-            if (player.Cards.All(x => x.Suit != OpponentCard.Suit))
+            var opponentCard = trickState.Cards.First(x => x.Key != player.Position).Value;
+
+            if (player.Cards.All(x => x.Suit != opponentCard.Suit))
             {
                 Card card = player.Cards
                     .Where(x => x.Suit != deckState.TrumpCard.Suit)

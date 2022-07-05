@@ -8,17 +8,20 @@
     public class PlayTrumpCardStrategy : BasePlayerActionStrategy
     {
         private readonly IDeckState deckState;
+        private readonly ITrickState trickState;
 
-        public PlayTrumpCardStrategy(ITrickState trickState, IDeckState deckState)
-            : base(trickState)
+        public PlayTrumpCardStrategy(IDeckState deckState, ITrickState trickState)
         {
             this.deckState = deckState;
+            this.trickState = trickState;
         }
 
         protected override PlayerAction SelectStrategy(Player player)
         {
-            if (ShouldPlayTrumpCardWhenFollowingSuit(player, OpponentCard) ||
-                ShouldPlayTrumpCardWhenNotFollowingSuit(player, OpponentCard))
+            var opponentCard = trickState.Cards.First(x => x.Key != player.Position).Value;
+
+            if (ShouldPlayTrumpCardWhenFollowingSuit(player, opponentCard) ||
+                ShouldPlayTrumpCardWhenNotFollowingSuit(player, opponentCard))
             {
                 Card card = player.Cards
                     .Where(x => x.Suit == deckState.TrumpCard.Suit)
