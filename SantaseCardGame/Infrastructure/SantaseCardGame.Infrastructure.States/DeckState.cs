@@ -11,8 +11,6 @@
 
         public PlayerPosition ClosedBy { get; set; }
 
-        public int CardsLeft { get; set; }
-
         public event Action<PlayerAction> OnCloseDeck;
 
         public event Action<PlayerAction> OnChangeTrumpCard;

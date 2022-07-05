@@ -48,7 +48,6 @@
             Player loserPlayer = players.First(x => x.Position != trickState.PlayerTurn);
             AddCard(loserPlayer, secondCard);
 
-            deckState.CardsLeft = deck.Cards.Count();
             deckState.ShouldFollowSuit = !deck.Cards.Any();
         }
 

@@ -3,6 +3,7 @@
     using System.Linq;
 
     using SantaseCardGame.Core.Logic.Contracts.Validators;
+    using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
@@ -11,12 +12,14 @@
         private readonly IGameState gameState;
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
+        private readonly IGameStorage gameStorage;
 
-        public PlayerActionValidator(IGameState gameState, IDeckState deckState, ITrickState trickState)
+        public PlayerActionValidator(IGameState gameState, IDeckState deckState, ITrickState trickState, IGameStorage gameStorage)
         {
             this.gameState = gameState;
             this.deckState = deckState;
             this.trickState = trickState;
+            this.gameStorage = gameStorage;
         }
 
         public bool CanAnnounce(Player player)
@@ -38,7 +41,9 @@
 
         private bool CanPerformAction(Player player)
         {
-            return deckState.CardsLeft >= gameState.DeckMinCardsBeforeClosing &&
+            Game game = gameStorage.Get(gameState.CurrentGameId);
+
+            return game.Deck.Cards.Count() >= gameState.DeckMinCardsBeforeClosing &&
                 deckState.ClosedBy == PlayerPosition.None &&
                 !deckState.ShouldFollowSuit &&
                 player.Position == trickState.PlayerTurn &&

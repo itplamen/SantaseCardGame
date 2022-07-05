@@ -33,8 +33,6 @@
                 trickState.SetPlayerTurn(playerTurn);
                 trickState.Clear();
 
-                deckState.CardsLeft = game.Deck.Cards.Count();
-
                 deckState.ClosedBy = PlayerPosition.None;
                 deckState.ShouldFollowSuit = false;
 
