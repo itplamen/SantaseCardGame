@@ -3,13 +3,14 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using SantaseCardGame.AI.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Contracts.Validators;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
-    public class AnnounceMarriageStrategy : BasePlayerActionStrategy
+    public class AnnounceMarriageStrategy : IPlayerActionStrategy
     {
         private readonly IGameState gameState;
         private readonly IGameStorage gameStorage;
@@ -24,7 +25,7 @@
             this.playerActionValidator = playerActionValidator;
         }
 
-        protected override PlayerAction SelectStrategy(Player player)
+        public PlayerAction ChooseAction(Player player)
         {
             if (playerActionValidator.CanAnnounce(player))
             {

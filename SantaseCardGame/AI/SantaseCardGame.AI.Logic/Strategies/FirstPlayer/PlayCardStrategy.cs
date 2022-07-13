@@ -4,12 +4,13 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using SantaseCardGame.AI.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
-    public class PlayCardStrategy : BasePlayerActionStrategy
+    public class PlayCardStrategy : IPlayerActionStrategy
     {
         private readonly IGameState gameState;
         private readonly IGameStorage gameStorage;
@@ -22,7 +23,7 @@
             this.announcementChecker = announcementChecker;
         }
 
-        protected override PlayerAction SelectStrategy(Player player)
+        public PlayerAction ChooseAction(Player player)
         {
             IEnumerable<Card> marriages = announcementChecker.GetMarriages(player.Cards);
             IEnumerable<Card> playCards = player.Cards

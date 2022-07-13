@@ -2,10 +2,11 @@
 {
     using System.Linq;
 
+    using SantaseCardGame.AI.Logic.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
-    public class PlayLowerCardStrategy : BasePlayerActionStrategy
+    public class PlayLowerCardStrategy : IPlayerActionStrategy
     {
         private readonly ITrickState trickState;
 
@@ -14,7 +15,7 @@
             this.trickState = trickState;
         }
 
-        protected override PlayerAction SelectStrategy(Player player)
+        public PlayerAction ChooseAction(Player player)
         {
             var opponentCard = trickState.Cards.First(x => x.Key != player.Position).Value;
 

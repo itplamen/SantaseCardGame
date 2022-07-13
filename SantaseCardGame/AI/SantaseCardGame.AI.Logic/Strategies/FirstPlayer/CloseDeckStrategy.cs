@@ -2,12 +2,13 @@
 {
     using System.Linq;
 
+    using SantaseCardGame.AI.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Contracts;
     using SantaseCardGame.Core.Logic.Contracts.Validators;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
-    public class CloseDeckStrategy : BasePlayerActionStrategy
+    public class CloseDeckStrategy : IPlayerActionStrategy
     {
         private const int ENOUGH_POINTS_REQUIRED_FOR_CLOSING = 50;
         private const int REMAINING_POINTS_REQUIRED_FOR_CLOSING = 20;
@@ -23,7 +24,7 @@
             this.playerActionValidator = playerActionValidator;
         }
 
-        protected override PlayerAction SelectStrategy(Player player)
+        public PlayerAction ChooseAction(Player player)
         {
             if (playerActionValidator.CanCloseDeck(player) && ShouldClose(player))
             {

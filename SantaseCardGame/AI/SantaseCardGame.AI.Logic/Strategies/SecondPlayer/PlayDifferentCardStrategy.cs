@@ -1,11 +1,13 @@
 ﻿namespace SantaseCardGame.AI.Logic.Strategies.SecondPlayer
 {
     using System.Linq;
+
+    using SantaseCardGame.AI.Logic.Contracts;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.States.Contracts;
 
-    public class PlayDifferentCardStrategy : BasePlayerActionStrategy
+    public class PlayDifferentCardStrategy : IPlayerActionStrategy
     {
         private readonly IGameState gameState;
         private readonly ITrickState trickState;
@@ -18,7 +20,7 @@
             this.gameStorage = gameStorage;
         }
 
-        protected override PlayerAction SelectStrategy(Player player)
+        public PlayerAction ChooseAction(Player player)
         {
             var opponentCard = trickState.Cards.First(x => x.Key != player.Position).Value;
 
