@@ -17,6 +17,7 @@
 
             deck.Cards.Remove(trumpCard);
             deck.Cards.Add(nineOfTrumpsCard);
+            deck.TrumpCard = nineOfTrumpsCard;
         }
     }
 }

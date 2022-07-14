@@ -68,6 +68,8 @@
         Deck.Cards.Remove(Deck.TrumpCard);
         Deck.Cards.Add(nineOfTrumpsCard);
 
+        Deck.TrumpCard = nineOfTrumpsCard;
+
         StateHasChanged();
     }
 }

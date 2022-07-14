@@ -28,6 +28,7 @@
                 game.Rounds.Add(new Round());
                 game.Players.ToList().ForEach(x => x.Clear());
                 game.Deck = cardsDealer.Deal(game.Players.First(), game.Players.Last());
+                game.Deck.TrumpCard = game.Deck.Cards.Last();
                 game.Deck.ClosedBy = PlayerPosition.None;
 
                 PlayerPosition playerTurn = GetPlayerTurn(game);
