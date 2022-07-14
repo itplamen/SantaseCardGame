@@ -29,7 +29,7 @@
                 Player winnerPlayer = game.Players.First(x => x.Position == winnerPosition);
 
                 IEnumerable<Card> hand = trickState.Cards.Select(x => x.Value).ToList();
-                winnerPlayer.AddHand(hand);
+                winnerPlayer.Hands.Add(hand);
 
                 trickState.SetPlayerTurn(winnerPosition);
                 trickState.Clear();

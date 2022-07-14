@@ -25,7 +25,7 @@
         {
             if (ShouldStartRound(game))
             {
-                game.AddRound(new Round());
+                game.Rounds.Add(new Round());
                 game.Players.ToList().ForEach(x => x.Clear());
                 game.Deck = cardsDealer.Deal(game.Players.First(), game.Players.Last());
                 game.Deck.ClosedBy = PlayerPosition.None;

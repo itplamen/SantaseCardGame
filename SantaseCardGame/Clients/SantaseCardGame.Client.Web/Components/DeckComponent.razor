@@ -65,8 +65,8 @@
 
     private void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard)
     {
-        Deck.RemoveCard(Deck.TrumpCard);
-        Deck.AddCard(nineOfTrumpsCard);
+        Deck.Cards.Remove(Deck.TrumpCard);
+        Deck.Cards.Add(nineOfTrumpsCard);
 
         StateHasChanged();
     }

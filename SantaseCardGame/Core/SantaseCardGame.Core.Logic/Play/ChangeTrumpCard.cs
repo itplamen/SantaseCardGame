@@ -26,10 +26,10 @@
                 
                 if (nineOfTrumpsCard != null)
                 {
-                    int nineOfTrumpsIndex = player.GetCardPosition(nineOfTrumpsCard.Type, nineOfTrumpsCard.Suit);
+                    int nineOfTrumpsIndex = player.Cards.FindIndex(x => x.Type == nineOfTrumpsCard.Type && x.Suit == nineOfTrumpsCard.Suit);
 
-                    player.RemoveCard(nineOfTrumpsCard);
-                    player.AddCard(playerAction.Card, nineOfTrumpsIndex);
+                    player.Cards.Remove(nineOfTrumpsCard);
+                    player.Cards.Insert(nineOfTrumpsIndex, playerAction.Card);
 
                     deckState.ExchangeTrumpCardForNineOfTrumps(nineOfTrumpsCard);
 

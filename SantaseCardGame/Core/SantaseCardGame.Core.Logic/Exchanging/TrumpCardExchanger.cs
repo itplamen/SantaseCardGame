@@ -10,13 +10,13 @@
         public void Exchange(Card trumpCard, Deck deck, Player player)
         {
             Card nineOfTrumpsCard = player.Cards.First(x => x.Type == CardType.Nine && x.Suit == trumpCard.Suit);
-            int nineOfTrumpsIndex = player.GetCardPosition(nineOfTrumpsCard.Type, nineOfTrumpsCard.Suit);
+            int nineOfTrumpsIndex = player.Cards.FindIndex(x => x.Type == nineOfTrumpsCard.Type && x.Suit == nineOfTrumpsCard.Suit);
 
-            player.RemoveCard(nineOfTrumpsCard);
-            player.AddCard(trumpCard, nineOfTrumpsIndex);
+            player.Cards.Remove(nineOfTrumpsCard);
+            player.Cards.Insert(nineOfTrumpsIndex, trumpCard);
 
-            deck.RemoveCard(trumpCard);
-            deck.AddCard(nineOfTrumpsCard);
+            deck.Cards.Remove(trumpCard);
+            deck.Cards.Add(nineOfTrumpsCard);
         }
     }
 }

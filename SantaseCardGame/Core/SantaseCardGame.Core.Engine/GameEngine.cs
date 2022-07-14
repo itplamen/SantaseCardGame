@@ -66,7 +66,7 @@
                 Position = !game.Players.Any() ? PlayerPosition.First : PlayerPosition.Second
             };
 
-            game.AddPlayer(player);
+            game.Players.Add(player);
         }
 
         public Game LoadGame(string gameId) =>

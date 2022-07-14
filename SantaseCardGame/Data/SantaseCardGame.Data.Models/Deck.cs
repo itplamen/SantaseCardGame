@@ -1,39 +1,26 @@
 ﻿namespace SantaseCardGame.Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     public class Deck
     {
-        private readonly List<Card> cards = new List<Card>();
+        public Card TrumpCard => Cards.Last();
 
-        public Card TrumpCard => cards.Last();
-
-        public IEnumerable<Card> Cards => cards;
+        public ICollection<Card> Cards { get; set; } = new List<Card>();
 
         public PlayerPosition ClosedBy { get; set; }
 
-        public void AddCard(Card card, int? index = null)
-        {
-            if (index.HasValue && index.Value >= 0)
-            {
-                cards.Insert(index.Value, card);
-            }
-            else
-            {
-                cards.Add(card);
-            }
-        }
-
-        public void RemoveCard(Card card)
-        {
-            cards.Remove(card);
-        }
-
         public Card GetNextCard()
         {
-            Card card = cards.First();
-            RemoveCard(card);
+            if (!Cards.Any())
+            {
+                throw new InvalidOperationException("Cannot remove card from an empty deck!");
+            }
+
+            Card card = Cards.First();
+            Cards.Remove(card);
 
             return card;
         }

@@ -64,9 +64,18 @@
         {
             // Add marriage cards close to each other
             CardType searchType = announcementChecker.MarriageCardTypeToSearch(card);
-            int index = player.GetCardPosition(searchType, card.Suit);
+            int index = player.Cards.FindIndex(x => x.Type == searchType && x.Suit == card.Suit);
 
-            player.AddCard(card, index);
+            if (index >= 0)
+            {
+                player.Cards.Insert(index, card);
+            }
+            else
+            {
+                player.Cards.Add(card);
+            }
+
+            
         }
 
         // Fisher–Yates algorithm
@@ -89,7 +98,7 @@
                 list[index] = temp;
             }
 
-            list.ForEach(x => deck.AddCard(x));
+            list.ForEach(x => deck.Cards.Add(x));
 
             return deck;
         }

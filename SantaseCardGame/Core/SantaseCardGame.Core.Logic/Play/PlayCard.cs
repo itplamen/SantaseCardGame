@@ -38,7 +38,7 @@
                     }
                 }
 
-                player.RemoveCard(playerAction.Card);
+                player.Cards.Remove(playerAction.Card);
                 trickState.AddCard(playerAction.Card, player.Position);
 
                 return new PlayerActionResult(true);

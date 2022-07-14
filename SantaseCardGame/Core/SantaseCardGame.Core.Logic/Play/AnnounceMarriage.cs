@@ -24,9 +24,9 @@
             if (ShouldPlay(playerAction, player))
             {
                 Announce announcement = announcementChecker.GetAnnouncement(player, playerAction.Card);
-                player.AddAnnouncement(playerAction.Card.Suit, announcement);
+                player.Announcements.Add(playerAction.Card.Suit, announcement);
 
-                player.RemoveCard(playerAction.Card);
+                player.Cards.Remove(playerAction.Card);
                 trickState.AddCard(playerAction.Card, player.Position);
 
                 string message = $"Announced {(int)announcement}{suitFormatter.FormatSuit(playerAction.Card.Suit)}";
