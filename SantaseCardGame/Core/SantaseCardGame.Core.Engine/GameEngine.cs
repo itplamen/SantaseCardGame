@@ -40,7 +40,7 @@
             this.gameStateHandlers = gameStateHandlers;
         }
 
-        public async Task<Game> CreateGame(GameType gameType)
+        public async Task<Game> CreateGame(GameType gameType, IEnumerable<string> players)
         {
             var game = new Game()
             {
@@ -49,24 +49,22 @@
                 Type = gameType
             };
 
-            await gameStorage.Add(game);
+            foreach (var username in players)
+            {
+                var player = new Player()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Username = username,
+                    Position = !game.Players.Any() ? PlayerPosition.First : PlayerPosition.Second
+                };
+
+                game.Players.Add(player);
+            }
+
             gameState.CurrentGameId = game.Id;
+            await gameStorage.Add(game);
 
             return game;
-        }
-
-        public void JoinGame(string gameId, string username)
-        {
-            Game game = gameStorage.Get(gameId);
-
-            var player = new Player()
-            {
-                Id = Guid.NewGuid().ToString(),
-                Username = username,
-                Position = !game.Players.Any() ? PlayerPosition.First : PlayerPosition.Second
-            };
-
-            game.Players.Add(player);
         }
 
         public Game LoadGame(string gameId) =>

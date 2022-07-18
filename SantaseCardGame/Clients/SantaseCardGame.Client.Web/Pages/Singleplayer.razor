@@ -46,10 +46,7 @@
 
         if (game == null)
         {
-            game = await GameEngine.CreateGame(GameType.Singleplayer);
-
-            GameEngine.JoinGame(game.Id, "Bot");
-            GameEngine.JoinGame(game.Id, "Player");
+            game = await GameEngine.CreateGame(GameType.Singleplayer, new List<string>() { "Bot", "Player" });
         }
 
         GameEngine.ManageGame(game);
