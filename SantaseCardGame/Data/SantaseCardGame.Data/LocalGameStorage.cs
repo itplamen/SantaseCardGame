@@ -6,10 +6,9 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.JSInterop;
     
-    using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
     
-    public class LocalGameStorage : BaseStorage<Game>, IStorage<Game>
+    public class LocalGameStorage : BaseStorage<Game>
     {
         public LocalGameStorage(IJSRuntime jsRuntime, IConfiguration configuration)
             : base(jsRuntime, configuration, "gameKey")

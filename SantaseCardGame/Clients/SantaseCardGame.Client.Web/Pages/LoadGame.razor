@@ -1,15 +1,13 @@
 ﻿@page "/loadgame"
 
-@inject IJSRuntime JSRuntime;
-@inject IGameEngine GameEngine;
-@inject IConfiguration Configuration;
+@inject IGameLoaderManager GameLoader;
 @inject NavigationManager NavManager;
 
 <div id="LoadGameBoard" class="game-info">
     <table>
         <thead>
             <tr>
-                <th colspan="4">Save Games</th>
+                <th colspan="5">Saved Games</th>
             </tr>
         </thead>
         <tbody>
@@ -18,25 +16,30 @@
                 <th>Rounds</th>
                 <th>Type</th>
                 <th>Points</th>
+                <th></th>
             </tr>
-            @if (game != null)
+            @if (games != null)
             {
+                @foreach (var game in games)
+                {
+                    <tr>
+                        <td>@game.Date.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@game.Rounds.Count()</td>
+                        <td>@game.Type</td>
+                        <td>@GetPlayerPoints(game, PlayerPosition.First) / @GetPlayerPoints(game, PlayerPosition.Second)</td>
+                        <td><input type="radio" name="LoadGame" id="@game.Id" value="@game.Id" @onclick="() => SelectGame(game.Id)" /></td>
+                    </tr>
+                }
                 <tr>
-                    <td>@game.Date.ToString("yyyy-MM-dd HH:mm")</td>
-                    <td>@game.Rounds.Count()</td>
-                    <td>@game.Type</td>
-                    <td>@GetPlayerPoints(PlayerPosition.First) / @GetPlayerPoints(PlayerPosition.Second)</td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <button type="button" class="btn btn-success" @onclick="@(() => LoadSantaseGame(game.Id))">Load Game</button>
+                    <td colspan="5">
+                        <button type="button" class="btn btn-success" @onclick="LoadSantaseGame">Load Game</button>
                     </td>
                 </tr>
             }
             else
             {
                 <tr>
-                    <td colspan="4">No Games Found</td>
+                    <td colspan="5">No Games Found</td>
                 </tr>
             }
         </tbody>
@@ -44,28 +47,33 @@
 </div>
 
 @code {
-    private Game game;
+    private string selectedGameId;
+    private IEnumerable<Game> games;
 
     protected override async Task OnInitializedAsync()
     {
-        string name = Configuration["saveKey"];
-        string gameId = await JSRuntime.InvokeAsync<string>("getGameId", name);
-
-        if (!string.IsNullOrEmpty(gameId))
-        {
-            game = GameEngine.LoadGame(gameId);
-        }
+        games = await GameLoader.GetSavedGames();
     }
 
-    private int GetPlayerPoints(PlayerPosition playerPosition)
+    private int GetPlayerPoints(Game game, PlayerPosition playerPosition)
     {
         return game.Rounds
             .Where(x => x.WinnerPosition == playerPosition)
             .Sum(x => x.Points);
     }
 
-    private void LoadSantaseGame(string gameId)
+    private void SelectGame(string gameId)
     {
-        NavManager.NavigateTo($"/singleplayer/{gameId}");
+        selectedGameId = gameId;
+    }
+
+    private async void LoadSantaseGame()
+    {
+        if (!string.IsNullOrEmpty(selectedGameId))
+        {
+            await GameLoader.LoadGame(selectedGameId);
+            
+            NavManager.NavigateTo($"/singleplayer");
+        }
     }
 }

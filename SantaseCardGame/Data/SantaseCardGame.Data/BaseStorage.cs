@@ -28,6 +28,8 @@
         {
             var models = await GetAll();
             var list = models.ToList();
+
+            list.Remove(model);
             list.Add(model);
 
             await Save(list);

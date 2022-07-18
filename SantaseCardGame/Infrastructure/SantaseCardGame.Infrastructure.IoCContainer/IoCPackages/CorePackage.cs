@@ -25,6 +25,7 @@
         public void RegisterServices(IServiceCollection services)
         {
             services.AddSingleton<IGameEngine, GameEngine>();
+            services.AddSingleton<IGameLoaderManager, GameLoaderManager>();
 
             services.AddSingleton<IAnnouncementChecker, AnnouncementChecker>();
             services.AddSingleton<ICardsDealer, CardsDealer>();
