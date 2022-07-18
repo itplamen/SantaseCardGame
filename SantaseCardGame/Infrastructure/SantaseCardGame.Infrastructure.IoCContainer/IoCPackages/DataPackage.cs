@@ -1,5 +1,7 @@
 ﻿namespace SantaseCardGame.Infrastructure.IoCContainer.IoCPackages
 {
+    using System;
+
     using Microsoft.Extensions.Caching.Memory;
     using Microsoft.Extensions.DependencyInjection;
     
@@ -24,6 +26,8 @@
             services.AddSingleton<ICardsProvider, CardsProvider>();
 
             services.AddSingleton<LocalGameStorage>();
+            services.AddSingleton<IStorage<Tuple<string, PlayerPosition, bool>>, StateStorage>();
+
             services.AddSingleton<IStorage<Game>, InMemoryGameStorage>(x => 
                 new InMemoryGameStorage(
                     x.GetRequiredService<LocalGameStorage>(),

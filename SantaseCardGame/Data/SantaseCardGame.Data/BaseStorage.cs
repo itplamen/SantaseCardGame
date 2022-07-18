@@ -17,12 +17,10 @@
     {
         private readonly string key;
         private readonly IJSRuntime jsRuntime;
-        private readonly IConfiguration configuration;
 
         protected BaseStorage(IJSRuntime jsRuntime, IConfiguration configuration, string storageKey)
         {
             this.jsRuntime = jsRuntime;
-            this.configuration = configuration;
             this.key = configuration[storageKey];
         }
 
