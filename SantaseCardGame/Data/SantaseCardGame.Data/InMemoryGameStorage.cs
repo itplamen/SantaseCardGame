@@ -1,6 +1,7 @@
 ﻿namespace SantaseCardGame.Data
 {
     using System;
+    using System.Threading.Tasks;
 
     using Microsoft.Extensions.Caching.Memory;
 
@@ -9,18 +10,22 @@
 
     public class InMemoryGameStorage : IGameStorage
     {
+        private readonly IGameStorage gameStorage;
         private readonly IMemoryCache memoryCache;
         private readonly MemoryCacheEntryOptions options;
 
-        public InMemoryGameStorage(IMemoryCache memoryCache, int expiration)
+        public InMemoryGameStorage(IGameStorage gameStorage, IMemoryCache memoryCache, int expiration)
         {
+            this.gameStorage = gameStorage;
             this.memoryCache = memoryCache;
             this.options = new MemoryCacheEntryOptions() { AbsoluteExpiration = DateTimeOffset.UtcNow.AddSeconds(expiration) };
         }
 
-        public void Add(Game game)
+        public async Task Add(Game game)
         {
             memoryCache.Set(game.Id, game, options);
+
+            await gameStorage.Add(game);
         }
 
         public Game Get(string id)
@@ -33,9 +38,11 @@
 
         }
 
-        public void Remove(string id)
+        public async Task Remove(string id)
         {
             memoryCache.Remove(id);
+
+            await gameStorage.Remove(id);
         }
     }
 }

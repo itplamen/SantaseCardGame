@@ -43,18 +43,12 @@
             $('#Scoreboard').show();
         }
 
-        function saveGame(name, gameID, expiration) {
-            let date = new Date(Date.parse(expiration));
-            document.cookie = name + '=' + gameID + ';expires=' + date + ';path=/';
+        function saveGames(key, jsonGames) {
+            localStorage.setItem(key, jsonGames);
         }
 
-        function getGameId(name) {
-            let value = `; ${document.cookie}`;
-            let parts = value.split(`; ${name}=`);
-
-            if (parts.length === 2) {
-                return parts.pop().split(';').shift();
-            }
+        function getGames(key) {
+            return localStorage.getItem(key);
         }
 
         $(document).on('click', '#Scoreboard button', function () {

@@ -21,9 +21,13 @@
             services.AddMemoryCache();
 
             services.AddSingleton<ICardsProvider, CardsProvider>();
+
+            services.AddSingleton<LocalGameStorage>();
             services.AddSingleton<IGameStorage, InMemoryGameStorage>(x => 
-                new InMemoryGameStorage(x.GetRequiredService<IMemoryCache>(),
-                absoluteExpiration));
+                new InMemoryGameStorage(
+                    x.GetRequiredService<LocalGameStorage>(),
+                    x.GetRequiredService<IMemoryCache>(),
+                    absoluteExpiration));
         }
     }
 }

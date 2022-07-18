@@ -40,7 +40,7 @@
             this.gameStateHandlers = gameStateHandlers;
         }
 
-        public Game CreateGame(GameType gameType)
+        public async Task<Game> CreateGame(GameType gameType)
         {
             var game = new Game()
             {
@@ -49,7 +49,7 @@
                 Type = gameType
             };
 
-            gameStorage.Add(game);
+            await gameStorage.Add(game);
             gameState.CurrentGameId = game.Id;
 
             return game;
@@ -72,9 +72,9 @@
         public Game LoadGame(string gameId) =>
             gameStorage.Get(gameId);
 
-        public void EndGame(string gameId)
+        public async Task EndGame(string gameId)
         {
-            gameStorage.Remove(gameId);
+            await gameStorage.Remove(gameId);
             gameState.CurrentGameId = string.Empty;
         }
 

@@ -7,7 +7,6 @@
 @inject IGameState GameState;
 @inject ITrickState TrickState;
 @inject IGameEngine GameEngine;
-@inject IConfiguration Configuration;
 @inject NavigationManager NavManager;
 
 @if (game != null)
@@ -47,17 +46,13 @@
 
         if (game == null)
         {
-            game = GameEngine.CreateGame(GameType.Singleplayer);
+            game = await GameEngine.CreateGame(GameType.Singleplayer);
 
             GameEngine.JoinGame(game.Id, "Bot");
             GameEngine.JoinGame(game.Id, "Player");
         }
 
         GameEngine.ManageGame(game);
-
-        DateTime expiration = DateTime.UtcNow.AddSeconds(int.Parse(Configuration["gameExpiration"]));
-        string name = Configuration["saveKey"];
-        await JSRuntime.InvokeVoidAsync("saveGame", name, game.Id, expiration);
     }
 
     public void Dispose()
@@ -72,15 +67,8 @@
     private void ManageGame() =>
         GameEngine.ManageGame(game);
 
-    private async void EndGame()
-    {
-        GameEngine.EndGame(game.Id);
-
-        DateTime expiration = DateTime.UtcNow.AddDays(-1);
-        string name = Configuration["saveKey"];
-
-        await JSRuntime.InvokeVoidAsync("saveGame", name, string.Empty, expiration);
-    }
+    private async void EndGame() =>
+        await GameEngine.EndGame(game.Id);
 
     private async void EndRound()
     {
