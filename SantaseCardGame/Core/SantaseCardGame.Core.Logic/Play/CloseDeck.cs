@@ -9,10 +9,10 @@
     {
         private readonly IDeckState deckState;
         private readonly IGameState gameState;
-        private readonly IGameStorage gameStorage;
+        private readonly IStorage<Game> gameStorage;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public CloseDeck(IGameState gameState, ITrickState trickState, IDeckState deckState, IGameStorage gameStorage, IPlayerActionValidator playerActionValidator)
+        public CloseDeck(IGameState gameState, ITrickState trickState, IDeckState deckState, IStorage<Game> gameStorage, IPlayerActionValidator playerActionValidator)
             : base(gameState, trickState)
         {
             this.gameState = gameState;

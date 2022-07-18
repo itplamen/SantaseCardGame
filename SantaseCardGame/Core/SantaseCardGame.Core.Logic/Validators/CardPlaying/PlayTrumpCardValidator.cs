@@ -11,9 +11,9 @@
     {
         private readonly IDeckState deckState;
         private readonly IGameState gameState;
-        private readonly IGameStorage gameStorage;
+        private readonly IStorage<Game> gameStorage;
 
-        public PlayTrumpCardValidator(IDeckState deckState, IGameState gameState, IGameStorage gameStorage)
+        public PlayTrumpCardValidator(IDeckState deckState, IGameState gameState, IStorage<Game> gameStorage)
         {
             this.deckState = deckState;
             this.gameState = gameState;

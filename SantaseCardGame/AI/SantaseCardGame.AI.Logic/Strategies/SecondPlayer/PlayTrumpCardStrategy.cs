@@ -12,9 +12,9 @@
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
         private readonly IGameState gameState;
-        private readonly IGameStorage gameStorage;
+        private readonly IStorage<Game> gameStorage;
 
-        public PlayTrumpCardStrategy(IDeckState deckState, ITrickState trickState, IGameState gameState, IGameStorage gameStorage)
+        public PlayTrumpCardStrategy(IDeckState deckState, ITrickState trickState, IGameState gameState, IStorage<Game> gameStorage)
         {
             this.deckState = deckState;
             this.trickState = trickState;

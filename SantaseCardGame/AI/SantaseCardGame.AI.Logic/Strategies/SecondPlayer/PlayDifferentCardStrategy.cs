@@ -11,9 +11,9 @@
     {
         private readonly IGameState gameState;
         private readonly ITrickState trickState;
-        private readonly IGameStorage gameStorage;
+        private readonly IStorage<Game> gameStorage;
 
-        public PlayDifferentCardStrategy(IGameState gameState, ITrickState trickState, IGameStorage gameStorage)
+        public PlayDifferentCardStrategy(IGameState gameState, ITrickState trickState, IStorage<Game> gameStorage)
         {
             this.gameState = gameState;
             this.trickState = trickState;

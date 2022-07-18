@@ -5,6 +5,7 @@
     
     using SantaseCardGame.Data;
     using SantaseCardGame.Data.Contracts;
+    using SantaseCardGame.Data.Models;
     using SantaseCardGame.Infrastructure.IoCContainer.Contracts;
 
     public sealed class DataPackage : IPackage
@@ -23,7 +24,7 @@
             services.AddSingleton<ICardsProvider, CardsProvider>();
 
             services.AddSingleton<LocalGameStorage>();
-            services.AddSingleton<IGameStorage, InMemoryGameStorage>(x => 
+            services.AddSingleton<IStorage<Game>, InMemoryGameStorage>(x => 
                 new InMemoryGameStorage(
                     x.GetRequiredService<LocalGameStorage>(),
                     x.GetRequiredService<IMemoryCache>(),

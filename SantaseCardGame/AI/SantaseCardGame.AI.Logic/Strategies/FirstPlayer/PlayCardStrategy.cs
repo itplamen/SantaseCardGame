@@ -13,10 +13,10 @@
     public class PlayCardStrategy : IPlayerActionStrategy
     {
         private readonly IGameState gameState;
-        private readonly IGameStorage gameStorage;
+        private readonly IStorage<Game> gameStorage;
         private readonly IAnnouncementChecker announcementChecker;
 
-        public PlayCardStrategy(IGameState gameState, IGameStorage gameStorage, IAnnouncementChecker announcementChecker)
+        public PlayCardStrategy(IGameState gameState, IStorage<Game> gameStorage, IAnnouncementChecker announcementChecker)
         {
             this.gameState = gameState;
             this.gameStorage = gameStorage;

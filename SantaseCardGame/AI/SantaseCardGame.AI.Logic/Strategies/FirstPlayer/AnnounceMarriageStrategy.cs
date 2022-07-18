@@ -13,11 +13,11 @@
     public class AnnounceMarriageStrategy : IPlayerActionStrategy
     {
         private readonly IGameState gameState;
-        private readonly IGameStorage gameStorage;
+        private readonly IStorage<Game> gameStorage;
         private readonly IAnnouncementChecker announcementChecker;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnounceMarriageStrategy(IGameState gameState, IGameStorage gameStorage, IAnnouncementChecker announcementChecker, IPlayerActionValidator playerActionValidator)
+        public AnnounceMarriageStrategy(IGameState gameState, IStorage<Game> gameStorage, IAnnouncementChecker announcementChecker, IPlayerActionValidator playerActionValidator)
         {
             this.gameState = gameState;
             this.gameStorage = gameStorage;

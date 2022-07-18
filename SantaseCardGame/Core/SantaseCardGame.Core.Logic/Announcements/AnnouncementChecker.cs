@@ -12,10 +12,10 @@
     public class AnnouncementChecker : IAnnouncementChecker
     {
         private readonly IGameState gameState;
-        private readonly IGameStorage gameStorage;
+        private readonly IStorage<Game> gameStorage;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public AnnouncementChecker(IGameState gameState, IGameStorage gameStorage, IPlayerActionValidator playerActionValidator)
+        public AnnouncementChecker(IGameState gameState, IStorage<Game> gameStorage, IPlayerActionValidator playerActionValidator)
         {
             this.gameState = gameState;
             this.gameStorage = gameStorage;

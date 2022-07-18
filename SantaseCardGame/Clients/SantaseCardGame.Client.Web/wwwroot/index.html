@@ -43,11 +43,11 @@
             $('#Scoreboard').show();
         }
 
-        function saveGames(key, jsonGames) {
-            localStorage.setItem(key, jsonGames);
+        function save(key, json) {
+            localStorage.setItem(key, json);
         }
 
-        function getGames(key) {
+        function get(key) {
             return localStorage.getItem(key);
         }
 

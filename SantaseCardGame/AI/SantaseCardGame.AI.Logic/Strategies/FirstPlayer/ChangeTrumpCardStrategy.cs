@@ -11,10 +11,10 @@
     public class ChangeTrumpCardStrategy : IPlayerActionStrategy
     {
         private readonly IGameState gameState;
-        private readonly IGameStorage gameStorage;
+        private readonly IStorage<Game> gameStorage;
         private readonly IPlayerActionValidator playerActionValidator;
 
-        public ChangeTrumpCardStrategy(IGameState gameState, IGameStorage gameStorage, IPlayerActionValidator playerActionValidator)
+        public ChangeTrumpCardStrategy(IGameState gameState, IStorage<Game> gameStorage, IPlayerActionValidator playerActionValidator)
         {
             this.gameState = gameState;
             this.gameStorage = gameStorage;

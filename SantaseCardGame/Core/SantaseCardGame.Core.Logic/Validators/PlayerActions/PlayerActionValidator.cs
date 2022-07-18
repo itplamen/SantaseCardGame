@@ -12,9 +12,9 @@
         private readonly IGameState gameState;
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
-        private readonly IGameStorage gameStorage;
+        private readonly IStorage<Game> gameStorage;
 
-        public PlayerActionValidator(IGameState gameState, IDeckState deckState, ITrickState trickState, IGameStorage gameStorage)
+        public PlayerActionValidator(IGameState gameState, IDeckState deckState, ITrickState trickState, IStorage<Game> gameStorage)
         {
             this.gameState = gameState;
             this.deckState = deckState;

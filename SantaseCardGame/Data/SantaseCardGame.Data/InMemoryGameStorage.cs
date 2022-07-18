@@ -9,13 +9,13 @@
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
 
-    public class InMemoryGameStorage : IGameStorage
+    public class InMemoryGameStorage : IStorage<Game>
     {
-        private readonly IGameStorage gameStorage;
+        private readonly IStorage<Game> gameStorage;
         private readonly IMemoryCache memoryCache;
         private readonly MemoryCacheEntryOptions options;
 
-        public InMemoryGameStorage(IGameStorage gameStorage, IMemoryCache memoryCache, int expiration)
+        public InMemoryGameStorage(IStorage<Game> gameStorage, IMemoryCache memoryCache, int expiration)
         {
             this.gameStorage = gameStorage;
             this.memoryCache = memoryCache;
