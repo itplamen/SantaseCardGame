@@ -1,6 +1,7 @@
 ﻿namespace SantaseCardGame.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Caching.Memory;
@@ -33,10 +34,8 @@
             return memoryCache.Get<Game>(id);
         }
 
-        public void Update(Game game)
-        {
-
-        }
+        public async Task<IEnumerable<Game>> GetAll() =>
+            await gameStorage.GetAll();
 
         public async Task Remove(string id)
         {

@@ -1,6 +1,5 @@
 ﻿namespace SantaseCardGame.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.Json;
@@ -25,51 +24,53 @@
 
         public async Task Add(Game game)
         {
-            var key = configuration["saveKey"];
-            var games = await GetAll(key);
-            games.Add(game);
+            var games = await GetAll();
+            games.ToList().Add(game);
 
-            var jsonGames = JsonSerializer.Serialize(games);
-            await jsRuntime.InvokeVoidAsync("saveGames", key, jsonGames);
+            await SaveGames(games);
         }
 
         public Game Get(string id)
         {
-            throw new NotImplementedException();
+            var games = GetAll().Result;
+
+            return games.FirstOrDefault(game => game.Id == id);
         }
 
-        public void Update(Game game)
+        public async Task<IEnumerable<Game>> GetAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task Remove(string id)
-        {
-            var key = configuration["saveKey"];
-            var games = await GetAll(key);
-            var game = games.FirstOrDefault(x => x.Id == id);
-
-            if (game != null)
-            {
-                games.Remove(game);
-            }
-
-            var jsonGames = JsonSerializer.Serialize(games);
-            await jsRuntime.InvokeVoidAsync("saveGames", key, jsonGames);
-        }
-
-        private async Task<IList<Game>> GetAll(string key)
-        {
+            var key = configuration["gameKey"];
             var json = await jsRuntime.InvokeAsync<string>("getGames", key);
 
             if (!string.IsNullOrEmpty(json))
             {
-                var games = JsonSerializer.Deserialize<IList<Game>>(json);
+                var games = JsonSerializer.Deserialize<IEnumerable<Game>>(json);
 
                 return games;
             }
 
             return new List<Game>();
+        }
+
+        public async Task Remove(string id)
+        {
+            var games = await GetAll();
+            var game = games.FirstOrDefault(x => x.Id == id);
+
+            if (game != null)
+            {
+                games.ToList().Remove(game);
+            }
+
+            await SaveGames(games);
+        }
+
+        private async Task SaveGames(IEnumerable<Game> games)
+        {
+            var key = configuration["gameKey"];
+            var jsonGames = JsonSerializer.Serialize(games);
+
+            await jsRuntime.InvokeVoidAsync("saveGames", key, jsonGames);
         }
     }
 }

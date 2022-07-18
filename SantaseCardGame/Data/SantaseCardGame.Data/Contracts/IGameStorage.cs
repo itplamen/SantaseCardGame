@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Data.Contracts
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using SantaseCardGame.Data.Models;
@@ -10,7 +11,7 @@
 
         Game Get(string id);
 
-        void Update(Game game);
+        Task<IEnumerable<Game>> GetAll();
 
         Task Remove(string id);
     }
