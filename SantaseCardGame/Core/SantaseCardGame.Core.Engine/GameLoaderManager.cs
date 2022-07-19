@@ -16,14 +16,14 @@
         private readonly IDeckState deckState;
         private readonly ITrickState trickState;
         private readonly IStorage<Game> gameStorage;
-        private readonly IStorage<Tuple<string, PlayerPosition, bool>> stateStorage;
+        private readonly IStorage<State> stateStorage;
 
         public GameLoaderManager(
             IGameState gameState, 
             IDeckState deckState, 
             ITrickState trickState, 
             IStorage<Game> gameStorage, 
-            IStorage<Tuple<string, PlayerPosition, bool>> stateStorage)
+            IStorage<State> stateStorage)
         {
             this.gameState = gameState;
             this.deckState = deckState;
@@ -34,7 +34,13 @@
 
         public async Task SaveGame(Game game)
         {
-            var state = new Tuple<string, PlayerPosition, bool>(game.Id, trickState.PlayerTurn, deckState.ShouldFollowSuit);
+            var state = new State()
+            {
+                GameId = game.Id,
+                TrickCards = trickState.Cards,
+                PlayerTurn = trickState.PlayerTurn,
+                ShouldFollowSuit = deckState.ShouldFollowSuit
+            };
 
             await gameStorage.Add(game);
             await stateStorage.Add(state);
@@ -49,16 +55,17 @@
             var states = await stateStorage.GetAll();
 
             var game = games.FirstOrDefault(x => x.Id == id);
-            var state = states.FirstOrDefault(x => x.Item1 == id);
+            var state = states.FirstOrDefault(x => x.GameId == id);
 
             if (game == null || state == null)
             {
                 throw new InvalidOperationException("Cannot load game!");
             }
 
-            gameState.CurrentGameId = state.Item1;
-            trickState.SetPlayerTurn(state.Item2);
-            deckState.ShouldFollowSuit = state.Item3;
+            gameState.CurrentGameId = state.GameId;
+            trickState.SetPlayerTurn(state.PlayerTurn);
+            deckState.ShouldFollowSuit = state.ShouldFollowSuit;
+            state.TrickCards.ToList().ForEach(x => trickState.AddCard(x.Value, x.Key));
 
             await gameStorage.Add(game);
         }

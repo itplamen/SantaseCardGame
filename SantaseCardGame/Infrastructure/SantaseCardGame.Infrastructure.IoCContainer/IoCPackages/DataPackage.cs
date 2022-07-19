@@ -26,7 +26,7 @@
             services.AddSingleton<ICardsProvider, CardsProvider>();
 
             services.AddSingleton<LocalGameStorage>();
-            services.AddSingleton<IStorage<Tuple<string, PlayerPosition, bool>>, StateStorage>();
+            services.AddSingleton<IStorage<State>, StateStorage>();
 
             services.AddSingleton<IStorage<Game>, InMemoryGameStorage>(x => 
                 new InMemoryGameStorage(

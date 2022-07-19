@@ -1,5 +1,4 @@
 ﻿@page "/singleplayer"
-@page "/singleplayer/{gameId}"
 
 @implements IDisposable;
 
@@ -7,7 +6,7 @@
 @inject IGameState GameState;
 @inject ITrickState TrickState;
 @inject IGameEngine GameEngine;
-@inject NavigationManager NavManager;
+@inject IGameLoaderManager GameLoader;
 
 @if (game != null)
 {
@@ -16,15 +15,12 @@
         <PlayerComponent IsCurrentPlayer="false" Player="game.Players.First()"></PlayerComponent>
         <DeckComponent Deck="game.Deck"></DeckComponent>
         <TrickComponent CurrentPlayerPosition="game.Players.Last().Position"></TrickComponent>
-        <PlayerComponent IsCurrentPlayer="true" Player="game.Players.Last()"></PlayerComponent>
+        <PlayerComponent IsCurrentPlayer="true" Player="game.Players.Last()" OnSaveGame="SaveGame"></PlayerComponent>
     </div>
 }
 
 @code {
     private Game game;
-
-    [Parameter]
-    public string GameId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -34,17 +30,11 @@
         GameState.OnShowMessage += OnShowMessage;
         GameState.OnEndRound += EndRound;
 
-        if (!string.IsNullOrEmpty(GameId))
+        if (!string.IsNullOrEmpty(GameState.CurrentGameId))
         {
-            game = GameEngine.LoadGame(GameId);
-
-            if (game == null)
-            {
-                NavManager.NavigateTo($"/singleplayer");
-            }
+            game = GameEngine.GetCurrentGame();
         }
-
-        if (game == null)
+        else
         {
             game = await GameEngine.CreateGame(GameType.Singleplayer, new List<string>() { "Bot", "Player" });
         }
@@ -66,6 +56,9 @@
 
     private async void EndGame() =>
         await GameEngine.EndGame(game.Id);
+
+    private async void SaveGame() =>
+        await GameLoader.SaveGame(game);
 
     private async void EndRound()
     {

@@ -9,9 +9,9 @@
     {
         Task<Game> CreateGame(GameType gameType, IEnumerable<string> players);
 
-        Game LoadGame(string gameId);
-
         Task EndGame(string gameId);
+
+        Game GetCurrentGame();
 
         void ManageGame(Game game);
 

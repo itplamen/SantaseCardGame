@@ -67,8 +67,8 @@
             return game;
         }
 
-        public Game LoadGame(string gameId) =>
-            gameStorage.Get(gameId);
+        public Game GetCurrentGame() =>
+            gameStorage.Get(gameState.CurrentGameId);
 
         public async Task EndGame(string gameId)
         {

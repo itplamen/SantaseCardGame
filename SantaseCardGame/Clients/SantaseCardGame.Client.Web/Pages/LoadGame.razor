@@ -18,7 +18,7 @@
                 <th>Points</th>
                 <th></th>
             </tr>
-            @if (games != null)
+            @if (games != null && games.Any())
             {
                 @foreach (var game in games)
                 {
@@ -39,7 +39,7 @@
             else
             {
                 <tr>
-                    <td colspan="5">No Games Found</td>
+                    <td colspan="5">No Saved Games Found</td>
                 </tr>
             }
         </tbody>
