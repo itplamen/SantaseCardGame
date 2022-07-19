@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Data.Contracts
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -12,8 +13,8 @@
 
         TModel Get(string id);
 
-        Task<IEnumerable<TModel>> GetAll();
+        Task<IEnumerable<TModel>> GetAll(Func<TModel, bool> predicate = null);
 
-        Task Remove(string id);
+        Task Remove(string id, bool removePermanentlySaved);
     }
 }

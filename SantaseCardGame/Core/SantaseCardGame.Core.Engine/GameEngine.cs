@@ -18,6 +18,7 @@
         private readonly ITrickState trickState;
         private readonly IGamePlayer gamePlayer;
         private readonly IStorage<Game> gameStorage;
+        private readonly IStorage<State> stateStorage;
         private readonly IAnnouncementChecker announcementChecker;
         private readonly IEnumerable<IActionPlaying> actionsPlaying;
         private readonly IEnumerable<IGameStateHandler> gameStateHandlers;
@@ -26,7 +27,8 @@
             IGameState gameState,
             ITrickState trickState,
             IGamePlayer gamePlayer,
-            IStorage<Game> gameStorage, 
+            IStorage<Game> gameStorage,
+            IStorage<State> stateStorage,
             IAnnouncementChecker announcementChecker, 
             IEnumerable<IActionPlaying> actionsPlaying, 
             IEnumerable<IGameStateHandler> gameStateHandlers)
@@ -35,6 +37,7 @@
             this.trickState = trickState;
             this.gamePlayer = gamePlayer;
             this.gameStorage = gameStorage;
+            this.stateStorage = stateStorage;
             this.announcementChecker = announcementChecker;
             this.actionsPlaying = actionsPlaying;
             this.gameStateHandlers = gameStateHandlers;
@@ -61,7 +64,9 @@
             }
 
             gameState.CurrentGameId = game.Id;
+
             await gameStorage.Add(game);
+            await stateStorage.Add(new State() { Id = game.Id });
 
             return game;
         }
@@ -69,10 +74,12 @@
         public Game GetCurrentGame() =>
             gameStorage.Get(gameState.CurrentGameId);
 
-        public async Task EndGame(string gameId)
+        public async Task EndGame(string gameId, bool removePermanentlySaved)
         {
-            await gameStorage.Remove(gameId);
             gameState.CurrentGameId = string.Empty;
+
+            await gameStorage.Remove(gameId, removePermanentlySaved);
+            await stateStorage.Remove(gameId, removePermanentlySaved);
         }
 
         public async void ManageGame(Game game)
@@ -131,9 +138,7 @@
             }
         }
 
-        private async Task SimulateThinking()
-        {
+        private async Task SimulateThinking() =>
             await Task.Delay(1500);
-        }
     }
 }

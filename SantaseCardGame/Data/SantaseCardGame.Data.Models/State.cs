@@ -8,6 +8,8 @@
     {
         public string Id { get; set; }
 
+        public bool IsSaved { get; set; }
+
         public bool ShouldFollowSuit { get; set; }
 
         public PlayerPosition PlayerTurn { get; set; }

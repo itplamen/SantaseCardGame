@@ -34,14 +34,14 @@
             return memoryCache.Get<Game>(id);
         }
 
-        public async Task<IEnumerable<Game>> GetAll() =>
-            await gameStorage.GetAll();
+        public async Task<IEnumerable<Game>> GetAll(Func<Game, bool> predicate = null) =>
+            await gameStorage.GetAll(predicate);
 
-        public async Task Remove(string id)
+        public async Task Remove(string id, bool removePermanentlySaved)
         {
             memoryCache.Remove(id);
 
-            await gameStorage.Remove(id);
+            await gameStorage.Remove(id, removePermanentlySaved);
         }
     }
 }

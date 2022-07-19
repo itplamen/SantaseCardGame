@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -32,6 +33,7 @@
 
             if (modelToRemove != null)
             {
+                model.IsSaved = true;
                 list.Remove(modelToRemove);
             }
 
@@ -47,7 +49,7 @@
             return modes.FirstOrDefault(x =>x.Id == id);
         }
 
-        public async Task<IEnumerable<TModel>> GetAll()
+        public async Task<IEnumerable<TModel>> GetAll(Func<TModel, bool> predicate = null)
         {
             var json = await jsRuntime.InvokeAsync<string>("get", key);
 
@@ -55,24 +57,29 @@
             {
                 var models = JsonSerializer.Deserialize<IEnumerable<TModel>>(json);
 
+                if (predicate != null)
+                {
+                    return models.Where(predicate);
+                }
+
                 return models;
             }
 
             return new List<TModel>();
         }
 
-        public async Task Remove(string id)
+        public async Task Remove(string id, bool removePermanentlySaved)
         {
             var models = await GetAll();
             var list = models.ToList();
             var model = list.FirstOrDefault(x => x.Id == id);
 
-            if (model != null)
+            if (model != null && model.IsSaved == removePermanentlySaved)
             {
                 list.Remove(model);
-            }
 
-            await Save(list);
+                await Save(list);
+            }
         }
 
         protected async Task Save(IEnumerable<TModel> models)

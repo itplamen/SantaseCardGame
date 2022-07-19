@@ -9,7 +9,7 @@
     {
         Task<Game> CreateGame(GameType gameType, IEnumerable<string> players);
 
-        Task EndGame(string gameId);
+        Task EndGame(string gameId, bool removePermanentlySaved);
 
         Game GetCurrentGame();
 

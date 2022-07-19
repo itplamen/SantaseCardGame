@@ -47,7 +47,7 @@
         }
 
         public async Task<IEnumerable<Game>> GetSavedGames() =>
-            await gameStorage.GetAll();
+            await gameStorage.GetAll(x => x.IsSaved);
 
         public async Task LoadGame(string id)
         {

@@ -7,6 +7,7 @@
 @inject ITrickState TrickState;
 @inject IGameEngine GameEngine;
 @inject IGameLoaderManager GameLoader;
+@inject NavigationManager NavigationManager;
 
 @if (game != null)
 {
@@ -21,6 +22,7 @@
 
 @code {
     private Game game;
+    private string url;
 
     protected override async Task OnInitializedAsync()
     {
@@ -29,6 +31,10 @@
 
         GameState.OnShowMessage += OnShowMessage;
         GameState.OnEndRound += EndRound;
+
+        NavigationManager.LocationChanged += LocationChanged;
+
+        url = NavigationManager.Uri;
 
         if (!string.IsNullOrEmpty(GameState.CurrentGameId))
         {
@@ -49,13 +55,15 @@
 
         GameState.OnShowMessage -= OnShowMessage;
         GameState.OnEndRound -= EndRound;
+
+        NavigationManager.LocationChanged -= LocationChanged;
     }
 
     private void ManageGame() =>
         GameEngine.ManageGame(game);
 
     private async void EndGame() =>
-        await GameEngine.EndGame(game.Id);
+        await GameEngine.EndGame(game.Id, true);
 
     private async void SaveGame() =>
         await GameLoader.SaveGame(game);
@@ -68,4 +76,12 @@
 
     private async void OnShowMessage(PlayerPosition position, string message) =>
         await JSRuntime.InvokeVoidAsync("showMessage", position.ToString(), message);
+
+    private async void LocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        if (url != e.Location)
+        {
+            await GameEngine.EndGame(game.Id, false);
+        }
+    }
 }

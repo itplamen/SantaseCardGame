@@ -9,6 +9,8 @@
     {
         public string Id { get; set; }
 
+        public bool IsSaved { get; set; }
+
         public DateTime Date { get; set; }
 
         public GameType Type { get; set; }
