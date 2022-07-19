@@ -1,6 +1,5 @@
 ﻿namespace SantaseCardGame.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -11,9 +10,10 @@
     using Microsoft.JSInterop;
     
     using SantaseCardGame.Data.Contracts;
-    
+    using SantaseCardGame.Data.Models.Contracts;
+
     public abstract class BaseStorage<TModel> : IStorage<TModel>
-         where TModel : class
+         where TModel : ISavable
     {
         private readonly string key;
         private readonly IJSRuntime jsRuntime;
@@ -28,8 +28,13 @@
         {
             var models = await GetAll();
             var list = models.ToList();
+            var modelToRemove = list.FirstOrDefault(x => x.Id == model.Id);
 
-            list.Remove(model);
+            if (modelToRemove != null)
+            {
+                list.Remove(modelToRemove);
+            }
+
             list.Add(model);
 
             await Save(list);
@@ -37,7 +42,9 @@
 
         public TModel Get(string id)
         {
-            throw new NotImplementedException();
+            var modes = GetAll().ConfigureAwait(false).GetAwaiter().GetResult();
+
+            return modes.FirstOrDefault(x =>x.Id == id);
         }
 
         public async Task<IEnumerable<TModel>> GetAll()
@@ -54,7 +61,19 @@
             return new List<TModel>();
         }
 
-        public abstract Task Remove(string id);
+        public async Task Remove(string id)
+        {
+            var models = await GetAll();
+            var list = models.ToList();
+            var model = list.FirstOrDefault(x => x.Id == id);
+
+            if (model != null)
+            {
+                list.Remove(model);
+            }
+
+            await Save(list);
+        }
 
         protected async Task Save(IEnumerable<TModel> models)
         {

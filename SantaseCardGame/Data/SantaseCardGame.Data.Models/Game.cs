@@ -3,7 +3,9 @@
     using System;
     using System.Collections.Generic;
 
-    public class Game
+    using SantaseCardGame.Data.Models.Contracts;
+
+    public class Game : ISavable
     {
         public string Id { get; set; }
 

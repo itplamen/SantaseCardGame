@@ -2,9 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    
+
+    using SantaseCardGame.Data.Models.Contracts;
+
     public interface IStorage<TModel>
-        where TModel : class
+        where TModel : ISavable
     {
         Task Add(TModel model);
 

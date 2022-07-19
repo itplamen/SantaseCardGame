@@ -53,7 +53,6 @@
             {
                 var player = new Player()
                 {
-                    Id = Guid.NewGuid().ToString(),
                     Username = username,
                     Position = !game.Players.Any() ? PlayerPosition.First : PlayerPosition.Second
                 };

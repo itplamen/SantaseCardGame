@@ -36,7 +36,7 @@
         {
             var state = new State()
             {
-                GameId = game.Id,
+                Id = game.Id,
                 TrickCards = trickState.Cards,
                 PlayerTurn = trickState.PlayerTurn,
                 ShouldFollowSuit = deckState.ShouldFollowSuit
@@ -55,14 +55,14 @@
             var states = await stateStorage.GetAll();
 
             var game = games.FirstOrDefault(x => x.Id == id);
-            var state = states.FirstOrDefault(x => x.GameId == id);
+            var state = states.FirstOrDefault(x => x.Id == id);
 
             if (game == null || state == null)
             {
                 throw new InvalidOperationException("Cannot load game!");
             }
 
-            gameState.CurrentGameId = state.GameId;
+            gameState.CurrentGameId = state.Id;
             trickState.SetPlayerTurn(state.PlayerTurn);
             deckState.ShouldFollowSuit = state.ShouldFollowSuit;
             state.TrickCards.ToList().ForEach(x => trickState.AddCard(x.Value, x.Key));

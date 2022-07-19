@@ -2,9 +2,11 @@
 {
     using System.Collections.Generic;
 
-    public class State
+    using SantaseCardGame.Data.Models.Contracts;
+
+    public class State : ISavable
     {
-        public string GameId { get; set; }
+        public string Id { get; set; }
 
         public bool ShouldFollowSuit { get; set; }
 

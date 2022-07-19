@@ -5,8 +5,6 @@
 
     public class Player
     {
-        public string Id { get; set; }
-
         public int Points => CalculatePoints();
 
         public int BonusPoints { get; set; }
