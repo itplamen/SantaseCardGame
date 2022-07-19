@@ -14,6 +14,7 @@
 
     public class GameEngine : IGameEngine
     {
+        private readonly IDeckState deckState;
         private readonly IGameState gameState;
         private readonly ITrickState trickState;
         private readonly IGamePlayer gamePlayer;
@@ -24,6 +25,7 @@
         private readonly IEnumerable<IGameStateHandler> gameStateHandlers;
 
         public GameEngine(
+            IDeckState deckState,
             IGameState gameState,
             ITrickState trickState,
             IGamePlayer gamePlayer,
@@ -33,6 +35,7 @@
             IEnumerable<IActionPlaying> actionsPlaying, 
             IEnumerable<IGameStateHandler> gameStateHandlers)
         {
+            this.deckState = deckState;
             this.gameState = gameState;
             this.trickState = trickState;
             this.gamePlayer = gamePlayer;
@@ -76,7 +79,9 @@
 
         public async Task EndGame(string gameId, bool removePermanentlySaved)
         {
-            gameState.CurrentGameId = string.Empty;
+            trickState.Clear();
+            gameState.Clear();
+            deckState.Clear();
 
             await gameStorage.Remove(gameId, removePermanentlySaved);
             await stateStorage.Remove(gameId, removePermanentlySaved);

@@ -23,5 +23,8 @@
 
         public void ExchangeTrumpCardForNineOfTrumps(Card nineOfTrumpsCard) => 
             OnExchangeTrumpCardForNineOfTrumps?.Invoke(nineOfTrumpsCard);
+
+        public void Clear() =>
+            ShouldFollowSuit = false;
     }
 }

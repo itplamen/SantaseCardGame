@@ -4,7 +4,7 @@
 
     using SantaseCardGame.Data.Models;
     
-    public interface IDeckState
+    public interface IDeckState : IApplicationState
     {
         bool ShouldFollowSuit { get; set; }
 

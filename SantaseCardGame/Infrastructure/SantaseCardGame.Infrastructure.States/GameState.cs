@@ -42,5 +42,8 @@
 
         public void EndRound() =>
             OnEndRound?.Invoke();
+
+        public void Clear() =>
+            CurrentGameId = string.Empty;
     }
 }

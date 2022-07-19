@@ -31,9 +31,8 @@
                 game.Deck.TrumpCard = game.Deck.Cards.Last();
                 game.Deck.ClosedBy = PlayerPosition.None;
 
-                PlayerPosition playerTurn = GetPlayerTurn(game);
-                trickState.SetPlayerTurn(playerTurn);
                 trickState.Clear();
+                trickState.SetPlayerTurn(GetPlayerTurn(game));
 
                 deckState.ShouldFollowSuit = false;
                 gameState.RoundWinner = PlayerPosition.None;

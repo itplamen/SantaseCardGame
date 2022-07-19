@@ -51,6 +51,7 @@
         public void Clear()
         {
             cards.Clear();
+            PlayerTurn = PlayerPosition.None;
         }
 
         public void Display()

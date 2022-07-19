@@ -5,7 +5,7 @@
 
     using SantaseCardGame.Data.Models;
 
-    public interface ITrickState
+    public interface ITrickState : IApplicationState
     {
         PlayerPosition PlayerTurn { get; }
 
@@ -18,8 +18,6 @@
         void SetPlayerTurn(PlayerPosition playerPosition);
 
         void AddCard(Card card, PlayerPosition playerPosition);
-
-        void Clear();
 
         void Display();
     }

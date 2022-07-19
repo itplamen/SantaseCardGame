@@ -31,8 +31,8 @@
                 IEnumerable<Card> hand = trickState.Cards.Select(x => x.Value).ToList();
                 winnerPlayer.Hands.Add(hand);
 
-                trickState.SetPlayerTurn(winnerPosition);
                 trickState.Clear();
+                trickState.SetPlayerTurn(winnerPosition);
 
                 gameState.ShowMessage(winnerPosition, "Win");
             }

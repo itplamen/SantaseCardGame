@@ -24,6 +24,8 @@
     protected override void OnInitialized()
     {
         TrickState.OnDisplay += DisplayTrick;
+
+        DisplayTrick();
     }
 
     public void Dispose()

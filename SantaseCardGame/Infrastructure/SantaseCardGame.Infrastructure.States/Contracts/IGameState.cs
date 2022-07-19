@@ -4,7 +4,7 @@
 
     using SantaseCardGame.Data.Models;
 
-    public interface IGameState
+    public interface IGameState : IApplicationState
     {
         string CurrentGameId { get; set; }
 
