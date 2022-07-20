@@ -65,8 +65,11 @@
     private async void EndGame() =>
         await GameEngine.EndGame(game.Id, true);
 
-    private async void SaveGame() =>
+    private async void SaveGame()
+    {
         await GameLoader.SaveGame(game);
+        await JSRuntime.InvokeVoidAsync("showGameSaved");
+    }
 
     private async void EndRound()
     {

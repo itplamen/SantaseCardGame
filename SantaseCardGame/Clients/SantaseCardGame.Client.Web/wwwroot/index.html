@@ -51,6 +51,10 @@
             return localStorage.getItem(key);
         }
 
+        function showGameSaved() {
+            alert('Game Saved!');
+        }
+
         $(document).on('click', '#Scoreboard button', function () {
             $('#Scoreboard').hide();
             $('#ClosedDeck').hide();

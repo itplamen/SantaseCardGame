@@ -11,6 +11,8 @@
 
         Task<IEnumerable<Game>> GetSavedGames();
 
+        Task DeleteSavedGame(string id);
+
         Task LoadGame(string id);
     }
 }

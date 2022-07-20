@@ -51,7 +51,6 @@
             var game = new Game()
             {
                 Id = Guid.NewGuid().ToString(),
-                Date = DateTime.UtcNow,
                 Type = gameType
             };
 

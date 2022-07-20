@@ -2,20 +2,22 @@
 
 @inject IGameLoaderManager GameLoader;
 @inject NavigationManager NavManager;
+@inject ISuitFormatter SuitFormatter;
 
 <div id="LoadGameBoard" class="game-info">
     <table>
         <thead>
             <tr>
-                <th colspan="5">Saved Games</th>
+                <th colspan="6">Saved Games</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <th>Date</th>
-                <th>Rounds</th>
                 <th>Type</th>
+                <th>Round</th>
                 <th>Points</th>
+                <th>Trump Suit</th>
                 <th></th>
             </tr>
             @if (games != null && games.Any())
@@ -24,22 +26,26 @@
                 {
                     <tr>
                         <td>@game.Date.ToString("yyyy-MM-dd HH:mm")</td>
-                        <td>@game.Rounds.Count()</td>
                         <td>@game.Type</td>
-                        <td>@GetPlayerPoints(game, PlayerPosition.First) / @GetPlayerPoints(game, PlayerPosition.Second)</td>
+                        <td>@game.Rounds.Count()</td>
+                        <td>@GetRoundPoints(game, PlayerPosition.First) / @GetRoundPoints(game, PlayerPosition.Second)</td>
+                        <td>@SuitFormatter.FormatSuit(game.Deck.TrumpCard.Suit)</td>
                         <td><input type="radio" name="LoadGame" id="@game.Id" value="@game.Id" @onclick="() => SelectGame(game.Id)" /></td>
                     </tr>
                 }
                 <tr>
-                    <td colspan="5">
-                        <button type="button" class="btn btn-success" @onclick="LoadSantaseGame">Load Game</button>
+                    <td colspan="3">
+                        <button type="button" class="btn btn-danger" @onclick="DeleteSelectedGame">Delete</button>
+                    </td>
+                    <td colspan="3">
+                        <button type="button" class="btn btn-success" @onclick="LoadSelectedGame">Load</button>
                     </td>
                 </tr>
             }
             else
             {
                 <tr>
-                    <td colspan="5">No Saved Games Found</td>
+                    <td colspan="6">No Saved Games Found</td>
                 </tr>
             }
         </tbody>
@@ -55,7 +61,7 @@
         games = await GameLoader.GetSavedGames();
     }
 
-    private int GetPlayerPoints(Game game, PlayerPosition playerPosition)
+    private int GetRoundPoints(Game game, PlayerPosition playerPosition)
     {
         return game.Rounds
             .Where(x => x.WinnerPosition == playerPosition)
@@ -67,7 +73,18 @@
         selectedGameId = gameId;
     }
 
-    private async void LoadSantaseGame()
+    private async void DeleteSelectedGame()
+    {
+        if (!string.IsNullOrEmpty(selectedGameId))
+        {
+            await GameLoader.DeleteSavedGame(selectedGameId);
+            games = await GameLoader.GetSavedGames();
+
+            StateHasChanged();
+        }
+    }
+
+    private async void LoadSelectedGame()
     {
         if (!string.IsNullOrEmpty(selectedGameId))
         {

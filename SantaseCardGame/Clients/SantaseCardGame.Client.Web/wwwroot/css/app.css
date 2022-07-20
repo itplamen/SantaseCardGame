@@ -247,7 +247,7 @@ a, .btn-link {
 }
 
 .game-info table {
-    width: 400px;
+   
     height: 350px;
     background-color: #f4a624;
     border-collapse: collapse;
@@ -261,14 +261,17 @@ a, .btn-link {
     z-index: 1;
 }
 
-    .game-info table thead th {
-        height: 100px;
-        font-size: 30px;
-        border-bottom: 0;
+    .game-info table th, .game-info table td {
+        width: 70px;
     }
 
-    .game-info table th, .game-info table td {
-        width: 100px;
+.game-info table thead th {
+    height: 100px;
+    font-size: 30px;
+    border-bottom: 0;
+}
+
+    .game-info table th, .game-info table tr:not(:last-child) td {
         border: 1px solid red;
     }
 
@@ -283,10 +286,7 @@ a, .btn-link {
     .game-info table tr td:last-child, .game-info table tr th:last-child {
         border-right: 0;
     }
-
-    .game-info table tr:last-child td {
-        border-bottom: 0;
-    }
+ 
 
 .message-component {
     text-align: center;

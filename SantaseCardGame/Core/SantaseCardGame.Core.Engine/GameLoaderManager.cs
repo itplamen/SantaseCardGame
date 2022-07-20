@@ -49,6 +49,12 @@
         public async Task<IEnumerable<Game>> GetSavedGames() =>
             await gameStorage.GetAll(x => x.IsSaved);
 
+        public async Task DeleteSavedGame(string id)
+        {
+            await gameStorage.Remove(id, true);
+            await stateStorage.Remove(id, true);
+        }
+
         public async Task LoadGame(string id)
         {
             var games = await gameStorage.GetAll();
