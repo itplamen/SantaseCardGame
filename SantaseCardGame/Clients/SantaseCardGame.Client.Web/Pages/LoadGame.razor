@@ -58,6 +58,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        selectedGameId = string.Empty;
         games = await GameLoader.GetSavedGames();
     }
 

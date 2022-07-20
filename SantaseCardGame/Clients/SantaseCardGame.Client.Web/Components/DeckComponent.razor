@@ -13,7 +13,10 @@
             <img src="/images/cards/Back.png" id="DeckBackCard" alt="DeckBackCard" class="card-component" />
         </div>
 
-        <div id="ClosedDeck"></div>
+        if (Deck.ClosedBy != PlayerPosition.None)
+        {
+            <div id="ClosedDeck"></div>
+        }
     }
     else
     {
@@ -54,12 +57,11 @@
         DeckState.OnExchangeTrumpCardForNineOfTrumps -= ExchangeTrumpCardForNineOfTrumps;
     }
 
-    private async Task CloseDeck()
+    private void CloseDeck()
     {
         if (Deck.ClosedBy == PlayerPosition.None)
         {
             DeckState.CloseDeck();
-            await JSRuntime.InvokeVoidAsync("closeDeck");
         }
     }
 

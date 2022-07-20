@@ -109,7 +109,6 @@ a, .btn-link {
 }
 
 #ClosedDeck {
-    display: none;
     position: fixed;
     top: 45%;
     width: 110px;
