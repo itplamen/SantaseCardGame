@@ -43,5 +43,8 @@
 
             await gameStorage.Remove(id, removePermanentlySaved);
         }
+
+        public async Task ClearExpiredData() =>
+            await gameStorage.ClearExpiredData();
     }
 }

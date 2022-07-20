@@ -1,5 +1,6 @@
 ﻿namespace SantaseCardGame.Data.Models
 {
+    using System;
     using System.Collections.Generic;
 
     using SantaseCardGame.Data.Models.Contracts;
@@ -9,6 +10,8 @@
         public string Id { get; set; }
 
         public bool IsSaved { get; set; }
+
+        public DateTime Date { get; set; }
 
         public bool ShouldFollowSuit { get; set; }
 

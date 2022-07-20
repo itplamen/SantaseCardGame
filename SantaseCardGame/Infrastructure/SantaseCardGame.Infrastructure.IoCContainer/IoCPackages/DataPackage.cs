@@ -1,10 +1,10 @@
 ﻿namespace SantaseCardGame.Infrastructure.IoCContainer.IoCPackages
 {
-    using System;
-
     using Microsoft.Extensions.Caching.Memory;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    
+    using Microsoft.JSInterop;
+
     using SantaseCardGame.Data;
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
@@ -25,8 +25,18 @@
 
             services.AddSingleton<ICardsProvider, CardsProvider>();
 
-            services.AddSingleton<LocalGameStorage>();
-            services.AddSingleton<IStorage<State>, StateStorage>();
+            services.AddSingleton(x => 
+                new LocalGameStorage(
+                    x.GetRequiredService<IJSRuntime>(),
+                    x.GetRequiredService<IConfiguration>(),
+                    absoluteExpiration));
+
+            services.AddSingleton<StateStorage>();
+            services.AddSingleton<IStorage<State>, StateStorage>(x => 
+                new StateStorage(
+                    x.GetRequiredService<IJSRuntime>(),
+                    x.GetRequiredService<IConfiguration>(),
+                    absoluteExpiration));
 
             services.AddSingleton<IStorage<Game>, InMemoryGameStorage>(x => 
                 new InMemoryGameStorage(

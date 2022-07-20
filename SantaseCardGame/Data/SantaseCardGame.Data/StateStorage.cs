@@ -7,8 +7,8 @@
     
     public class StateStorage : BaseStorage<State>
     {
-        public StateStorage(IJSRuntime jsRuntime, IConfiguration configuration)
-            : base(jsRuntime, configuration, "stateKey")
+        public StateStorage(IJSRuntime jsRuntime, IConfiguration configuration, int expiration)
+            : base(jsRuntime, configuration["stateKey"], expiration)
         {
         }
     }

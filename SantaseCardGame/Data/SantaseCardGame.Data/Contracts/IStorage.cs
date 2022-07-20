@@ -16,5 +16,7 @@
         Task<IEnumerable<TModel>> GetAll(Func<TModel, bool> predicate = null);
 
         Task Remove(string id, bool removePermanentlySaved);
+
+        Task ClearExpiredData();
     }
 }

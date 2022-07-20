@@ -7,7 +7,6 @@
     using System.Text.Json;
     using System.Threading.Tasks;
 
-    using Microsoft.Extensions.Configuration;
     using Microsoft.JSInterop;
     
     using SantaseCardGame.Data.Contracts;
@@ -16,13 +15,15 @@
     public abstract class BaseStorage<TModel> : IStorage<TModel>
          where TModel : ISavable
     {
-        private readonly string key;
+        private readonly int expiration;
+        private readonly string storageKey;
         private readonly IJSRuntime jsRuntime;
 
-        protected BaseStorage(IJSRuntime jsRuntime, IConfiguration configuration, string storageKey)
+        protected BaseStorage(IJSRuntime jsRuntime, string storageKey, int expiration)
         {
             this.jsRuntime = jsRuntime;
-            this.key = configuration[storageKey];
+            this.storageKey = storageKey;
+            this.expiration = expiration;
         }
 
         public async Task Add(TModel model)
@@ -37,6 +38,7 @@
                 list.Remove(modelToRemove);
             }
 
+            model.Date = DateTime.UtcNow;
             list.Add(model);
 
             await Save(list);
@@ -51,7 +53,7 @@
 
         public async Task<IEnumerable<TModel>> GetAll(Func<TModel, bool> predicate = null)
         {
-            var json = await jsRuntime.InvokeAsync<string>("get", key);
+            var json = await jsRuntime.InvokeAsync<string>("get", storageKey);
 
             if (!string.IsNullOrEmpty(json))
             {
@@ -82,6 +84,19 @@
             }
         }
 
+        public async Task ClearExpiredData()
+        {
+            var all = await GetAll();
+
+            foreach (var data in all)
+            {
+                if (!data.IsSaved || DateTime.UtcNow >= data.Date.AddSeconds(expiration))
+                {
+                    await Remove(data.Id, data.IsSaved);
+                }
+            }
+        }
+
         protected async Task Save(IEnumerable<TModel> models)
         {
             using (var stream = new MemoryStream())
@@ -92,7 +107,7 @@
                 using var reader = new StreamReader(stream);
                 string json = await reader.ReadToEndAsync();
 
-                await jsRuntime.InvokeVoidAsync("save", key, json);
+                await jsRuntime.InvokeVoidAsync("save", storageKey, json);
             }
         }
     }
