@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.Caching.Memory;
+    using Microsoft.Extensions.Configuration;
 
     using SantaseCardGame.Data.Contracts;
     using SantaseCardGame.Data.Models;
@@ -15,11 +16,14 @@
         private readonly IMemoryCache memoryCache;
         private readonly MemoryCacheEntryOptions options;
 
-        public InMemoryGameStorage(IStorage<Game> gameStorage, IMemoryCache memoryCache, int expiration)
+        public InMemoryGameStorage(IStorage<Game> gameStorage, IMemoryCache memoryCache, IConfiguration configuration)
         {
             this.gameStorage = gameStorage;
             this.memoryCache = memoryCache;
-            this.options = new MemoryCacheEntryOptions() { AbsoluteExpiration = DateTimeOffset.UtcNow.AddSeconds(expiration) };
+            this.options = new MemoryCacheEntryOptions() 
+            { 
+                AbsoluteExpiration = DateTimeOffset.UtcNow.AddSeconds(int.Parse(configuration["gameExpiration"])) 
+            };
         }
 
         public async Task Add(Game game)

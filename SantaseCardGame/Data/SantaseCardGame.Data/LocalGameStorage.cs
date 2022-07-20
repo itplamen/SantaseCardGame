@@ -7,8 +7,8 @@
     
     public class LocalGameStorage : BaseStorage<Game>
     {
-        public LocalGameStorage(IJSRuntime jsRuntime, IConfiguration configuration, int expiration)
-            : base(jsRuntime, configuration["gameKey"], expiration)
+        public LocalGameStorage(IJSRuntime jsRuntime, IConfiguration configuration)
+            : base(jsRuntime, configuration, "gameKey")
         {
         }
     }

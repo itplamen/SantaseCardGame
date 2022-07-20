@@ -12,7 +12,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-builder.Services.RegisterGameServices(builder.Configuration);
+builder.Services.RegisterGameServices();
 
 var host = builder.Build();
 var localStorage = host.Services.GetRequiredService<LocalGameStorage>();

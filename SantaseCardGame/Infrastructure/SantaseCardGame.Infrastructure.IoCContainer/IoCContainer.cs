@@ -1,6 +1,5 @@
 ﻿namespace SantaseCardGame.Infrastructure.IoCContainer
 {
-    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     
     using SantaseCardGame.Infrastructure.IoCContainer.Contracts;
@@ -8,13 +7,13 @@
 
     public static class IoCContainer
     {
-        public static IServiceCollection RegisterGameServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection RegisterGameServices(this IServiceCollection services)
         {
             IPackage[] packages = new IPackage[]
             {
                 new AIPackage(),
                 new CorePackage(),
-                new DataPackage(int.Parse(configuration["gameExpiration"])),
+                new DataPackage(),
                 new StatesPackage()
             };
 

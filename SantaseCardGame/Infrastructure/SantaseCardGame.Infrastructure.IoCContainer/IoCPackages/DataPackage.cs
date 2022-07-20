@@ -12,13 +12,6 @@
 
     public sealed class DataPackage : IPackage
     {
-        private int absoluteExpiration;
-
-        public DataPackage(int absoluteExpiration)
-        {
-            this.absoluteExpiration = absoluteExpiration;
-        }
-
         public void RegisterServices(IServiceCollection services)
         {
             services.AddMemoryCache();
@@ -28,21 +21,19 @@
             services.AddSingleton(x => 
                 new LocalGameStorage(
                     x.GetRequiredService<IJSRuntime>(),
-                    x.GetRequiredService<IConfiguration>(),
-                    absoluteExpiration));
+                    x.GetRequiredService<IConfiguration>()));
 
             services.AddSingleton<StateStorage>();
             services.AddSingleton<IStorage<State>, StateStorage>(x => 
                 new StateStorage(
                     x.GetRequiredService<IJSRuntime>(),
-                    x.GetRequiredService<IConfiguration>(),
-                    absoluteExpiration));
+                    x.GetRequiredService<IConfiguration>()));
 
             services.AddSingleton<IStorage<Game>, InMemoryGameStorage>(x => 
                 new InMemoryGameStorage(
                     x.GetRequiredService<LocalGameStorage>(),
                     x.GetRequiredService<IMemoryCache>(),
-                    absoluteExpiration));
+                    x.GetRequiredService<IConfiguration>()));
         }
     }
 }
