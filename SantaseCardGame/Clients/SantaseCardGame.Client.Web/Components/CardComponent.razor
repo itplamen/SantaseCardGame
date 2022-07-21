@@ -1,10 +1,12 @@
 ﻿<img id="@Card.Name"
      alt="@Card.Name"
-     src="/images/cards/@string.Concat(Card.Name,".png")"
+     src="/images/cards/@imageSrc"
      class="card-component @(PlayerActionType == PlayerActionType.ChangeTrumpCard ? "trump-card" : string.Empty)" 
      @onclick="@(() => OnClick.InvokeAsync(new PlayerAction(PlayerActionType, Card)))" />
 
 @code {
+    private string imageSrc;
+
     [Parameter]
     public Card Card { get; set; }
 
@@ -13,4 +15,16 @@
 
     [Parameter]
     public EventCallback<PlayerAction> OnClick { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (PlayerActionType != PlayerActionType.None)
+        {
+            imageSrc = string.Concat(Card.Name, ".png");
+        }
+        else
+        {
+            imageSrc = "Back.png";
+        }
+    }
 }

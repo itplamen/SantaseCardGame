@@ -313,6 +313,9 @@ a, .btn-link {
     bottom: 1%;
 }
 
-#Rules a {
+#Rules {
+    font-size: 14px;
+}
+#MoreRules a {
     color: inherit;
 }
