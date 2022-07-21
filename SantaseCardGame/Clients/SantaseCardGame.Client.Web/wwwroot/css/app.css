@@ -194,6 +194,11 @@ a, .btn-link {
     position: absolute;
 }
 
+#SaveGameBtn {
+    position: absolute; 
+    top: 220px;
+}
+
 #PlayerInfo {
     bottom: 8%;
 }

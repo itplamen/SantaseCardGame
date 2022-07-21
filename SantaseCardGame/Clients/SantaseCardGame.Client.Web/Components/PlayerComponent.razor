@@ -11,6 +11,8 @@
         <div id="Username">@Player.Username</div>
         <div id="Points">@Player.Points</div>
     </div>
+    
+    <button class="btn btn-warning" id="SaveGameBtn" @onclick="@(() => OnSaveGame.InvokeAsync())">Save Game</button>
 }
 
 <div id="@(IsCurrentPlayer ? "CurrentPlayer" : "Opponent")">
@@ -26,11 +28,6 @@
         }
     }
 </div>
-
-@if (IsCurrentPlayer)
-{
-    <button class="btn btn-warning" id="SaveGameBtn" @onclick="@(() => OnSaveGame.InvokeAsync())">Save Game</button>
-}
 
 <div class="message-component" id="Message-Player-@Player.Position"></div>
 
